@@ -7,8 +7,10 @@ This ambient AI system is intended to provide Arma 3 servers with realistic NPC 
 As you can see already these AI are very capable of roaming around the areas they spawn in and defending themselves when neccessary. This version of Sarge AI is designed to work with the Arma 3 Exile mod but can be modified to work with any environment. With that said, there are three (3) factions of AI within this feature:
 
 * The Survivors
-  * Fighting for survival as most of us are these AI do not wish to start unneccessary confilict as they intend on living as much as any player. These AI will assume every player is friendly unless they are given reason to think otherwise. They often wear toned down military apparel and civilian clothing and should be easy to spot as to not frighten unaware players.
-
+  * Fighting for survival as most of us are; These AI do not wish to start unneccessary confilict as they intend on living as much as any player. These AI will assume every player is friendly unless they are given reason to think otherwise. They often wear toned down military apparel and civilian clothing and should be easy to spot as to not frighten unaware players.
 
 * The Military
   * As the dominant force in a wasteland of fugitives and other life threatening obstacles the military take sno chances when it comes to combat. Dressed in high level miliatry apparel and the weaponry to go with it these NPCs will roam about the area they spawn in and nuetralize any threat they encounter.
+
+* The Bandits
+  * With no apparent loyalty to anyone but the small group of others they travel with these NPCs will roam the map in trying to survive any way they can. These AI will steal any loot they encounter as well as attempt to kill any player they encounter. Outfitted with respectable weaponry and headwraps to protect their identities from the authorities these AI are a formitable faction. 

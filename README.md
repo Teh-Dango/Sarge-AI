@@ -16,3 +16,31 @@ As you can see already these AI are very capable of roaming around the areas the
   * With no apparent loyalty to anyone but the small group of others they travel with these NPCs will roam the map in trying to survive any way they can. These AI will steal any loot they encounter as well as attempt to kill any player they encounter. Outfitted with respectable weaponry and headwraps to protect their identities from the authorities these AI are a formitable faction. 
 
 This description is brief but to the point. Although it may not be listed you will find these all NPCs are capable of suprising things. The only spcific goal they have is to make it to their destination alive.
+
+# Installation
+
+1. Create a new file called init.sqf and place these lines on the very top above all other code:
+
+  `elec_HC_detect = ["off"] execVM "elec_HC_detect.sqf";`
+
+  `waitUntil {scriptDone elec_HC_detect};`
+  
+  `call compile preprocessFileLineNumbers "addons\UPSMON\scripts\Init_UPSMON.sqf";`
+  
+  `call compile preprocessFile "addons\SHK_pos\shk_pos_init.sqf";`
+
+
+  `[] execVM "addons\SARGE\SAR_AI_init.sqf";`
+
+2. At the very bottom of the description.ext file add this line:
+
+  `#include "addons\SARGE\SAR_define.hpp"`
+
+
+3. Download and extract the folders and files to the root of the Mission PBO.
+
+4. **Attention:** If you do not have InfiniStar then you do not need to perform this step.
+
+  In the EXILE_AH.sqf file inside the PBO do a search for addRating. This should be line 2105 and should look like the below.    Remove this line:
+
+  `if(rating player < 999999)then{player addRating 9999999;};`

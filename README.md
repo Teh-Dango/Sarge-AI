@@ -14,3 +14,5 @@ As you can see already these AI are very capable of roaming around the areas the
 
 * The Bandits
   * With no apparent loyalty to anyone but the small group of others they travel with these NPCs will roam the map in trying to survive any way they can. These AI will steal any loot they encounter as well as attempt to kill any player they encounter. Outfitted with respectable weaponry and headwraps to protect their identities from the authorities these AI are a formitable faction. 
+
+This description is brief but to the point. Although it may not be listed you will find these all NPCs are capable of suprising things. The only spcific goal they have is to make it to their destination alive.

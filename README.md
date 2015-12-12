@@ -1,4 +1,4 @@
-# Sarge-AI
+# Sarge-AI 2.0
 Ambient AI System for Arma 3 Exile
 
 ## Description

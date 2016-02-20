@@ -36,3 +36,5 @@ if(_rating < 500000)then
   };
 };
 ```
+### Step 4
+Repackage your mission PBO and enjoy!

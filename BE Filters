@@ -1,0 +1,30 @@
+scripts.txt
+-----------
+
+compile append !"call compile preprocessFileLineNumbers \"addons\\UPSMON\\scripts\\Init_UPSMON.sqf\";" !="select 0) addRating ((_this select 1) select 1);};\n};\n\ncall compile preprocessFileLineNumbers \"addons\\SARGE\\SAR_config.sqf\";\ndia" !="ndler { if (local ((_this select 1)select 0)) then {\ncall ( compile format[(_this select 1)select 1,(_this select 1)select 0] );" !="arting Sarge AI version %1\",SAR_version];\n\nSAR_AI_trace			= compile preprocessFileLineNumbers \"addons\\SARGE\\SAR_trace_entities.s" !="\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSHK_pos_getPos = compile preprocessfilelinenumbers \"addons\\shk_pos\\shk_pos_getpos.sqf\";\n"
+
+exec append !="cVariableEventHandler { if (_this select 1) then { nul=[east] execvm \"addons\\UPSMON\\scripts\\UPSMON\\MON_surrended.sqf\";};};\n\"KRON" !"compile preprocessFile \"addons\\SHK_pos\\shk_pos_init.sqf\";\n\n[] execVM \"addons\\SARGE\\SAR_AI_init.sqf\";" !="SARGE\\SAR_AI_init.sqf"\n\n};\n};\n\nif (SAR_Base_Gaurds) then {\n[] execVM \"addons\\SARGE\\SAR_init_Base_guards.sqf\";\n};\n\nif  (SAR_FIX_V"
+
+eventHandler append !=" [\"_s\",\"_l\"];\n\n\"KRON_UPS_EAST_SURRENDED\" addPublicVariableEventHandler { if (_this select 1) then { nul=[east] execvm \"addons\\UP" !="r && hasInterface) then {\n\"adjustrating\" addPublicVariableEventHandler {((_this select 1) select 0) addRating ((_this select 1) "
+
+allUnits append !="S_ARTILLERY_UNITS;\n\n\n\nsleep _cycle;			\n};\n};	\n};\n\n\n\n\n\n\n_l = allunits + vehicles;\n{\nif ((_x iskindof \"AllVehicles\") && (side _x !" !="hasinterface && !isServer) then {\n_unitss = {local _x}count allUnits;\n_jochen = \"HEADLESSunits: \";\n_zeige = _jochen + str(_units" !="N_UPS_ARTILLERY_UNITS;\n\n\n\nsleep _cycle;\n};\n};\n};\n\n\n\n\n\n\n_l = allunits + vehicles;\n{\nif ((_x iskindof \"AllVehicles\") && (side _x !"
+
+units append !="total = 0;\nupsmon_east_total = 0;\n\nUPSMON_REINFORCEMENT_WEST_UNITS = [];\nUPSMON_REINFORCEMENT_EAST_UNITS = [];\nUPSMON_REINFORCEM" !="er;\n\n{\n_x doTarget _aikiller;\n_x doFire _aikiller;\n} foreach units group _ai;\n};\n\nif (_aikilled_group_side isEqualTo SAR_AI_unfr" !="total = 0;\nUPSMON_GUER_Total = 0;\n\nUPSMON_REINFORCEMENT_WEST_UNITS = [];\nUPSMON_REINFORCEMENT_EAST_UNITS = [];\nUPSMON_REINFORCEM"
+
+createMarker append !="ndname = format[\"SAR_area_legend_%1_%2\",_ii,_i];\n\n_this = createMarker[_markername,[_startx + (_ii * _gridwidth * 2),_starty + (" !="MON_Minestype2 = _UPSMON_Minesclassname select 1; \n\n\n_m = createMarker [\"DummyUPSMONMarker\",[0,0]];\n_m setmarkerColor \"Colorblac"
+
+entities append !="race			= compile preprocessFileLineNumbers \"sarge\\SAR_trace_entities.sqf\";\nSAR_AI_base_trace		= compile preprocessFileLineNumber" !"sarge\SAR_trace_entities.sqf\"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nprivate [\"_ai\",\"_entity_array\",\"_sleeptime\",\"_det"
+
+isPlayer append !="'%1'] spawn SAR_AI_despawn;\",_triggername];\n\n_trig_cond = \"{isPlayer _x} count thisList > 0;\";\n\nCall Compile Format [\"SAR_trig_%" !="_side,_aikiller_group_side];\n};\n\nif((!isNull _aikiller) && (isPlayer _aikiller) && (_aikiller isKindOf \"Exile_Unit_Player\")) the" !="_log "SAR EXTREME DEBUG: Zombie rated down\";\n};\n};\n};\n};\nif(isPlayer _x && {vehicle _x == _x}) then { \n_respect = _x getVariable"
+
+Exile_unit_player append !="iller) && (isPlayer _aikiller) && (_aikiller isKindOf \"Exile_Unit_Player\")) then {\n\nif (_aikilled_group_side isEqualTo SAR_AI_fr"
+
+createUnit append !="group = createGroup _center;\nUPSMON_Logic_civkill = _group createUnit [\"LOGIC\", [1,1,1], [], 0, \"NONE\"];\n_group = nil;\n_center ="
+
+restriction #1 (should be line #3) append !="layerRespect = _playerRespect - _repChange;\n_aikiller setVariable [\"ExileScore\",_playerRespect];\n\nExileClientPlayerScore = _play"
+
+
+publicVariable.txt
+------------------
+
+append !"SAR_surv_kill_value" !"SAR_band_kill_value" !"SAR_DEBUG" !"SAR_EXTREME_DEBUG" !"SAR_DETECT_HOSTILE" !"SAR_DETECT_INTERVAL" !"SAR_RESPECT_HOSTILE_LIMIT"

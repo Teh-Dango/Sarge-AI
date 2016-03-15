@@ -26,7 +26,7 @@ SAR_KILL_MSG 		= false; // Set to true for announcing AI kills to the server *Th
 SAR_dynamic_spawning 				= true;		// Turn dynamic grid spawns on or off
 SAR_Base_Gaurds 					= true;		// Turn AI territory gurads on or off
 SAR_dynamic_group_respawn 			= true;		// Turn dynamic grid AI respawn on or off
-SAR_AI_STEAL_VEHICLE 				= true;		// Turn the option for AI using vehicles to reach their destination on or off
+SAR_AI_STEAL_VEHICLE 				= false;	// Turn the option for AI using vehicles to reach their destination on or off
 SAR_AI_disable_UPSMON_AI			= false; 	// Turning this off could have unintended consequences
 SAR_respawn_waittime 				= 300;		// How long to wait before dynamic IA respawns
 SAR_DESPAWN_TIMEOUT 				= 120;		// How long to wait before despawning dynamic AI
@@ -130,3 +130,7 @@ SAR_heli_type = ["B_Heli_Light_01_stripped_F"];
 
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
 SAR_HC = false;
+SAR_AI_friendly_side = RESISTANCE;
+SAR_AI_unfriendly_side = EAST;
+SAR_leader_number = 0;
+SAR_AI_monitor = [];

@@ -174,11 +174,11 @@ if (_respawn) then {
     _ups_para_list pushBack [_respawn_time];
 };
 
-if(!SAR_AI_STEAL_VEHICLE) then {
-    _ups_para_list pushBack ['NOVEH'];
+if !(SAR_AI_STEAL_VEHICLE) then {
+    _ups_para_list pushBack ['NOVEH2'];
 };
 
-if(SAR_AI_disable_UPSMON_AI) then {
+if (SAR_AI_disable_UPSMON_AI) then {
 	_ups_para_list pushBack ['NOAI'];
 };
 

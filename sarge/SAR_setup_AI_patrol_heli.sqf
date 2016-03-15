@@ -29,21 +29,21 @@ if (_argc > 1) then {
             _side = SAR_AI_friendly_side;
             _type = "sold";
             _ai_type = "AI Military";
-			_ai_id =  "id_SAR_sold_man"
+			_ai_id =  "id_SAR_sold_man";
         };
         case 2:
         {
             _side = SAR_AI_friendly_side;
             _type = "surv";
             _ai_type = "AI Survivor";
-			_ai_id =  "id_SAR_surv_lead"
+			_ai_id =  "id_SAR_surv_lead";
         };
         case 3:
         {
             _side = SAR_AI_unfriendly_side;
             _type = "band";
             _ai_type = "AI Bandit";
-			_ai_id =  "id_SAR_band"
+			_ai_id =  "id_SAR_band";
         };
     };
 } else {
@@ -92,12 +92,17 @@ _heli setVehicleAmmo 1;
 [_heli] joinSilent _groupheli;
 sleep 1;
 
-_leader = _groupheli createunit [_leaderNPC call BIS_fnc_selectRandom, [(_rndpos select 0) + 10, _rndpos select 1, 0], [], 0.5, "NONE"];
+_leader = _groupheli createunit [(_leaderNPC call BIS_fnc_selectRandom), [(_rndpos select 0) + 10, _rndpos select 1, 0], [], 0.5, "NONE"];
 
 [_leader,_leader_weapon_names,_leader_items,_leader_tools] call SAR_unit_loadout;
 
 [_leader] spawn SAR_AI_trace_veh;
-_leader setIdentity _ai_id;
+switch (_grouptype) do
+{
+	case 1:{_leader setIdentity "id_SAR_sold_man";};
+	case 2:{_leader setIdentity "id_SAR_surv_lead";};
+	case 3:{_leader setIdentity "id_SAR_band";};
+};
 [_leader] spawn SAR_AI_reammo;
 	
 _leader addMPEventHandler ["MPkilled", {Null = _this spawn SAR_AI_killed;}];
@@ -120,7 +125,7 @@ _leader setVehicleVarname _leadername;
 _leader setVariable ["SAR_leader_name",_leadername,false];
  */
 // store AI type on the AI
-_leader setVariable ["SAR_AI_type",_ai_type pushBack " Leader",false];
+_leader setVariable ["SAR_AI_type",_ai_type + " Leader",false];
 /* 
 // set behaviour & speedmode
 _leader setspeedmode "FULL";
@@ -137,7 +142,12 @@ _soldier_tools = ["rifleman",_type] call SAR_unit_loadout_tools;
 _man2heli moveInTurret [_heli,[0]];
 
 [_man2heli] spawn SAR_AI_trace_veh;
-_man2heli setIdentity _ai_id;
+switch (_grouptype) do
+{
+	case 1:{_man2heli setIdentity "id_SAR_sold_man";};
+	case 2:{_man2heli setIdentity "id_SAR_surv_lead";};
+	case 3:{_man2heli setIdentity "id_SAR_band";};
+};
 [_man2heli] spawn SAR_AI_reammo;
 
 _man2heli addMPEventHandler ["MPkilled", {Null = _this spawn SAR_AI_killed;}];
@@ -166,7 +176,12 @@ _soldier_tools = ["rifleman",_type] call SAR_unit_loadout_tools;
 _man3heli moveInTurret [_heli,[1]];
 
 [_man3heli] spawn SAR_AI_trace_veh;
-_man3heli setIdentity _ai_id;
+switch (_grouptype) do
+{
+	case 1:{_man3heli setIdentity "id_SAR_sold_man";};
+	case 2:{_man3heli setIdentity "id_SAR_surv_lead";};
+	case 3:{_man3heli setIdentity "id_SAR_band";};
+};
 [_man3heli] spawn SAR_AI_reammo;
 
 _man3heli addMPEventHandler ["MPkilled", {Null = _this spawn SAR_AI_killed;}];

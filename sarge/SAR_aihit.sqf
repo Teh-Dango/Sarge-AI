@@ -67,7 +67,6 @@ if((!isNull _aikiller) && (isPlayer _aikiller) && (_aikiller isKindOf "Exile_Uni
 	
 		ExileClientPlayerScore = _playerRespect;
 		(owner _aikiller) publicVariableClient "ExileClientPlayerScore";
-		ExileClientPlayerScore = nil;
 	
 		format ["setAccountMoneyAndRespect:%1:%2:%3", _playerMoney, _playerRespect, _playerUID] call ExileServer_system_database_query_fireAndForget;
 
@@ -107,7 +106,6 @@ if((!isNull _aikiller) && (isPlayer _aikiller) && (_aikiller isKindOf "Exile_Uni
 	
 		ExileClientPlayerScore = _playerRespect;
 		(owner _aikiller) publicVariableClient "ExileClientPlayerScore";
-		ExileClientPlayerScore = nil;
 	
 		format ["setAccountMoneyAndRespect:%1:%2:%3", _playerMoney, _playerRespect, _playerUID] call ExileServer_system_database_query_fireAndForget;
 		

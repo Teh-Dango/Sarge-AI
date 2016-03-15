@@ -12,7 +12,7 @@
 	http://www.hod-servers.com
 
 */
-private ["_message","_ai","_aikiller","_aikilled_type","_aikilled_side","_aikilled_group_side","_aikiller_group_side","_aikiller_type","_aikiller_name","_aikiller_side","_respect","_humankills","_banditkills","_ai_xp_type","_xp_gain","_tmp","_sphere_alpha","_sphere_red","_sphere_green","_sphere_blue","_obj_text_string","_ai_killer_xp","_ai_killer_xp_new","_ai_type","_ai_xp","_ai_killer_xp_type","_ai_killer_type"];
+private ["_message","_ai","_aikiller","_aikilled_type","_aikilled_side","_aikilled_group_side","_aikiller_group_side","_aikiller_type","_aikiller_name","_aikiller_side","_respect","_humankills","_banditkills","_tmp","_sphere_alpha","_sphere_red","_sphere_green","_sphere_blue","_obj_text_string","_ai_type","_ai_killer_type"];
 
 if (!isServer) exitWith {};
 
@@ -42,7 +42,7 @@ _ai_killer_type = _aikiller getVariable ["SAR_AI_type",""];
 
 if (SAR_KILL_MSG) then {
     if(isPlayer _aikiller) then {
-        _message = format["A %3 %2 was killed by Player: %1",_aikiller_name,_ai_type,_ai_xp_type];
+        _message = format["A %2 was killed by Player: %1",_aikiller_name,_ai_type];
         diag_log _message;
 
         //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
@@ -73,7 +73,6 @@ if ((!isNull _aikiller) && (_aikiller isKindOf "Exile_Unit_Player")) then {
 	
 		ExileClientPlayerScore = _playerRespect;
 		(owner _aikiller) publicVariableClient "ExileClientPlayerScore";
-		ExileClientPlayerScore = nil;
 	
 		format ["setAccountMoneyAndRespect:%1:%2:%3", _playerMoney, _playerRespect, _playerUID] call ExileServer_system_database_query_fireAndForget;
 
@@ -107,7 +106,6 @@ if ((!isNull _aikiller) && (_aikiller isKindOf "Exile_Unit_Player")) then {
 	
 		ExileClientPlayerScore = _playerRespect;
 		(owner _aikiller) publicVariableClient "ExileClientPlayerScore";
-		ExileClientPlayerScore = nil;
 	
 		format ["setAccountMoneyAndRespect:%1:%2:%3", _playerMoney, _playerRespect, _playerUID] call ExileServer_system_database_query_fireAndForget;
 

@@ -51,61 +51,124 @@ _grps_sold = _valuearray select 4;
 _grps_surv = _valuearray select 5;
 _grps_upd = [];
 
-_grps_upd = _grps_band;
+if (SAR_HC) then {
 
-//for [{_i = (count _grps_band)},{_i < (_max_grps select 0)}, {_i=_i+1}]  do
-for "_i" from (count _grps_band) to ((_max_grps select 0) - 1) do
-{
-    if(_max_p_grp select 0 > 0) then {
-        _probability = _rnd_grps select 0;
-        _chance = (random 100);
-        if(_chance < _probability) then {
-            _snipers=floor (random ((_max_p_grp select 0)-1));
-            _soldiers =((_max_p_grp select 0)-1) - _snipers;
-            _group = [_markername,3,_snipers,_soldiers,"",_respawn] call SAR_AI;
-            _grps_upd set [count _grps_upd,_group];
-            // update AI monitor
-            _check = [["grps_band"],[_grps_upd],_markername] call SAR_AI_mon_upd;
-        };
-    };
-};
+	if (!isServer && !hasInterface) then {
+	
+		_grps_upd = _grps_band;
+		
+		//for [{_i = (count _grps_band)},{_i < (_max_grps select 0)}, {_i=_i+1}]  do
+		for "_i" from (count _grps_band) to ((_max_grps select 0) - 1) do
+		{
+			if(_max_p_grp select 0 > 0) then {
+				_probability = _rnd_grps select 0;
+				_chance = (random 100);
+				if(_chance < _probability) then {
+					_snipers=floor (random ((_max_p_grp select 0)-1));
+					_soldiers =((_max_p_grp select 0)-1) - _snipers;
+					_group = [_markername,3,_snipers,_soldiers,"",_respawn] call SAR_AI;
+					_grps_upd set [count _grps_upd,_group];
+					// update AI monitor
+					_check = [["grps_band"],[_grps_upd],_markername] call SAR_AI_mon_upd;
+				};
+			};
+		};
 
-_grps_upd = _grps_sold;
+		_grps_upd = _grps_sold;
 
-//for [{_i = (count _grps_sold)},{_i < (_max_grps select 1)}, {_i=_i+1}]  do
-for "_i" from (count _grps_sold) to ((_max_grps select 1) - 1) do
-{
-    if(_max_p_grp select 1 > 0) then {
-        _probability = _rnd_grps select 1;
-        _chance = (random 100);
-        if(_chance < _probability) then {
-            _snipers=floor (random ((_max_p_grp select 1)-1));
-            _soldiers =((_max_p_grp select 1)-1) - _snipers;
-            _group = [_markername,1,_snipers,_soldiers,"",_respawn] call SAR_AI;
-            _grps_upd set [count _grps_upd,_group];
-            // update AI monitor
-            _check = [["grps_sold"],[_grps_upd],_markername] call SAR_AI_mon_upd;
-        };
-    };
-};
+		//for [{_i = (count _grps_sold)},{_i < (_max_grps select 1)}, {_i=_i+1}]  do
+		for "_i" from (count _grps_sold) to ((_max_grps select 1) - 1) do
+		{
+			if(_max_p_grp select 1 > 0) then {
+				_probability = _rnd_grps select 1;
+				_chance = (random 100);
+				if(_chance < _probability) then {
+					_snipers=floor (random ((_max_p_grp select 1)-1));
+					_soldiers =((_max_p_grp select 1)-1) - _snipers;
+					_group = [_markername,1,_snipers,_soldiers,"",_respawn] call SAR_AI;
+					_grps_upd set [count _grps_upd,_group];
+					// update AI monitor
+					_check = [["grps_sold"],[_grps_upd],_markername] call SAR_AI_mon_upd;
+				};
+			};
+		};
 
-_grps_upd = _grps_surv;
+		_grps_upd = _grps_surv;
 
-//for [{_i = (count _grps_surv)},{_i < (_max_grps select 2)}, {_i=_i+1}]  do
-for "_i" from (count _grps_surv) to ((_max_grps select 2) - 1) do
-{
-    if(_max_p_grp select 2 > 0) then {
-        _probability = _rnd_grps select 2;
-        _chance = (random 100);
-        if(_chance < _probability) then {
-            _snipers=floor (random ((_max_p_grp select 2)-1));
-            _soldiers =((_max_p_grp select 2)-1) - _snipers;
-            _group = [_markername,2,_snipers,_soldiers,"",_respawn] call SAR_AI;
-            _grps_upd set [count _grps_upd,_group];
-            // update AI monitor
-            _check = [["grps_surv"],[_grps_upd],_markername] call SAR_AI_mon_upd;
-        };
-    };
+		//for [{_i = (count _grps_surv)},{_i < (_max_grps select 2)}, {_i=_i+1}]  do
+		for "_i" from (count _grps_surv) to ((_max_grps select 2) - 1) do
+		{
+			if(_max_p_grp select 2 > 0) then {
+				_probability = _rnd_grps select 2;
+				_chance = (random 100);
+				if(_chance < _probability) then {
+					_snipers=floor (random ((_max_p_grp select 2)-1));
+					_soldiers =((_max_p_grp select 2)-1) - _snipers;
+					_group = [_markername,2,_snipers,_soldiers,"",_respawn] call SAR_AI;
+					_grps_upd set [count _grps_upd,_group];
+					// update AI monitor
+					_check = [["grps_surv"],[_grps_upd],_markername] call SAR_AI_mon_upd;
+				};
+			};
+		};
+	};
+} else {
+	if (isServer) then {
+		//for [{_i = (count _grps_band)},{_i < (_max_grps select 0)}, {_i=_i+1}]  do
+		for "_i" from (count _grps_band) to ((_max_grps select 0) - 1) do
+		{
+			if(_max_p_grp select 0 > 0) then {
+				_probability = _rnd_grps select 0;
+				_chance = (random 100);
+				if(_chance < _probability) then {
+					_snipers=floor (random ((_max_p_grp select 0)-1));
+					_soldiers =((_max_p_grp select 0)-1) - _snipers;
+					_group = [_markername,3,_snipers,_soldiers,"",_respawn] call SAR_AI;
+					_grps_upd set [count _grps_upd,_group];
+					// update AI monitor
+					_check = [["grps_band"],[_grps_upd],_markername] call SAR_AI_mon_upd;
+				};
+			};
+		};
+
+		_grps_upd = _grps_sold;
+
+		//for [{_i = (count _grps_sold)},{_i < (_max_grps select 1)}, {_i=_i+1}]  do
+		for "_i" from (count _grps_sold) to ((_max_grps select 1) - 1) do
+		{
+			if(_max_p_grp select 1 > 0) then {
+				_probability = _rnd_grps select 1;
+				_chance = (random 100);
+				if(_chance < _probability) then {
+					_snipers=floor (random ((_max_p_grp select 1)-1));
+					_soldiers =((_max_p_grp select 1)-1) - _snipers;
+					_group = [_markername,1,_snipers,_soldiers,"",_respawn] call SAR_AI;
+					_grps_upd set [count _grps_upd,_group];
+					// update AI monitor
+					_check = [["grps_sold"],[_grps_upd],_markername] call SAR_AI_mon_upd;
+				};
+			};
+		};
+
+		_grps_upd = _grps_surv;
+
+		//for [{_i = (count _grps_surv)},{_i < (_max_grps select 2)}, {_i=_i+1}]  do
+		for "_i" from (count _grps_surv) to ((_max_grps select 2) - 1) do
+		{
+			if(_max_p_grp select 2 > 0) then {
+				_probability = _rnd_grps select 2;
+				_chance = (random 100);
+				if(_chance < _probability) then {
+					_snipers=floor (random ((_max_p_grp select 2)-1));
+					_soldiers =((_max_p_grp select 2)-1) - _snipers;
+					_group = [_markername,2,_snipers,_soldiers,"",_respawn] call SAR_AI;
+					_grps_upd set [count _grps_upd,_group];
+					// update AI monitor
+					_check = [["grps_surv"],[_grps_upd],_markername] call SAR_AI_mon_upd;
+				};
+			};
+		};
+	};
 };
 
 // DEBUG

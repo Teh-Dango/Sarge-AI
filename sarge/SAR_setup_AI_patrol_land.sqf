@@ -128,7 +128,12 @@ _groupvehicles = createGroup _side;
         [_leader,_leader_weapon_names,_leader_items,_leader_tools] call SAR_unit_loadout;
 
 		[_leader] spawn SAR_AI_trace_veh;
-		_leader setIdentity _ai_id;
+		switch (_grouptype) do
+		{
+			case 1:{_leader setIdentity "id_SAR_sold_man";};
+			case 2:{_leader setIdentity "id_SAR_surv_lead";};
+			case 3:{_leader setIdentity "id_SAR_band";};
+		};
 		[_leader] spawn SAR_AI_reammo;
 
         _leader addMPEventHandler ["MPkilled", {Null = _this spawn SAR_AI_killed;}];
@@ -174,7 +179,12 @@ _groupvehicles = createGroup _side;
         [_this,_sniper_weapon_names,_sniper_items,_sniper_tools] call SAR_unit_loadout;
 
 		[_this] spawn SAR_AI_trace_veh;
-		_this setIdentity _ai_id;
+		switch (_grouptype) do
+		{
+			case 1:{_this setIdentity "id_SAR_sold_man";};
+			case 2:{_this setIdentity "id_SAR_surv_lead";};
+			case 3:{_this setIdentity "id_SAR_band";};
+		};
 		[_this] spawn SAR_AI_reammo;
 
         _this addMPEventHandler ["MPkilled", {Null = _this spawn SAR_AI_killed;}];
@@ -214,7 +224,12 @@ _groupvehicles = createGroup _side;
         [_this,_soldier_weapon_names,_soldier_items,_soldier_tools] call SAR_unit_loadout;
 
 		[_this] spawn SAR_AI_trace_veh;
-		_this setIdentity _ai_id;
+		switch (_grouptype) do
+		{
+			case 1:{_this setIdentity "id_SAR_sold_man";};
+			case 2:{_this setIdentity "id_SAR_surv_lead";};
+			case 3:{_this setIdentity "id_SAR_band";};
+		};
 		[_this] spawn SAR_AI_reammo;
 
         _this addMPEventHandler ["MPkilled", {Null = _this spawn SAR_AI_killed;}];

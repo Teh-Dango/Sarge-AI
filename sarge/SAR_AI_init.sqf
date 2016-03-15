@@ -20,7 +20,7 @@ call compile preprocessFileLineNumbers "sarge\SAR_config.sqf";
 
 diag_log format["Sarge's AI System: Starting Sarge AI version %1",SAR_version];
 
-if (!isServer && hasInterface) then {
+if (!isServer) then {
     "adjustrating" addPublicVariableEventHandler {((_this select 1) select 0) addRating ((_this select 1) select 1);};
 };
 
@@ -66,12 +66,6 @@ RESISTANCE setFriend [WEST, 1];
 // friendly AI
 WEST setFriend [EAST, 0];
 WEST setFriend [RESISTANCE, 1];
-
-SAR_AI_friendly_side = RESISTANCE;
-SAR_AI_unfriendly_side = EAST;
-
-SAR_leader_number = 0;
-SAR_AI_monitor = [];
 
 _worldname = toLower worldName;
 diag_log format["Sarge's AI System: Setting up SAR_AI for %1",_worldname];

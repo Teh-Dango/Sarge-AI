@@ -55,11 +55,11 @@ if (SAR_HITKILL_DEBUG) then {
     diag_log format["SAR_HITKILL_DEBUG: AI Killer - Type: %1 Name: %2 Side: %3 Group Side: %4",_aikiller_type,_aikiller_name, _aikiller_side,_aikiller_group_side];
 };
 
-if ((!isNull _aikiller) && (_aikiller isKindOf "Exile_Unit_Player")) then {
+_playerUID = getPlayerUID _aikiller;
 
-	_playerUID = getPlayerUID _aikiller;
+if ((!isNull _aikiller) && {(_playerUID != "") && {_aikiller isKindOf "Exile_Unit_Player"}}) then {
 
-    if (_aikilled_group_side isEqualTo SAR_AI_friendly_side) then {
+    if (_aikilled_group_side == SAR_AI_friendly_side) then {
 	
         if (SAR_DEBUG) then {diag_log format ["Sarge's AI System: Adjusting respect for survivor or soldier kill by %2 for %1",_aikiller,SAR_surv_kill_value];};
 
@@ -73,7 +73,8 @@ if ((!isNull _aikiller) && (_aikiller isKindOf "Exile_Unit_Player")) then {
 	
 		ExileClientPlayerScore = _playerRespect;
 		(owner _aikiller) publicVariableClient "ExileClientPlayerScore";
-	
+		ExileClientPlayerScore = nil;
+		
 		format ["setAccountMoneyAndRespect:%1:%2:%3", _playerMoney, _playerRespect, _playerUID] call ExileServer_system_database_query_fireAndForget;
 
         if (SAR_log_AI_kills) then {
@@ -83,16 +84,16 @@ if ((!isNull _aikiller) && (_aikiller isKindOf "Exile_Unit_Player")) then {
         if ((random 100) > 3) then {
             _message = format["%1 killed a friendly AI - sending reinforcements!",_aikiller_name];
             //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
-			[[[West,"airbase"], _message],{(_this select 0) sideChat (_this select 1)}] call BIS_fnc_MP;
+			[[[West,"airbase"], _message],sideChat] call BIS_fnc_MP;
         } else {
             if ((random 100) < 3) then {
                 _message = format["Tango down ... we offer a decent reward for the head of %1!",_aikiller_name];
                 //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
-				[[[West,"airbase"], _message],{(_this select 0) sideChat (_this select 1)}] call BIS_fnc_MP;
+				[[[West,"airbase"], _message],sideChat] call BIS_fnc_MP;
             };
         };
     };
-    if (_aikilled_group_side isEqualTo SAR_AI_unfriendly_side) then {
+    if (_aikilled_group_side == SAR_AI_unfriendly_side) then {
 	
         if (SAR_DEBUG) then {diag_log format ["Sarge's AI System: Adjusting respect for bandit kill by %2 for %1",_aikiller,SAR_band_kill_value];};
 
@@ -106,7 +107,8 @@ if ((!isNull _aikiller) && (_aikiller isKindOf "Exile_Unit_Player")) then {
 	
 		ExileClientPlayerScore = _playerRespect;
 		(owner _aikiller) publicVariableClient "ExileClientPlayerScore";
-	
+		ExileClientPlayerScore = nil;
+		
 		format ["setAccountMoneyAndRespect:%1:%2:%3", _playerMoney, _playerRespect, _playerUID] call ExileServer_system_database_query_fireAndForget;
 
         if(SAR_log_AI_kills) then {
@@ -117,12 +119,12 @@ if ((!isNull _aikiller) && (_aikiller isKindOf "Exile_Unit_Player")) then {
         if ((random 100) < 3) then {
             _message = format["nice bandit kill %1!",_aikiller_name];
             //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
-			[_message,"(_this select 0) sideChat (_this select 1)",true,false] call BIS_fnc_MP;
+			//[_message,"(_this select 0) sideChat (_this select 1)",true,false] call BIS_fnc_MP;
         } else {
             if ((random 100) < 3) then {
                 _message = format["another bandit down ... %1 is going to be the root cause of bandit extinction :-)",_aikiller_name];
                 //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
-				[_message,"(_this select 0) sideChat (_this select 1)",true,false] call BIS_fnc_MP;
+				//[_message,"(_this select 0) sideChat (_this select 1)",true,false] call BIS_fnc_MP;
             };
         };
     };

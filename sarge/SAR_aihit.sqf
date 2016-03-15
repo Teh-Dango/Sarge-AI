@@ -37,11 +37,11 @@ if (SAR_HITKILL_DEBUG && {isServer}) then {
 	diag_log format["SAR_HITKILL_DEBUG: AI attacker - Type: %1 Name: %2 Side: %3 Group Side: %4",_aikiller_type,_aikiller_name, _aikiller_side,_aikiller_group_side];
 };
 
-if((!isNull _aikiller) && (isPlayer _aikiller) && (_aikiller isKindOf "Exile_Unit_Player")) then {
+_playerUID = getPlayerUID _aikiller;
+
+if ((!isNull _aikiller) && {(_playerUID != "") && {_aikiller isKindOf "Exile_Unit_Player"}}) then {
 	
-	_playerUID = getPlayerUID _aikiller;
-	
-    if (_aikilled_group_side isEqualTo SAR_AI_friendly_side) then { // hit a friendly AI
+    if (_aikilled_group_side == SAR_AI_friendly_side) then { // hit a friendly AI
 
 		if (SAR_HITKILL_DEBUG && {isServer}) then {
 			diag_log format["SAR_HITKILL_DEBUG: friendly AI was hit by Player %1",_aikiller];
@@ -67,7 +67,8 @@ if((!isNull _aikiller) && (isPlayer _aikiller) && (_aikiller isKindOf "Exile_Uni
 	
 		ExileClientPlayerScore = _playerRespect;
 		(owner _aikiller) publicVariableClient "ExileClientPlayerScore";
-	
+		ExileClientPlayerScore = nil;
+		
 		format ["setAccountMoneyAndRespect:%1:%2:%3", _playerMoney, _playerRespect, _playerUID] call ExileServer_system_database_query_fireAndForget;
 
 		if (SAR_HITKILL_DEBUG && {isServer}) then {
@@ -90,7 +91,7 @@ if((!isNull _aikiller) && (isPlayer _aikiller) && (_aikiller isKindOf "Exile_Uni
         } foreach units group _ai;
     };
 
-    if (_aikilled_group_side isEqualTo SAR_AI_unfriendly_side) then { // hit an unfriendly AI
+    if (_aikilled_group_side == SAR_AI_unfriendly_side) then { // hit an unfriendly AI
 
 		if (SAR_HITKILL_DEBUG && {isServer}) then {
 			diag_log format["SAR_HITKILL_DEBUG: unfriendly AI was hit by Player %1",_aikiller];
@@ -106,7 +107,8 @@ if((!isNull _aikiller) && (isPlayer _aikiller) && (_aikiller isKindOf "Exile_Uni
 	
 		ExileClientPlayerScore = _playerRespect;
 		(owner _aikiller) publicVariableClient "ExileClientPlayerScore";
-	
+		ExileClientPlayerScore = nil;
+		
 		format ["setAccountMoneyAndRespect:%1:%2:%3", _playerMoney, _playerRespect, _playerUID] call ExileServer_system_database_query_fireAndForget;
 		
 		if (SAR_HITKILL_DEBUG && {isServer}) then {

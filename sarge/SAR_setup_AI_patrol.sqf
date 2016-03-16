@@ -175,6 +175,9 @@ if (_respawn) then {
 };
 
 if !(SAR_AI_STEAL_VEHICLE) then {
+    _ups_para_list pushBack ['NOVEH'];
+};
+if !(SAR_AI_COMBAT_VEHICLE) then {
     _ups_para_list pushBack ['NOVEH2'];
 };
 

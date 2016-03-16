@@ -43,10 +43,8 @@ _ai_killer_type = _aikiller getVariable ["SAR_AI_type",""];
 if (SAR_KILL_MSG) then {
     if(isPlayer _aikiller) then {
         _message = format["A %2 was killed by Player: %1",_aikiller_name,_ai_type];
-        diag_log _message;
-
         //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
-		[[[West,"airbase"], _message],{(_this select 0) sideChat (_this select 1)}] call BIS_fnc_MP;
+		_message remoteExec ["systemeChat",0];
     };
 };
 
@@ -71,6 +69,9 @@ if ((!isNull _aikiller) && {(_playerUID != "") && {_aikiller isKindOf "Exile_Uni
 		_playerRespect = _playerRespect - _repChange;
 		_aikiller setVariable ["ExileScore",_playerRespect];
 	
+		_fragType = [[format ["%1 Kill",_ai_type],-_repChange]];
+		[_aikiller, "showFragRequest", [_fragType]] call ExileServer_system_network_send_to;
+		
 		ExileClientPlayerScore = _playerRespect;
 		(owner _aikiller) publicVariableClient "ExileClientPlayerScore";
 		ExileClientPlayerScore = nil;
@@ -84,12 +85,12 @@ if ((!isNull _aikiller) && {(_playerUID != "") && {_aikiller isKindOf "Exile_Uni
         if ((random 100) > 3) then {
             _message = format["%1 killed a friendly AI - sending reinforcements!",_aikiller_name];
             //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
-			[[[West,"airbase"], _message],sideChat] call BIS_fnc_MP;
+			_message remoteExec ["systemeChat",0];
         } else {
             if ((random 100) < 3) then {
                 _message = format["Tango down ... we offer a decent reward for the head of %1!",_aikiller_name];
                 //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
-				[[[West,"airbase"], _message],sideChat] call BIS_fnc_MP;
+				_message remoteExec ["systemeChat",0];
             };
         };
     };
@@ -105,6 +106,9 @@ if ((!isNull _aikiller) && {(_playerUID != "") && {_aikiller isKindOf "Exile_Uni
 		_playerRespect = _playerRespect + _repChange;
 		_aikiller setVariable ["ExileScore",_playerRespect];
 	
+		_fragType = [[format ["%1 Kill",_ai_type],_repChange]];
+		[_aikiller, "showFragRequest", [_fragType]] call ExileServer_system_network_send_to;
+		
 		ExileClientPlayerScore = _playerRespect;
 		(owner _aikiller) publicVariableClient "ExileClientPlayerScore";
 		ExileClientPlayerScore = nil;
@@ -119,12 +123,12 @@ if ((!isNull _aikiller) && {(_playerUID != "") && {_aikiller isKindOf "Exile_Uni
         if ((random 100) < 3) then {
             _message = format["nice bandit kill %1!",_aikiller_name];
             //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
-			//[_message,"(_this select 0) sideChat (_this select 1)",true,false] call BIS_fnc_MP;
+			_message remoteExec ["systemeChat",0];
         } else {
             if ((random 100) < 3) then {
                 _message = format["another bandit down ... %1 is going to be the root cause of bandit extinction :-)",_aikiller_name];
                 //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
-				//[_message,"(_this select 0) sideChat (_this select 1)",true,false] call BIS_fnc_MP;
+				_message remoteExec ["systemeChat",0];
             };
         };
     };

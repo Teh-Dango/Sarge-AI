@@ -49,11 +49,11 @@ if ((!isNull _aikiller) && {(_playerUID != "") && {_aikiller isKindOf "Exile_Uni
 
         if ((random 100) > 5) then {
             _message = format["Sarge AI: Dammit %1! You are firing on a friendly group check your fire!",_aikiller_name];
-			_message remoteExec ["systemeChat",0];
+			_message remoteExec ["systemChat",0];
         } else {
             if ((random 100) < 5) then {
                 _message = format["Sarge AI: %1, this was the last time you shot one of our team! We are coming for you!",_aikiller_name];
-                _message remoteExec ["systemeChat",0];
+                _message remoteExec ["systemChat",0];
             };
         };
 		

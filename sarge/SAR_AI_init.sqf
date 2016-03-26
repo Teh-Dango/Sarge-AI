@@ -22,7 +22,7 @@ call compile preprocessFileLineNumbers "sarge\SAR_config.sqf";
 
 diag_log format["Sarge's AI System: Starting Sarge AI version %1",SAR_version];
 
-if (!isServer || hasInterface) then {
+if (!isServer && hasInterface) then {
     "adjustrating" addPublicVariableEventHandler {((_this select 1) select 0) addRating ((_this select 1) select 1);};
 };
 

@@ -44,7 +44,7 @@ SAR_DETECT_FROM_VEHICLE_INTERVAL 	= 5;		// How often AI can detect hostile AI & 
 SAR_chance_bandits 			= 75; 	// Chance to spawn 1-100%
 SAR_chance_soldiers 		= 25; 	// Chance to spawn 1-100%
 SAR_chance_survivors 		= 50; 	// Chance to spawn 1-100%
-SAR_max_grps_bandits 		= 2; 	// Total groups per grid
+SAR_max_grps_bandits 		= 4; 	// Total groups per grid
 SAR_max_grps_soldiers 		= 2; 	// Total groups per grid
 SAR_max_grps_survivors 		= 2; 	// Total groups per grid
 SAR_max_grpsize_bandits 	= 2; 	// Size of the group
@@ -130,7 +130,7 @@ SAR_heli_type = ["B_Heli_Light_01_stripped_F"];
 
 
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
-SAR_HC = true;
+SAR_HC = false;
 SAR_AI_friendly_side = RESISTANCE;
 SAR_AI_unfriendly_side = EAST;
 SAR_leader_number = 0;

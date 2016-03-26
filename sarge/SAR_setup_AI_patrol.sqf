@@ -61,7 +61,7 @@ _rndpos = [_patrol_area_name] call UPSMON_pos;
 _group = createGroup _side;
 
 // create leader of the group
-_leader = _group createunit [_leaderList call BIS_fnc_selectRandom, [(_rndpos select 0) , _rndpos select 1, 0], [], 0.5, "NONE"];
+_leader = _group createunit [_leaderList call BIS_fnc_selectRandom, [(_rndpos select 0) , _rndpos select 1, 0], [], 0.5, "CAN_COLLIDE"];
 
 _leader_weapon_names = ["leader",_type] call SAR_unit_loadout_weapons;
 _leader_items = ["leader",_type] call SAR_unit_loadout_items;
@@ -107,7 +107,7 @@ _sniperlist = call compile format ["SAR_sniper_%1_list", _type];
 // create crew
 for "_i" from 0 to (_snipers - 1) do
 {
-	_this = _group createunit [_sniperlist call BIS_fnc_selectRandom, [(_rndpos select 0), _rndpos select 1, 0], [], 0.5, "NONE"];
+	_this = _group createunit [_sniperlist call BIS_fnc_selectRandom, [(_rndpos select 0), _rndpos select 1, 0], [], 0.5, "CAN_COLLIDE"];
 	
 	_sniper_weapon_names = ["sniper",_type] call SAR_unit_loadout_weapons;
 	_sniper_items = ["sniper",_type] call SAR_unit_loadout_items;
@@ -139,7 +139,7 @@ _riflemenlist = call compile format ["SAR_soldier_%1_list", _type];
 
 for "_i" from 0 to (_riflemen - 1) do
 {
-    _this = _group createunit [_riflemenlist call BIS_fnc_selectRandom, [(_rndpos select 0) , _rndpos select 1, 0], [], 0.5, "NONE"];
+    _this = _group createunit [_riflemenlist call BIS_fnc_selectRandom, [(_rndpos select 0) , _rndpos select 1, 0], [], 0.5, "CAN_COLLIDE"];
 
     _soldier_items = ["rifleman",_type] call SAR_unit_loadout_items;
     _soldier_tools = ["rifleman",_type] call SAR_unit_loadout_tools;

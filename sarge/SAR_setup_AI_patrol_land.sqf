@@ -102,7 +102,7 @@ _groupvehicles = createGroup _side;
 // create the vehicle and assign crew
 {
     // create the vehicle
-    _veh = createVehicle [_x, [_rndpos select 0, _rndpos select 1, 0], [], 0, "NONE"];
+    _veh = createVehicle [_x, [_rndpos select 0, _rndpos select 1, 0], [], 0, "CAN_COLLIDE"];
     _veh setFuel 1;
     //_veh setVariable ["Sarge",1,true];
     _veh engineon true;
@@ -119,7 +119,7 @@ _groupvehicles = createGroup _side;
     // vehicle is defined to carry the group leader
     if((_veh_setup select 0) == 1) then {
 
-        _leader = _groupvehicles createunit [_leaderNPC call BIS_fnc_selectRandom, [(_rndpos select 0) + 10, _rndpos select 1, 0], [], 0.5, "NONE"];
+        _leader = _groupvehicles createunit [_leaderNPC call BIS_fnc_selectRandom, [(_rndpos select 0) + 10, _rndpos select 1, 0], [], 0.5, "CAN_COLLIDE"];
 
         _leader_weapon_names = ["leader",_type] call SAR_unit_loadout_weapons;
         _leader_items = ["leader",_type] call SAR_unit_loadout_items;

@@ -92,7 +92,7 @@ _heli setVehicleAmmo 1;
 [_heli] joinSilent _groupheli;
 sleep 1;
 
-_leader = _groupheli createunit [(_leaderNPC call BIS_fnc_selectRandom), [(_rndpos select 0) + 10, _rndpos select 1, 0], [], 0.5, "NONE"];
+_leader = _groupheli createunit [(_leaderNPC call BIS_fnc_selectRandom), [(_rndpos select 0) + 10, _rndpos select 1, 0], [], 0.5, "CAN_COLLIDE"];
 
 [_leader,_leader_weapon_names,_leader_items,_leader_tools] call SAR_unit_loadout;
 
@@ -132,7 +132,7 @@ _leader setspeedmode "FULL";
 _leader setBehaviour "AWARE";
  */
 // Gunner 1
-_man2heli = _groupheli createunit [_riflemenlist call BIS_fnc_selectRandom, [(_rndpos select 0) - 30, _rndpos select 1, 0], [], 0.5, "NONE"];
+_man2heli = _groupheli createunit [_riflemenlist call BIS_fnc_selectRandom, [(_rndpos select 0) - 30, _rndpos select 1, 0], [], 0.5, "CAN_COLLIDE"];
 
 _soldier_weapon_names = ["rifleman",_type] call SAR_unit_loadout_weapons;
 _soldier_items = ["rifleman",_type] call SAR_unit_loadout_items;
@@ -165,7 +165,7 @@ _man2heli setVariable ["SAR_AI_type",_ai_type,false];
 
 
 //Gunner 2
-_man3heli = _groupheli createunit [_riflemenlist call BIS_fnc_selectRandom, [_rndpos select 0, (_rndpos select 1) + 30, 0], [], 0.5, "NONE"];
+_man3heli = _groupheli createunit [_riflemenlist call BIS_fnc_selectRandom, [_rndpos select 0, (_rndpos select 1) + 30, 0], [], 0.5, "CAN_COLLIDE"];
 
 _soldier_weapon_names = ["rifleman",_type] call SAR_unit_loadout_weapons;
 _soldier_items = ["rifleman",_type] call SAR_unit_loadout_items;

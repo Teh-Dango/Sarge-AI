@@ -71,7 +71,7 @@ _group setVariable ["SAR_protect",true,true];
 _sizeOfBase = _flagPole getVariable ["ExileTerritorySize",""];
 
 // create leader of the group
-_leader = _group createunit [_leaderList call BIS_fnc_selectRandom, [getPosATL _flagPole,1,_sizeOfBase,5,0,10,0] call BIS_fnc_findSafePos, [], 0.5, "NONE"];
+_leader = _group createunit [_leaderList call BIS_fnc_selectRandom, [getPosATL _flagPole,1,_sizeOfBase,5,0,10,0] call BIS_fnc_findSafePos, [], 0.5, "CAN_COLLIDE"];
 
 _leader_weapon_names = ["leader",_type] call SAR_unit_loadout_weapons;
 _leader_items = ["leader",_type] call SAR_unit_loadout_items;
@@ -123,7 +123,7 @@ _sniperlist = call compile format ["SAR_sniper_%1_list",_type];
 for "_i" from 0 to (_snipers - 1) do
 {
     
-	_this = _group createunit [_sniperlist call BIS_fnc_selectRandom, [getPosATL _flagPole,1,_sizeOfBase,5,0,10,0] call BIS_fnc_findSafePos, [], 0.5, "NONE"];
+	_this = _group createunit [_sniperlist call BIS_fnc_selectRandom, [getPosATL _flagPole,1,_sizeOfBase,5,0,10,0] call BIS_fnc_findSafePos, [], 0.5, "CAN_COLLIDE"];
 	sleep 0.5;
 
     _sniper_weapon_names = ["sniper",_type] call SAR_unit_loadout_weapons;
@@ -162,7 +162,7 @@ _riflemenlist = call compile format ["SAR_soldier_%1_list",_type];
 
 for "_i" from 0 to (_riflemen - 1) do
 {
-	_this = _group createunit [_riflemenlist call BIS_fnc_selectRandom, [getPosATL _flagPole,1,_sizeOfBase,5,0,10,0] call BIS_fnc_findSafePos, [], 0.5, "NONE"];
+	_this = _group createunit [_riflemenlist call BIS_fnc_selectRandom, [getPosATL _flagPole,1,_sizeOfBase,5,0,10,0] call BIS_fnc_findSafePos, [], 0.5, "CAN_COLLIDE"];
 	sleep 0.5;
 
     _soldier_items = ["rifleman",_type] call SAR_unit_loadout_items;

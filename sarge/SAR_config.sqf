@@ -130,7 +130,7 @@ SAR_heli_type = ["B_Heli_Light_01_stripped_F"];
 
 
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
-SAR_HC = false;
+SAR_HC = true;
 SAR_AI_friendly_side = RESISTANCE;
 SAR_AI_unfriendly_side = EAST;
 SAR_leader_number = 0;

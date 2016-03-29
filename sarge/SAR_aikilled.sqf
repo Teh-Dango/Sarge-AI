@@ -82,13 +82,13 @@ if ((!isNull _aikiller) && {(_playerUID != "") && {_aikiller isKindOf "Exile_Uni
             _humankills = _aikiller getVariable["humanKills",0];
             _aikiller setVariable["humanKills",_humankills+1,true];
         };
-        if ((random 100) > 3) then {
-            _message = format["%1 killed a friendly AI - sending reinforcements!",_aikiller_name];
+        if ((random 100) < 3) then {
+            _message = format["Sarge AI: %1 killed a friendly AI - sending reinforcements!",_aikiller_name];
             //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
 			_message remoteExec ["systemChat",0];
         } else {
             if ((random 100) < 3) then {
-                _message = format["Tango down ... we offer a decent reward for the head of %1!",_aikiller_name];
+                _message = format["Sarge AI: Tango down ... we offer a decent reward for the head of %1!",_aikiller_name];
                 //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
 				_message remoteExec ["systemChat",0];
             };
@@ -121,12 +121,12 @@ if ((!isNull _aikiller) && {(_playerUID != "") && {_aikiller isKindOf "Exile_Uni
         };
 
         if ((random 100) < 3) then {
-            _message = format["nice bandit kill %1!",_aikiller_name];
+            _message = format["Sarge AI: Nice bandit kill %1!",_aikiller_name];
             //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
 			_message remoteExec ["systemChat",0];
         } else {
             if ((random 100) < 3) then {
-                _message = format["another bandit down ... %1 is going to be the root cause of bandit extinction :-)",_aikiller_name];
+                _message = format["Sarge AI: Another bandit down ... %1 is going to be the root cause of bandit extinction :]",_aikiller_name];
                 //[nil, nil, rspawn, [[West,"airbase"], _message], { (_this select 0) sideChat (_this select 1) }] call RE;
 				_message remoteExec ["systemChat",0];
             };

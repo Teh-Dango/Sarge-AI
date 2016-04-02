@@ -14,7 +14,7 @@
 */
 private["_sizeX","_sizeY","_snipers","_rifleMen","_sizeOfBase","_marker","_markername","_tMark","_flagPoles","_baseLevel","_baseName"];
 
-if (!isServer) exitWith {};
+if (elec_stop_exec == 1) exitWith {};
 
 _flagPoles = nearestObjects [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["Exile_Construction_Flag_Static"], 25000];
 

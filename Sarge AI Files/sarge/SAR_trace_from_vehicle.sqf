@@ -14,7 +14,7 @@
 */
 private ["_ai","_entity_array","_humanity","_humanitylimit","_sleeptime","_detectrange","_tracewhat","_player_rating","_clientmachine"];
 
-if (!isServer) exitWith {};
+if (elec_stop_exec == 1) exitWith {};
 
 _ai = _this select 0;
 _tracewhat = "CAManBase";

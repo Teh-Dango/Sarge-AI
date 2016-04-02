@@ -14,7 +14,7 @@
 */
 private ["_baseOwner","_attackAll","_friendlyPlayers","_ai","_entity_array"];
 
-if (isServer || !hasInterface) exitWith {}; // Do not execute on server or any headless client(s)
+if (isServer OR !hasInterface) exitWith {}; // Do not execute on server or any headless client(s)
 
 _ai = _this select 0;
 

@@ -16,11 +16,11 @@
 SAR_version = "2.1.0";
 
 /* Debug & RPT Settings */
-SAR_DEBUG 			= false; // Set to true for RPT info on AI
+SAR_DEBUG 			= true; // Set to true for RPT info on AI
 SAR_EXTREME_DEBUG 	= false; // Set to true for RPT info on damn near everything
-SAR_HITKILL_DEBUG 	= false; // Set to true for RPT info on AI shooting and killing
-SAR_log_AI_kills 	= false; // Set to true for kill logging by variable. *These variables do not save to the database currently*
-SAR_KILL_MSG 		= false; // Set to true for announcing AI kills to the server *This is still in development*
+SAR_HITKILL_DEBUG 	= true; // Set to true for RPT info on AI shooting and killing
+SAR_log_AI_kills 	= true; // Set to true for kill logging by variable. *These variables do not save to the database currently*
+SAR_KILL_MSG 		= true; // Set to true for announcing AI kills to the server *This is still in development*
 
 /* Dynamic AI Settings */
 SAR_dynamic_spawning 				= true;		// Turn dynamic grid spawns on or off
@@ -44,7 +44,7 @@ SAR_DETECT_FROM_VEHICLE_INTERVAL 	= 5;		// How often AI can detect hostile AI & 
 SAR_chance_bandits 			= 75; 	// Chance to spawn 1-100%
 SAR_chance_soldiers 		= 25; 	// Chance to spawn 1-100%
 SAR_chance_survivors 		= 50; 	// Chance to spawn 1-100%
-SAR_max_grps_bandits 		= 4; 	// Total groups per grid
+SAR_max_grps_bandits 		= 2; 	// Total groups per grid
 SAR_max_grps_soldiers 		= 2; 	// Total groups per grid
 SAR_max_grps_survivors 		= 2; 	// Total groups per grid
 SAR_max_grpsize_bandits 	= 2; 	// Size of the group
@@ -130,7 +130,9 @@ SAR_heli_type = ["B_Heli_Light_01_stripped_F"];
 
 
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
-SAR_HC = true;
+/* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
+/* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
+SAR_HC = false;
 SAR_AI_friendly_side = RESISTANCE;
 SAR_AI_unfriendly_side = EAST;
 SAR_leader_number = 0;

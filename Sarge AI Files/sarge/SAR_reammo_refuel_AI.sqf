@@ -14,7 +14,7 @@
 */
 private ["_ai","_sleeptime","_veh_weapons","_vehicle","_weapons","_reloadmag","_magazintypes","_legit_weapon","_weap_obj"];
 
-if (!isServer) exitWith {};
+if (elec_stop_exec == 1) exitWith {};
 
 _ai = _this select 0;
 

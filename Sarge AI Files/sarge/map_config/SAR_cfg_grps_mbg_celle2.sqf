@@ -46,7 +46,7 @@ this number is randomized
 _type = _this select 0;
 
 // grid definition for the automatic spawn system
-if ((_type isEqualTo "dynamic") && SAR_dynamic_spawning) then {
+if ((_type == "dynamic") && SAR_dynamic_spawning) then {
 
 	// Lindwedel & mellendorf
 	_check = [["max_grps","rnd_grps","max_p_grp"],[[1,1,1],[3,1,1],[3,3,3]],"SAR_area_0_0"] call SAR_AI_mon_upd; 
@@ -112,7 +112,7 @@ if ((_type isEqualTo "dynamic") && SAR_dynamic_spawning) then {
 	_check = [["max_grps","rnd_grps","max_p_grp"],[[1,1,1],[9,3,3],[4,4,4]],"SAR_area_4_4"] call SAR_AI_mon_upd;
 };
 
-if (_type isEqualTo "static") then {
+if (_type == "static") then {
 	// ---------------------------------------------------------------
 	// Definition of area markers for static spawns
 	// ---------------------------------------------------------------

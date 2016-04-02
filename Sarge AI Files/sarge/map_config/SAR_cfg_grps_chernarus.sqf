@@ -45,7 +45,7 @@ this number is randomized
 _type = _this select 0;
 
 // grid definition for the automatic spawn system
-if ((_type isEqualTo "dynamic") && SAR_dynamic_spawning) then {
+if ((_type == "dynamic") && SAR_dynamic_spawning) then {
 
     
 
@@ -117,7 +117,7 @@ if ((_type isEqualTo "dynamic") && SAR_dynamic_spawning) then {
     
 };
 
-if (_type isEqualTo "static") then {
+if (_type == "static") then {
 	//
 	// Definition of area markers for static spawns
 	//

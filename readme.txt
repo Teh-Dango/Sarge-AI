@@ -12,6 +12,16 @@
 	http://www.hod-servers.com
 
 */
+2.1.5 Changes
+	>[Update] Improved HC spawning logic to provide a better HC experience.
+	[New] AI backpacks have been added and should no longer spawn with items.
+	[New] AI will now have a sidearm in addition to their main weapon.
+	[New] Added more clothing options to all AI to improve asthetics.
+	>[New] Added a variable to control the Sarge AI system chat messages.
+	[New] Added a variable to control the AI's ability to speak and use side chat.
+	>[New] Added a persistent variable to track friendly and hostile kills.
+	[Fix] Fixed a bug that caused some friendly AI to appear as a bandit.
+
 2.1.0 Changes
 	[Removed] The experience system for the AI has been removed.
 	[Removed] SHK pos was removed since the latest UPSMON already provides the functionality.

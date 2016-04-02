@@ -14,17 +14,17 @@
 */
 private ["_worldname","_startx","_starty","_gridsize_x","_gridsize_y","_gridwidth","_markername","_triggername","_trig_act_stmnt","_trig_deact_stmnt","_trig_cond","_check","_script_handler","_legendname"];
 
-if (!isServer) exitWith {};
+if (!isServer && hasInterface) then {
+    "adjustrating" addPublicVariableEventHandler {((_this select 1) select 0) addRating ((_this select 1) select 1);};
+};
+
+if (elec_stop_exec == 1) exitWith {};
 
 if (!isNil "A3XAI_isActive") exitWith {diag_log format ["Sarge's AI System: A3XAI has been detected. Sarge AI is not compatibale with A3XAI. Sarge AI is now exiting!"];};
 
 call compile preprocessFileLineNumbers "sarge\SAR_config.sqf";
 
 diag_log format["Sarge's AI System: Starting Sarge AI version %1",SAR_version];
-
-if (!isServer && hasInterface) then {
-    "adjustrating" addPublicVariableEventHandler {((_this select 1) select 0) addRating ((_this select 1) select 1);};
-};
 
 SAR_AI_hit				= compile preprocessFileLineNumbers "sarge\SAR_aihit.sqf";
 SAR_AI_killed			= compile preprocessFileLineNumbers "sarge\SAR_aikilled.sqf";
@@ -69,7 +69,7 @@ WEST setFriend [RESISTANCE, 1];
 _worldname = toLower worldName;
 diag_log format["Sarge's AI System: Setting up SAR_AI for %1",_worldname];
 
-// Lets hope this helps with the AI's view of buildings locality
+// Lets hope this helps with the AI's view of object locality
 waituntil {PublicServerIsLoaded};
 
 if (SAR_dynamic_spawning) then {

@@ -47,7 +47,7 @@ this number is randomized
 _type = _this select 0;
 
 // grid definition for the automatic spawn system
-if ((_type isEqualTo "dynamic") && SAR_dynamic_spawning) then {
+if ((_type == "dynamic") && SAR_dynamic_spawning) then {
  
 	_check = [["max_grps","rnd_grps","max_p_grp"],[[1,0,2],[45,0,45],[0,0,0]],"SAR_area_0_0"] call SAR_AI_mon_upd; 	//Pintosa, Alma, Corda, Mercadio
 	_check = [["max_grps","rnd_grps","max_p_grp"],[[1,0,2],[45,0,45],[0,0,0]],"SAR_area_1_0"] call SAR_AI_mon_upd; 	//Verto, Medlina
@@ -92,7 +92,7 @@ if ((_type isEqualTo "dynamic") && SAR_dynamic_spawning) then {
 	_check = [["max_grps","rnd_grps","max_p_grp"],[[2,1,1],[45,40,35],[2,1,0]],"SAR_area_5_5"] call SAR_AI_mon_upd; 	//NE Island (north)
 };
 
-if (_type isEqualTo "static") then {
+if (_type == "static") then {
 
 	_this = createMarker ["SAR_patrol_prison", [3024.6147, 7969.0239]];
 	_this setMarkerShape "RECTANGLE";

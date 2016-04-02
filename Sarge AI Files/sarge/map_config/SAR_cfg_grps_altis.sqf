@@ -160,7 +160,7 @@ if (_type == "static") then {
 	diag_log format["SAR_AI: Static Spawning for Helicopter patrols started"];
 
 	// define your static air patrols here
-
+/* 
 	//Heli Patrol NWAF
 	[SAR_marker_DEBUG_veh,1,true] call SAR_AI_heli;
 
@@ -174,12 +174,12 @@ if (_type == "static") then {
 	// heli patrol east coast
 	[SAR_marker_DEBUG_veh,1,true] call SAR_AI_heli;
 	[SAR_marker_DEBUG_veh,1,true] call SAR_AI_heli;
-
+ */
 	// example war scenario in the northwest. Comment OUT after having had a look at it!
-	[SAR_marker_DEBUG_veh,1,true,30] call SAR_AI_heli;
+	/* [SAR_marker_DEBUG_veh,1,true,30] call SAR_AI_heli;
 	[SAR_marker_DEBUG_veh,1,true,30] call SAR_AI_heli;
 	[SAR_marker_DEBUG_veh,3,true,30] call SAR_AI_heli;
-	[SAR_marker_DEBUG_veh,3,true,30] call SAR_AI_heli;
+	[SAR_marker_DEBUG_veh,3,true,30] call SAR_AI_heli; */
 
 
 	diag_log format["SAR_AI: Static Spawning for Helicopter patrols finished"];

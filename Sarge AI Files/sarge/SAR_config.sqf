@@ -12,7 +12,7 @@
 	http://www.hod-servers.com
 
 */
-
+PublicServerIsLoaded = false;
 SAR_version = "2.1.0";
 
 /* Debug & RPT Settings */

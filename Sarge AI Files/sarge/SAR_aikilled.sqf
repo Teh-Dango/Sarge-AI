@@ -147,7 +147,7 @@ if ((!isNull _aikiller) && {(_playerUID != "") && {_aikiller isKindOf "Exile_Uni
 			_playerRespect = _aikiller getVariable ["ExileScore", 0];
 			_playerMoney = _aikiller getVariable ["ExileMoney", 0];
 
-			_repChange = SAR_surv_kill_value / 10;
+			_repChange = SAR_band_kill_value / 10;
 
 			_playerRespect = _playerRespect + _repChange;
 			_aikiller setVariable ["ExileScore",_playerRespect];

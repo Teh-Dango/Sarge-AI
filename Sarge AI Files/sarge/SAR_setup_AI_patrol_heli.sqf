@@ -66,16 +66,16 @@ if (_error) exitWith {diag_log "SAR_AI: Heli patrol setup failed, wrong paramete
 
 _leaderNPC = call compile format ["SAR_leader_%1_list",_type];
 _riflemenlist = call compile format ["SAR_soldier_%1_list",_type];
-/* 
+
 _leaderskills = call compile format ["SAR_leader_%1_skills",_type];
 _sniperskills = call compile format ["SAR_sniper_%1_skills",_type];
- */
+
 _leader_weapon_names = ["leader",_type] call SAR_unit_loadout_weapons;
 _leader_items = ["leader",_type] call SAR_unit_loadout_items;
 _leader_tools = ["leader",_type] call SAR_unit_loadout_tools;
 	
 // get a random starting position, UPSMON will handle the rest
-_rndpos = [_patrol_area_name] call UPSMON_pos;
+_rndpos = [_patrol_area_name,0,SAR_Blacklist] call UPSMON_pos;
 
 _groupheli = createGroup _side;
 
@@ -96,6 +96,8 @@ _leader = _groupheli createunit [(_leaderNPC call BIS_fnc_selectRandom), [(_rndp
 
 [_leader,_leader_weapon_names,_leader_items,_leader_tools] call SAR_unit_loadout;
 
+if (_side == SAR_AI_unfriendly_side) then {removeHeadgear _leader; _leader addHeadGear (["H_Shemag_olive","H_Shemag_olive_hs","H_ShemagOpen_khk","H_ShemagOpen_tan"] call BIS_fnc_selectRandom);};
+
 [_leader] spawn SAR_AI_trace_veh;
 switch (_grouptype) do
 {
@@ -113,31 +115,31 @@ _leader assignAsDriver _heli;
 
 [_leader] joinSilent _groupheli;
 
-/* 
+// set skills of the leader
 {
     _leader setskill [_x select 0,(_x select 1 +(floor(random 2) * (_x select 2)))];
 } foreach _leaderskills;
 
-SAR_leader_number = SAR_leader_number + 1;
-_leadername = format["SAR_leader_%1",SAR_leader_number];
-
-_leader setVehicleVarname _leadername;
-_leader setVariable ["SAR_leader_name",_leadername,false];
- */
 // store AI type on the AI
 _leader setVariable ["SAR_AI_type",_ai_type + " Leader",false];
-/* 
+
+// store experience value on AI
+_leader setVariable ["SAR_AI_experience",0,false];
+
 // set behaviour & speedmode
 _leader setspeedmode "FULL";
 _leader setBehaviour "AWARE";
- */
+
 // Gunner 1
 _man2heli = _groupheli createunit [_riflemenlist call BIS_fnc_selectRandom, [(_rndpos select 0) - 30, _rndpos select 1, 0], [], 0.5, "CAN_COLLIDE"];
 
 _soldier_weapon_names = ["rifleman",_type] call SAR_unit_loadout_weapons;
 _soldier_items = ["rifleman",_type] call SAR_unit_loadout_items;
 _soldier_tools = ["rifleman",_type] call SAR_unit_loadout_tools;
+
 [_man2heli,_soldier_weapon_names,_soldier_items,_soldier_tools] call SAR_unit_loadout;
+
+if (_side == SAR_AI_unfriendly_side) then {removeHeadgear _man2heli; _man2heli addHeadGear (["H_Shemag_olive","H_Shemag_olive_hs","H_ShemagOpen_khk","H_ShemagOpen_tan"] call BIS_fnc_selectRandom);};
 
 _man2heli moveInTurret [_heli,[0]];
 
@@ -154,15 +156,17 @@ _man2heli addMPEventHandler ["MPkilled", {Null = _this spawn SAR_AI_killed;}];
 _man2heli addMPEventHandler ["MPHit", {Null = _this spawn SAR_AI_hit;}];
 
 [_man2heli] joinSilent _groupheli;
-/* 
+
 // set skills
 {
     _man2heli setskill [_x select 0,(_x select 1 +(floor(random 2) * (_x select 2)))];
 } foreach _sniperskills;
- */
+ 
 // store AI type on the AI
 _man2heli setVariable ["SAR_AI_type",_ai_type,false];
 
+// store experience value on AI
+_man2heli setVariable ["SAR_AI_experience",0,false];
 
 //Gunner 2
 _man3heli = _groupheli createunit [_riflemenlist call BIS_fnc_selectRandom, [_rndpos select 0, (_rndpos select 1) + 30, 0], [], 0.5, "CAN_COLLIDE"];
@@ -172,6 +176,8 @@ _soldier_items = ["rifleman",_type] call SAR_unit_loadout_items;
 _soldier_tools = ["rifleman",_type] call SAR_unit_loadout_tools;
 
 [_man3heli,_soldier_weapon_names,_soldier_items,_soldier_tools] call SAR_unit_loadout;
+
+if (_side == SAR_AI_unfriendly_side) then {removeHeadgear _man3heli; _man3heli addHeadGear (["H_Shemag_olive","H_Shemag_olive_hs","H_ShemagOpen_khk","H_ShemagOpen_tan"] call BIS_fnc_selectRandom);};
 
 _man3heli moveInTurret [_heli,[1]];
 
@@ -188,14 +194,17 @@ _man3heli addMPEventHandler ["MPkilled", {Null = _this spawn SAR_AI_killed;}];
 _man3heli addMPEventHandler ["MPHit", {Null = _this spawn SAR_AI_hit;}];
 
 [_man3heli] joinSilent _groupheli;
-/* 
+
 // set skills
 {
     _man3heli setskill [_x select 0,(_x select 1 +(floor(random 2) * (_x select 2)))];
 } foreach _sniperskills;
- */
+
 // store AI type on the AI
 _man3heli setVariable ["SAR_AI_type",_ai_type,false];
+
+// store experience value on AI
+_man3heli setVariable ["SAR_AI_experience",0,false];
 
 // initialize upsmon for the group
 _ups_para_list = [_leader,_patrol_area_name,'NOFOLLOW','AWARE','SPAWNED','DELETE:',SAR_DELETE_TIMEOUT];
@@ -207,24 +216,6 @@ if (_respawn) then {
 };
 
 _ups_para_list spawn UPSMON;
-
-if (SAR_HC) then {
-	{
-		_hcID = getPlayerUID _x;
-		if(_hcID select [0,2] isEqualTo 'HC')then {
-			_SAIS_HC = _groupheli setGroupOwner (owner _x);
-			if (_SAIS_HC) then {
-				if (SAR_DEBUG) then {
-					diag_log format ["Sarge's AI System: Moved group %1 to Headless Client %2",_groupheli,_hcID];
-				};
-			} else {
-				if (SAR_DEBUG) then {
-					diag_log format ["Sarge's AI System: Moving group %1 to Headless Client %2 has failed",_groupheli,_hcID];
-				};
-			};
-		};
-	} forEach allPlayers;
-};
 
 if(SAR_DEBUG) then {
     diag_log format["Sarge's AI System: AI Heli patrol (%2) spawned in: %1.",_patrol_area_name,_groupheli];

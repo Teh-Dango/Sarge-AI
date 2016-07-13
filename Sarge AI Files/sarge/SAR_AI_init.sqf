@@ -9,7 +9,7 @@
 	Sarge AI System 2.0+
 	Modded for Arma 3: Exile Mod
 	Changes: Dango
-	http://www.hod-servers.com
+	https://www.hod-servers.com
 	https://github.com/Teh-Dango
 */
 private ["_worldname","_startx","_starty","_gridsize_x","_gridsize_y","_gridwidth","_markername","_triggername","_trig_act_stmnt","_trig_deact_stmnt","_trig_cond","_check","_script_handler","_legendname"];

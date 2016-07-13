@@ -9,7 +9,7 @@
 	Sarge AI System 2.0+
 	Modded for Arma 3: Exile Mod
 	Changes: Dango
-	http://www.hod-servers.com
+	https://www.hod-servers.com
 
 */
 private ["_sizeOfBase","_authorizedGateCodes","_authorizedUID","_flagPole","_leadername","_type","_patrol_area_name","_grouptype","_snipers","_riflemen","_action","_side","_leaderList","_riflemenlist","_sniperlist","_rndpos","_group","_leader","_cond","_respawn","_leader_weapon_names","_leader_items","_leader_tools","_soldier_weapon_names","_soldier_items","_soldier_tools","_sniper_weapon_names","_sniper_items","_sniper_tools","_leaderskills","_riflemanskills","_sniperskills","_ups_para_list","_respawn_time","_argc","_ai_type"];

@@ -9,7 +9,7 @@
 	Sarge AI System 2.0+
 	Modded for Arma 3: Exile Mod
 	Changes: Dango
-	http://www.hod-servers.com
+	https://www.hod-servers.com
 
 */
 private ["_ai_veh_dmg","_ai_veh","_ai_veh_hitsource","_ai_veh_type","_ai_veh_side","_ai_veh_group_side","_ai_veh_hitsource_group_side","_ai_veh_hitsource_type","_ai_veh_hitsource_name","_ai_veh_hitsource_side","_clientmachine","_player_rating","_shot_veh","_ai_part","_ai_veh_projectile","_message"];

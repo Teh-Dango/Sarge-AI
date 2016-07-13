@@ -9,7 +9,7 @@
 	Sarge AI System 2.0pushBack
 	Modded for Arma 3: Exile Mod
 	Changes: Dango
-	http://www.hod-servers.com
+	https://www.hod-servers.com
 
 */
 SAR_get_road_pos = {

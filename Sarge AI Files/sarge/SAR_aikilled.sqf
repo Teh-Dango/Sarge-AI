@@ -9,7 +9,7 @@
 	Sarge AI System 2.0+
 	Modded for Arma 3: Exile Mod
 	Changes: Dango
-	http://www.hod-servers.com
+	https://www.hod-servers.com
 
 */
 //private ["_message","_ai","_aikiller","_aikilled_type","_aikilled_side","_aikilled_group_side","_aikiller_group_side","_aikiller_type","_aikiller_name","_aikiller_side","_respect","_humankills","_banditkills","_tmp","_sphere_alpha","_sphere_red","_sphere_green","_sphere_blue","_obj_text_string","_ai_type","_ai_killer_type"];

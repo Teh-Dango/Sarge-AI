@@ -20,19 +20,25 @@ if (!isServer && hasInterface) then {
     "adjustrating" addPublicVariableEventHandler {((_this select 1) select 0) addRating ((_this select 1) select 1);};
 };
 
+SAR_AI_hit				= compile preprocessFileLineNumbers "sarge\SAR_aihit.sqf";
+SAR_AI_trace			= compile preprocessFileLineNumbers "sarge\SAR_trace_entities.sqf";
+SAR_AI_base_trace		= compile preprocessFileLineNumbers "sarge\SAR_trace_base_entities.sqf";
+
+if (!isServer) exitWith {};
+
 call compile preprocessFileLineNumbers "sarge\SAR_config.sqf";
 
 diag_log format["Sarge's AI System: Starting Sarge AI version %1",SAR_version];
 
-SAR_AI_hit				= compile preprocessFileLineNumbers "sarge\SAR_aihit.sqf";
 SAR_AI_killed			= compile preprocessFileLineNumbers "sarge\SAR_aikilled.sqf";
-SAR_AI_trace			= compile preprocessFileLineNumbers "sarge\SAR_trace_entities.sqf";
-SAR_AI_base_trace		= compile preprocessFileLineNumbers "sarge\SAR_trace_base_entities.sqf";
-SAR_AI_trace_veh		= compile preprocessFileLineNumbers "sarge\SAR_trace_from_vehicle.sqf";
-SAR_AI_reammo			= compile preprocessFileLineNumbers "sarge\SAR_reammo_refuel_AI.sqf";
-SAR_AI_spawn			= compile preprocessFileLineNumbers "sarge\SAR_AI_spawn.sqf";
-SAR_AI_despawn			= compile preprocessFileLineNumbers "sarge\SAR_AI_despawn.sqf";
 SAR_AI_VEH_HIT			= compile preprocessFileLineNumbers "sarge\SAR_ai_vehicle_hit.sqf";
+
+SAR_AI_trace_veh		= compile preprocessFileLineNumbers "sarge\SAR_trace_from_vehicle.sqf";
+
+SAR_AI_spawn			= compile preprocessFileLineNumbers "sarge\SAR_AI_spawn.sqf";
+SAR_AI_Heli_spawn		= compile preprocessFileLineNumbers "sarge\SAR_AI_Heli_spawn.sqf";
+SAR_AI_despawn			= compile preprocessFileLineNumbers "sarge\SAR_AI_despawn.sqf";
+SAR_AI_reammo			= compile preprocessFileLineNumbers "sarge\SAR_reammo_refuel_AI.sqf";
 
 SAR_AI					= compile preprocessFileLineNumbers "sarge\SAR_setup_AI_patrol.sqf";
 SAR_AI_heli				= compile preprocessFileLineNumbers "sarge\SAR_setup_AI_patrol_heli.sqf";
@@ -47,13 +53,14 @@ publicvariable "SAR_DEBUG";
 publicvariable "SAR_EXTREME_DEBUG";
 publicvariable "SAR_DETECT_HOSTILE";
 publicvariable "SAR_DETECT_INTERVAL";
-publicvariable "SAR_RESPECT_HOSTILE_LIMIT";
+publicvariable "SAR_HUMANITY_HOSTILE_LIMIT";
 
 createCenter EAST;
 createCenter WEST;
 
 // unfriendly AI bandits
 EAST setFriend [EAST, 1];
+EAST setFriend [CIVILIAN, 1];
 EAST setFriend [WEST, 0];
 EAST setFriend [RESISTANCE, 0];
 
@@ -66,9 +73,8 @@ WEST setFriend [EAST, 0];
 WEST setFriend [RESISTANCE, 1];
 
 // Lets hope this helps with the AI's view of object locality
-waituntil {PublicServerIsLoaded};
-
-if (elec_stop_exec == 1) exitWith {};
+waituntil {(!isNil "PublicServerIsLoaded")};
+waituntil {(PublicServerIsLoaded)};
 
 _worldname = toLower worldName;
 diag_log format["Sarge's AI System: Setting up SAR_AI for %1",_worldname];

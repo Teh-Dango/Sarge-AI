@@ -12,103 +12,6 @@
 	https://www.hod-servers.com
 
 */
-SAR_get_road_pos = {
-	/*
-		Parameters:
-		_areaname = the markername where the position should be choosen
-	*/
-	private ["_targetPosTemp","_newpos","_loop2","_tries2","_roads","_area_name","_centerpos","_centerX","_centerY","_areasize","_rangeX","_rangeY","_areadir","_cosdir","_sindir"];
-
-	_area_name = _this select 0;
-
-    // remember center position of area marker
-    _centerpos = getMarkerPos _area_name;
-    _centerX = abs(_centerpos select 0);
-    _centerY = abs(_centerpos select 1);
-
-    // X/Y range of target area
-    _areasize = getMarkerSize _area_name;
-    _rangeX = _areasize select 0;
-    _rangeY = _areasize select 1;
-
-    // marker orientation (needed as negative value!)
-    _areadir = (markerDir _area_name) * -1;
-
-    // store some trig calculations
-    _cosdir=cos(_areadir);
-    _sindir=sin(_areadir);
-
-    _tries2=0;
-    _loop2 = false;
-
-    while {(!_loop2) && (_tries2 <100)} do {
-        _tries2=_tries2pushBack1;
-        _targetPosTemp = [_centerX,_centerY,_rangeX,_rangeY,_cosdir,_sindir,_areadir] call KRON_randomPos;
-        _roads = (_targetPosTemp nearRoads 50);
-        if ((count _roads) > 0) then {
-            _targetPosTemp = getpos (_roads select 0);
-            _newpos = _targetPosTemp;
-            _loop2 = TRUE;
-        };
-        sleep 0.05;
-    };
-    _newpos;
-};
-
-SAR_break_circle = {
-	/*
-	Parameters:
-	_group = the group
-	*/
-    private ["_group"];
-
-    _group = _this select 0;
-    _group setBehaviour "AWARE";
-    {
-		_x enableAI "TARGET";
-		_x forceSpeed 1;
-    } foreach units _group;
-};
-
-SAR_move_to_circle_pos = {
-	//Parameters:
-	//_unit = the unit to move
-	//_newpos = the position the unit should move to
-    private ["_unit","_centerpos","_newpos","_viewangle","_defend"];
-
-    _unit = _this select 0;
-    _centerpos = _this select 1;
-    _newpos = _this select 2;
-    _viewangle = _this select 3;
-    _defend = _this select 4;
-
-    _unit forceSpeed 1;
-
-    _unit moveTo _newpos;
-    _unit doMove _newpos;
-
-    waituntil {moveToCompleted _unit};
-    _unit forceSpeed 0;
-
-    //_unit doWatch (_veh modelToWorld [(sin (_foreachindex * _angle))*SAR_sit_radius, (cos (_foreachindex * _angle))*SAR_sit_radius, 0]);
-    //_unit doWatch _veh;
-
-	//diag_log format["Unit: %1 Angle to look at: %2",_unit,_viewangle];
-
-    _unit setDir _viewangle;
-    _unit setpos getPos _unit;
-
-    if(!_defend) then {
-        _unit playActionNow "SitDown";
-        sleep 1;
-    } else{
-        _unit setUnitPos "Middle";
-        sleep 1;
-    };
-
-    _unit disableAI "TARGET";
-    //_unit disableAI "FSM";
-};
 
 SAR_circle_static = {
 	//Parameters:
@@ -210,26 +113,6 @@ SAR_isKindOf_weapon = {
     _found;
 };
 
-SAR_AI_is_unfriendly_group = {
-	// parameters
-	// _trig_player_list = list of players in the trigger array
-	
-    private ["_trig_player_list","_bandits_in_trigger","_player_respect"];
-
-    _trig_player_list = _this select 0;
-
-    _bandits_in_trigger = false;
-    {
-		_player_respect = _x getVariable ["ExileScore",0];
-
-        if(_player_respect < SAR_RESPECT_HOSTILE_LIMIT) then {
-            _bandits_in_trigger = true;
-        };
-    } foreach _trig_player_list;
-
-    _bandits_in_trigger;
-};
-
 SAR_unit_loadout_tools = {
 	// Parameters:
 	// _unittype (leader, soldier, sniper)
@@ -327,15 +210,11 @@ SAR_unit_loadout = {
     _tools = _this select 3;
 
     removeAllWeapons _unit;
+	removeAllItems _unit;
     removeAllAssignedItems _unit;
-    removeAllItems _unit;
-	removeBackpack _unit;
 	removeGoggles _unit;
-	removeVest _unit;
-	if (_unit isKindOf "O_G_Soldier_lite_F") then {removeHeadgear _unit; sleep 1; _unit addHeadGear "H_Shemag_olive";};
 
 	_unit enableFatigue false;
-	_unit allowDamage true;
 
     {
         _weapon = _weapons select _forEachIndex;

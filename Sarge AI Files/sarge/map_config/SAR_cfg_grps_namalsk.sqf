@@ -46,7 +46,7 @@ _type = _this select 0;
 // grid definition for the automatic spawn system
 if ((_type == "dynamic") && SAR_dynamic_spawning) then {
 
-	// West Point, 2 bandit groups, 1 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+	/* // West Point, 2 bandit groups, 1 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
 	_check = [["max_grps","rnd_grps","max_p_grp"],[[2,1,2],[50,75,100],[2,3,3]],"SAR_area_0_0"] call SAR_AI_mon_upd; 
 
 	 // Water, 0 bandit groups, 0 soldier groups, 0 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
@@ -78,7 +78,7 @@ if ((_type == "dynamic") && SAR_dynamic_spawning) then {
 
 	// Tara, 2 bandit groups, 0 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
 	_check = [["max_grps","rnd_grps","max_p_grp"],[[2,0,2],[75,0,75],[3,0,3]],"SAR_area_2_1"] call SAR_AI_mon_upd; 
-};
+}; */
 
 if (_type == "static") then {
 	// ---------------------------------------------------------------

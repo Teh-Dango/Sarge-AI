@@ -14,7 +14,7 @@
 */
 private ["_ai_type","_riflemenlist","_side","_leader_group","_patrol_area_name","_rndpos","_groupheli","_heli","_leader","_man2heli","_man3heli","_argc","_grouptype","_respawn","_leader_weapon_names","_leader_items","_leader_tools","_soldier_weapon_names","_soldier_items","_soldier_tools","_leaderskills","_sniperskills","_ups_para_list","_type","_error","_respawn_time","_leadername"];
 
-if (elec_stop_exec == 1) exitWith {};
+if (!isServer) exitWith {};
 
 _patrol_area_name = _this select 0;
 _argc = count _this;
@@ -219,6 +219,24 @@ _ups_para_list spawn UPSMON;
 
 if(SAR_DEBUG) then {
     diag_log format["Sarge's AI System: AI Heli patrol (%2) spawned in: %1.",_patrol_area_name,_groupheli];
+};
+
+if (SAR_HC) then {
+	{
+		_hcID = getPlayerUID _x;
+		if(_hcID select [0,2] isEqualTo 'HC')then {
+			_SAIS_HC = _group setGroupOwner (owner _x);
+			if (_SAIS_HC) then {
+				if (SAR_DEBUG) then {
+					diag_log format ["Sarge's AI System: Now moving group %1 to Headless Client %2",_group,_hcID];
+				};
+			} else {
+				if (SAR_DEBUG) then {
+					diag_log format ["Sarge's AI System: ERROR! Moving group %1 to Headless Client %2 has failed!",_group,_hcID];
+				};
+			};
+		};
+	} forEach allPlayers;
 };
 
 _groupheli;

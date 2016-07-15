@@ -14,7 +14,7 @@
 */
 private ["_snipers","_soldiers","_group","_check","_probability","_chance","_playerlist","_triggername","_tmparr","_markername","_player","_valuearray","_max_grps","_rnd_grps","_max_p_grp","_grps_band","_grps_sold","_grps_surv","_grps_upd","_respawn"];
 
-if (elec_stop_exec == 1) exitWith {};
+if (!isServer) exitWith {};
 
 _playerlist = _this select 0;
 _triggername = _this select 1;
@@ -50,6 +50,8 @@ _grps_band = _valuearray select 3;
 _grps_sold = _valuearray select 4;
 _grps_surv = _valuearray select 5;
 _grps_upd = [];
+
+_grps_upd = _grps_band;
 
 //for [{_i = (count _grps_band)},{_i < (_max_grps select 0)}, {_i=_i+1}]  do
 for "_i" from (count _grps_band) to ((_max_grps select 0) - 1) do

@@ -14,7 +14,7 @@
 */
 private ["_leadername","_type","_patrol_area_name","_grouptype","_snipers","_riflemen","_action","_side","_leaderList","_riflemenlist","_sniperlist","_rndpos","_group","_leader","_cond","_respawn","_leader_weapon_names","_leader_items","_leader_tools","_soldier_weapon_names","_soldier_items","_soldier_tools","_sniper_weapon_names","_sniper_items","_sniper_tools","_leaderskills","_riflemanskills","_sniperskills","_ups_para_list","_respawn_time","_argc","_ai_type"];
 
-if (elec_stop_exec == 1) exitWith {};
+if (!isServer) exitWith {};
 
 _patrol_area_name = _this select 0;
 _grouptype = 		_this select 1;
@@ -53,10 +53,10 @@ switch (_grouptype) do
 };
 
 _leaderList = call compile format ["SAR_leader_%1_list", _type];
-//_leaderskills = call compile format ["SAR_leader_%1_skills", _type];
+_leaderskills = call compile format ["SAR_leader_%1_skills", _type];
 
 // get a random starting position that is on land
-_rndpos = [_patrol_area_name] call UPSMON_pos;
+_rndpos = [_patrol_area_name,0,SAR_Blacklist] call UPSMON_pos;
 
 _group = createGroup _side;
 
@@ -69,6 +69,8 @@ _leader_tools = ["leader",_type] call SAR_unit_loadout_tools;
 
 [_leader,_leader_weapon_names,_leader_items,_leader_tools] call SAR_unit_loadout;
 
+if (_side == SAR_AI_unfriendly_side) then {removeHeadgear _leader; _leader addHeadGear (["H_Shemag_olive","H_Shemag_olive_hs","H_ShemagOpen_khk","H_ShemagOpen_tan"] call BIS_fnc_selectRandom);};
+
 [_leader] spawn SAR_AI_trace;
 _leader setIdentity "id_SAR_sold_lead";
 [_leader] spawn SAR_AI_reammo;
@@ -76,33 +78,26 @@ _leader setIdentity "id_SAR_sold_lead";
 _leader addMPEventHandler ["MPkilled", {Null = _this spawn  SAR_AI_killed;}];
 _leader addMPEventHandler ["MPHit", {Null = _this spawn SAR_AI_hit;}];
 
-[_leader] joinSilent _group;
-/* 
+[_leader] join _group;
+
 // set skills of the leader
 {
     _leader setskill [_x select 0,(_x select 1 +(floor(random 2) * (_x select 2)))];
 } foreach _leaderskills;
 
-// define and store the leadername
-SAR_leader_number = SAR_leader_number + 1;
-_leadername = format ["SAR_leader_%1",SAR_leader_number];
-
-_leader setVehicleVarname _leadername;
-_leader setVariable ["SAR_leader_name",_leadername,false];
-*/
 // store AI type on the AI
 _leader setVariable ["SAR_AI_type",_ai_type + " Leader",false];
-/*
+
+// store experience value on AI
+_leader setVariable ["SAR_AI_experience",0,false];
+
 // set behaviour & speedmode
 _leader setspeedmode "FULL";
 _leader setBehaviour "AWARE";
 
-// if needed broadcast to the clients  **I believe the new UPSMON does this already
-//_leader Call Compile Format ["%1=_This ; PublicVariable ""%1""",_leadername];
- */
 // Establish siper unit type and skills
 _sniperlist = call compile format ["SAR_sniper_%1_list", _type];
-//_sniperskills = call compile format ["SAR_sniper_%1_skills", _type];
+_sniperskills = call compile format ["SAR_sniper_%1_skills", _type];
 
 // create crew
 for "_i" from 0 to (_snipers - 1) do
@@ -115,6 +110,8 @@ for "_i" from 0 to (_snipers - 1) do
 	
 	[_this,_sniper_weapon_names,_sniper_items,_sniper_tools] call SAR_unit_loadout;
 
+	if (_side == SAR_AI_unfriendly_side) then {removeHeadgear _this; _this addHeadGear (["H_Shemag_olive","H_Shemag_olive_hs","H_ShemagOpen_khk","H_ShemagOpen_tan"] call BIS_fnc_selectRandom);};
+	
 	[_this] spawn SAR_AI_trace;
 	_this setIdentity "id_SAR";
 	[_this] spawn SAR_AI_reammo;
@@ -122,20 +119,23 @@ for "_i" from 0 to (_snipers - 1) do
 	_this addMPEventHandler ["MPkilled", {Null = _this spawn SAR_AI_killed;}];
 	_this addMPEventHandler ["MPHit", {Null = _this spawn SAR_AI_hit;}];
 
-	[_this] joinSilent _group;
-	/* 
+	[_this] join _group;
+	
 	// set skills
 	{
 		_this setskill [_x select 0,(_x select 1 +(floor(random 2) * (_x select 2)))];
 	} foreach _sniperskills;
-	*/
+	
 	// store AI type on the AI
 	_this setVariable ["SAR_AI_type",_ai_type,false];
+	
+	// store experience value on AI
+    _this setVariable ["SAR_AI_experience",0,false];
 };
 
 // Establish rifleman unit type and skills
 _riflemenlist = call compile format ["SAR_soldier_%1_list", _type];
-//_riflemanskills = call compile format ["SAR_soldier_%1_skills", _type];
+_riflemanskills = call compile format ["SAR_soldier_%1_skills", _type];
 
 for "_i" from 0 to (_riflemen - 1) do
 {
@@ -147,6 +147,8 @@ for "_i" from 0 to (_riflemen - 1) do
 
     [_this,_soldier_weapon_names,_soldier_items,_soldier_tools] call SAR_unit_loadout;
 
+	if (_side == SAR_AI_unfriendly_side) then {removeHeadgear _this; _this addHeadGear (["H_Shemag_olive","H_Shemag_olive_hs","H_ShemagOpen_khk","H_ShemagOpen_tan"] call BIS_fnc_selectRandom);};
+	
 	[_this] spawn SAR_AI_trace;
 	_this setIdentity "id_SAR_sold_man";
 	[_this] spawn SAR_AI_reammo;
@@ -154,15 +156,18 @@ for "_i" from 0 to (_riflemen - 1) do
     _this addMPEventHandler ["MPkilled", {Null = _this spawn SAR_AI_killed;}];
     _this addMPEventHandler ["MPHit", {Null = _this spawn SAR_AI_hit;}];
 
-    [_this] joinSilent _group;
-/* 
+    [_this] join _group;
+
     // set skills
     {
         _this setskill [_x select 0,(_x select 1 +(floor(random 2) * (_x select 2)))];
     } foreach _riflemanskills;
- */
+
     // store AI type on the AI
     _this setVariable ["SAR_AI_type",_ai_type,false];
+	
+	// store experience value on AI
+    _this setVariable ["SAR_AI_experience",0,false];
 };
 
 // initialize upsmon for the group
@@ -174,10 +179,10 @@ if (_respawn) then {
     _ups_para_list pushBack [_respawn_time];
 };
 
-if !(SAR_AI_STEAL_VEHICLE) then {
+if (!SAR_AI_STEAL_VEHICLE) then {
     _ups_para_list pushBack ['NOVEH'];
 };
-if !(SAR_AI_COMBAT_VEHICLE) then {
+if (!SAR_AI_COMBAT_VEHICLE) then {
     _ups_para_list pushBack ['NOVEH2'];
 };
 
@@ -212,6 +217,10 @@ switch (_action) do {
 	};
 };
 
+if (SAR_DEBUG) then {
+    diag_log format ["Sarge's AI System: Infantry group (%3) spawned in: %1 with action: %2 on side: %4",_patrol_area_name,_action,_group,(side _group)];
+};
+
 if (SAR_HC) then {
 	{
 		_hcID = getPlayerUID _x;
@@ -219,19 +228,15 @@ if (SAR_HC) then {
 			_SAIS_HC = _group setGroupOwner (owner _x);
 			if (_SAIS_HC) then {
 				if (SAR_DEBUG) then {
-					diag_log format ["Sarge's AI System: Moved group %1 to Headless Client %2",_group,_hcID];
+					diag_log format ["Sarge's AI System: Now moving group %1 to Headless Client %2",_group,_hcID];
 				};
 			} else {
 				if (SAR_DEBUG) then {
-					diag_log format ["Sarge's AI System: Moving group %1 to Headless Client %2 has failed",_group,_hcID];
+					diag_log format ["Sarge's AI System: ERROR! Moving group %1 to Headless Client %2 has failed!",_group,_hcID];
 				};
 			};
 		};
 	} forEach allPlayers;
-};
-
-if (SAR_DEBUG) then {
-    diag_log format ["Sarge's AI System: Infantry group (%3) spawned in: %1 with action: %2 on side: %4",_patrol_area_name,_action,_group,(side _group)];
 };
 
 _group;

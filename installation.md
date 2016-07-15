@@ -11,7 +11,33 @@ At the bottom of the description.ext file add this line:
 ```
 
 ### Step 3
+Open the config.cpp file in the mission PBO root and search for the word CfgExileCustomCode and make it look like the following:
+```html
+class CfgExileCustomCode 
+{
+	/*
+		You can overwrite every single file of our code without touching it.
+		To do that, add the function name you want to overwrite plus the 
+		path to your custom file here. If you wonder how this works, have a
+		look at our bootstrap/fn_preInit.sqf function.
+
+		Simply add the following scheme here:
+
+		<Function Name of Exile> = "<New File Name>";
+
+		Example:
+
+		ExileClient_util_fusRoDah = "myaddon\myfunction.sqf";
+	*/
+	ExileClient_system_rating_balance = "sarge\ratingFix.sqf";
+};
+```
+
+### Step 4
 Download and extract the sarge and scripts folders  to the root of the mission folder
+
+### Step 5
+Repackage your mission PBO and enjoy!
 
 ### InfiniStar
 In the EXILE_AH.sqf file inside the PBO do a search for rating. This should be line 793 and should look like the below. Remove this line:
@@ -36,5 +62,3 @@ if(_rating < 500000)then
   };
 };
 ```
-### Step 4
-Repackage your mission PBO and enjoy!

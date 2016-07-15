@@ -1,4 +1,4 @@
-# Sarge-AI 2.1.0
+# Sarge-AI
 Attention! This AI system should not be used with other AI systems that can not accomodate friendly factions.
 
 ## Description

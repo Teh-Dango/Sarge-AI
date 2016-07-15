@@ -39,7 +39,7 @@ Download and extract the sarge and scripts folders  to the root of the mission f
 ### Step 5
 Repackage your mission PBO and enjoy!
 
-### InfiniStar
+### Do You Use InfiniStar?
 In the EXILE_AH.sqf file inside the PBO do a search for rating. This should be line 793 and should look like the below. Remove this line:
 ```html
 if(rating player < 999999)then{player addRating 9999999;};

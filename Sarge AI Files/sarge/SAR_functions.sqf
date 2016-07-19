@@ -22,7 +22,7 @@ SAR_circle_static = {
 
     _count = 0;
 
-	//diag_log "SAR_AI: Group should form a circle";
+	diag_log "SAR_AI: Group should form a circle";
 
     _leader = _this select 0;
     _action = _this select 1;
@@ -42,13 +42,21 @@ SAR_circle_static = {
         sleep .5;
 
         //play leader stop animation
-        _leader playAction "gestureFreeze";
-        sleep 2;
+       /*  _leader playAction "gestureFreeze";
+        sleep 2; */
 
         if(_action == "defend") then {
             _center = _leader;
             _leader forceSpeed 0;
             _defend = true;
+			
+			_leader disableAI "move";
+			_leader setunitpos "up";
+			_leader disableAI "target";
+			
+			_grp enableAttack false;
+			
+			//["NOAI"] spawn UPSMON;
         };
 
         if(_action == "campfire") then {

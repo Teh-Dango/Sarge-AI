@@ -15,11 +15,12 @@
 private ["_targetAI","_actingPlayer","_animState","_started","_finished","_isMedic","_leadername"];
 
 
-if (isServer || !hasInterface) exitWith {}; // only run this on the client
+//if (isServer) exitWith {}; // only run this on the client
+//if (!hasInterface) exitWith {}; // only run this on the client
 
 _targetAI = _this select 0;
 _actingPlayer = _this select 1;
-
+/* 
 _leadername = _targetAI getVariable ["SAR_leader_name",false];
 
 // suspend UPSMON
@@ -27,13 +28,13 @@ call compile format ["KRON_UPS_%1=2",_leadername];
 
 publicVariable format["KRON_UPS_%1",_leadername];
 sleep 5;
+ */
 
-[_targetAI,"defend",15] spawn SAR_circle_static;
+diag_log ["Sarge AI System: Sarge Interact feature activated!"];
 
+//[_targetAI,"defend",15] spawn SAR_circle_static;
 
-
-
-if (vehicle _targetAI == _targetAI) then {
+/* if (vehicle _targetAI == _targetAI) then {
     doMedicAnim = [_targetAI,"Medic"];
     publicVariable "doMedicAnim";
 };
@@ -70,7 +71,4 @@ if (_finished) then {
 	r_interrupt = false;
     doMedicAnim = [_targetAI,"Stop"];
     publicVariable "doMedicAnim";
-};
-
-// resume UPSMON
-call compile format ["KRON_UPS_%1=1",_leadername];
+}; */

@@ -78,6 +78,93 @@ _leader setIdentity "id_SAR_sold_lead";
 _leader addMPEventHandler ["MPkilled", {Null = _this spawn  SAR_AI_killed;}];
 _leader addMPEventHandler ["MPHit", {Null = _this spawn SAR_AI_hit;}];
 
+_leader addEventHandler ["HandleDamage",{if (_this select 1!="") then {_unit=_this select 0;damage _unit+((_this select 2)-damage _unit)*SAR_leader_health_factor}}];
+
+[_leader, ["Help Me!", {
+	//Parameters:
+	//_leader = the leader of the group
+	//_action = the action to execute while forming a circle
+	//_radius = the radius of the circle
+	private ["_center","_defend","_veh","_angle","_dir","_newpos","_forEachIndex","_leader","_action","_grp","_pos","_units","_count","_viewangle","_radius"];
+
+    _count = 0;
+
+	diag_log "SAR_AI: Group should form a circle";
+
+    _leader = _this select 0;
+    //_action = _this select 1;
+    _action = "defend";
+    //_radius = _this select 2;
+    _radius = 15;
+
+    _grp = group _leader;
+    _defend = false;
+    _units = units _grp;
+    _count = count _units;
+
+    if(_count > 1) then {      // only do this for groups > 1 unit
+
+        _pos = getposASL _leader;
+        _pos = (_leader) modelToWorld[0,0,0];
+
+        doStop _leader;
+        sleep .5;
+
+        //play leader stop animation
+        _leader playAction "gestureFreeze";
+        sleep 2;
+
+        if (_action == "defend") then {
+            _center = _leader;
+            _leader forceSpeed 0;
+            _defend = true;
+			
+			_leader disableAI "move";
+			_leader setunitpos "up";
+			_leader disableAI "target";
+			
+			_grp enableAttack false;
+			["NOAI"] spawn UPSMON;
+        };
+
+        if (_action == "campfire") then {
+            _veh = createvehicle ["Land_Campfire_burning",_pos,[],0,"NONE"];
+            _center = _veh;
+        };
+
+        if (_defend) then {
+            _angle = 360/(_count-1);
+        } else {
+            _angle = 360/(_count);
+        };
+
+        _grp enableGunLights "AUTO";
+        _grp setBehaviour "CARELESS";
+
+        {
+            if (_x != _leader || {_x == _leader && !_defend}) then {
+
+                _newpos = (_center modelToWorld [(sin (_forEachIndex * _angle))*_radius, (cos (_forEachIndex *_angle))*_radius, 0]);
+				//diag_log format["Newpos %1: %2",_foreachindex,_newpos];
+
+                if (_defend) then {
+                    _dir = 0;
+                } else {
+                    _dir = 180;
+                };
+				
+                _viewangle = (_foreachIndex * _angle) pushBack _dir;
+                [_x,_pos,_newpos,_viewangle,_defend]spawn SAR_move_to_circle_pos;
+            };
+        } foreach _units;
+        //_leader disableAI "MOVE";
+	};
+
+}]] remoteExec ["addAction", 0, true];
+
+//["I need assistance!",{"sarge\SAR_interact.sqf","",1,true,true,"","(side _target != EAST)"}]
+//_leader addaction ["Help Me!", {"sarge\SAR_interact.sqf" remoteExec [ "BIS_fnc_execVM",0]}]; 
+
 [_leader] join _group;
 
 // set skills of the leader
@@ -85,15 +172,21 @@ _leader addMPEventHandler ["MPHit", {Null = _this spawn SAR_AI_hit;}];
     _leader setskill [_x select 0,(_x select 1 +(floor(random 2) * (_x select 2)))];
 } foreach _leaderskills;
 
+SAR_leader_number = SAR_leader_number + 1;
+_leadername = format["SAR_leader_%1",SAR_leader_number];
+
+_leader setVehicleVarname _leadername;
+_leader setVariable ["SAR_leader_name",_leadername,false];
+
 // store AI type on the AI
 _leader setVariable ["SAR_AI_type",_ai_type + " Leader",false];
 
 // store experience value on AI
 _leader setVariable ["SAR_AI_experience",0,false];
 
-// set behaviour & speedmode
+/* // set behaviour & speedmode
 _leader setspeedmode "FULL";
-_leader setBehaviour "AWARE";
+_leader setBehaviour "AWARE"; */
 
 // Establish siper unit type and skills
 _sniperlist = call compile format ["SAR_sniper_%1_list", _type];
@@ -119,6 +212,8 @@ for "_i" from 0 to (_snipers - 1) do
 	_this addMPEventHandler ["MPkilled", {Null = _this spawn SAR_AI_killed;}];
 	_this addMPEventHandler ["MPHit", {Null = _this spawn SAR_AI_hit;}];
 
+	_this addEventHandler ["HandleDamage",{if (_this select 1!="") then {_unit=_this select 0;damage _unit+((_this select 2)-damage _unit)*1}}];    
+	
 	[_this] join _group;
 	
 	// set skills
@@ -156,6 +251,8 @@ for "_i" from 0 to (_riflemen - 1) do
     _this addMPEventHandler ["MPkilled", {Null = _this spawn SAR_AI_killed;}];
     _this addMPEventHandler ["MPHit", {Null = _this spawn SAR_AI_hit;}];
 
+	_this addEventHandler ["HandleDamage",{if (_this select 1!="") then {_unit=_this select 0;damage _unit+((_this select 2)-damage _unit)*1}}];    
+	
     [_this] join _group;
 
     // set skills
@@ -171,23 +268,20 @@ for "_i" from 0 to (_riflemen - 1) do
 };
 
 // initialize upsmon for the group
-_ups_para_list = [_leader,_patrol_area_name,'NOFOLLOW','AWARE','SPAWNED','DELETE:',SAR_DELETE_TIMEOUT];
-
-if (_respawn) then {
-    _ups_para_list pushBack ['RESPAWN'];
-    _ups_para_list pushBack ['RESPAWNTIME:'];
-    _ups_para_list pushBack [_respawn_time];
-};
+_ups_para_list = [_leader,_patrol_area_name,'FULL','AWARE','NOSHARE','NOFOLLOW','AWARE','SPAWNED','DELETE:',SAR_DELETE_TIMEOUT];
 
 if (!SAR_AI_STEAL_VEHICLE) then {
-    _ups_para_list pushBack ['NOVEH'];
-};
-if (!SAR_AI_COMBAT_VEHICLE) then {
     _ups_para_list pushBack ['NOVEH2'];
 };
 
 if (SAR_AI_disable_UPSMON_AI) then {
 	_ups_para_list pushBack ['NOAI'];
+};
+
+if (_respawn) then {
+    _ups_para_list pushBack ['RESPAWN'];
+    _ups_para_list pushBack ['RESPAWNTIME:'];
+    _ups_para_list pushBack [_respawn_time];
 };
 
 if(_action == "") then {_action = "PATROL";};
@@ -206,7 +300,7 @@ switch (_action) do {
     {
         _ups_para_list spawn UPSMON;
     };
-    case "AMBUSH":
+    case "AMBUSH2":
     {
         _ups_para_list pushBack ['AMBUSH'];
         _ups_para_list spawn UPSMON;

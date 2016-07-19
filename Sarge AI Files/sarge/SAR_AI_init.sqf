@@ -36,7 +36,7 @@ SAR_AI_VEH_HIT			= compile preprocessFileLineNumbers "sarge\SAR_ai_vehicle_hit.s
 SAR_AI_trace_veh		= compile preprocessFileLineNumbers "sarge\SAR_trace_from_vehicle.sqf";
 
 SAR_AI_spawn			= compile preprocessFileLineNumbers "sarge\SAR_AI_spawn.sqf";
-SAR_AI_Heli_spawn		= compile preprocessFileLineNumbers "sarge\SAR_AI_Heli_spawn.sqf";
+//SAR_AI_Heli_spawn		= compile preprocessFileLineNumbers "sarge\SAR_AI_Heli_spawn.sqf";
 SAR_AI_despawn			= compile preprocessFileLineNumbers "sarge\SAR_AI_despawn.sqf";
 SAR_AI_reammo			= compile preprocessFileLineNumbers "sarge\SAR_reammo_refuel_AI.sqf";
 
@@ -84,7 +84,7 @@ if (SAR_dynamic_spawning) then {
 	scopeName "SAR_AI_DYNAI";
 	
 	try {
-		if (!(_worldname in ["altis","chernarus","taviana","namalsk","lingor3","mbg_celle2","takistan","fallujah","panthera2"])) then {throw _worldName};
+		if (!(_worldname in SAR_Maps)) then {throw _worldName};
 		call compile preprocessFileLineNumbers (format ["sarge\map_config\SAR_cfg_grid_%1.sqf",_worldname]);
 	} catch {
 		diag_log format ["Sarge's AI System: %1 does not currently support dynamic AI spawning! Dynamic AI spawning has been disabled!",_worldName];
@@ -151,17 +151,25 @@ if (SAR_dynamic_spawning) then {
 
         };
     };
-    diag_log format["Sarge's AI System: Map grid has now been established."];
+    diag_log format["Sarge's AI System: The map grid has been established for %1.",worldName];
 	
-	diag_log format["Sarge's AI System: Now initializing spawn definitions for %1.",_worldname];
 	["dynamic"] call compile preprocessFileLineNumbers (format ["sarge\map_config\SAR_cfg_grps_%1.sqf",_worldname]);
-	diag_log format["Sarge's AI System: Spawn definitions have been configured."];
+	diag_log format["Sarge's AI System: Dynamic spawn definitions have been configured for %1.",worldName];
 };
 
-diag_log format["Sarge's AI System: Now initializing spawn definitions for %1.",_worldname];
 ["static"] call compile preprocessFileLineNumbers (format ["sarge\map_config\SAR_cfg_grps_%1.sqf",_worldname]);
-diag_log format["Sarge's AI System: Spawn definitions have been configured."];
+diag_log format["Sarge's AI System: Static spawn definitions have been configured for %1.",_worldname];
 
+switch (_worldname) do {
+	case "namalsk": {SAR_Blacklist = ["TraderZoneSebjan","NorthernBoatTrader","SouthernBoatTrader"];};
+	case "altis": {SAR_Blacklist = ["MafiaTraderCity","TraderZoneSilderas","TraderZoneFolia"];};
+	case "tanoa": {SAR_Blacklist = ["ExileMarker1","ExileMarker13","ExileMarker15","ExileMarker35","ExileMarker51"];};
+	default {diag_log format ["Sarge's AI System: ERROR! Blacklisted zones have not been established!",worldName];};
+};
+
+diag_log format ["Sarge's AI System: Blacklisted zones have been established for %1",worldName];
+diag_log format ["Sarge's AI System: Blacklisted zones are %1",SAR_Blacklist];
+	
 if (SAR_Base_Gaurds) then {
 	[] execVM "sarge\SAR_init_Base_guards.sqf";
 };

@@ -12,9 +12,10 @@
 	https://www.hod-servers.com
 
 */
-SAR_version = "2.1.0";
-
+SAR_version = "2.1.7";
 SAR_HC = true;
+
+SAR_maps = ["altis","chernarus","taviana","namalsk","lingor3","mbg_celle2","takistan","fallujah","panthera2","tanoa"];
 
 /* Debug & RPT Settings */
 SAR_DEBUG 			= true; // Set to true for RPT info on AI
@@ -43,34 +44,46 @@ SAR_DETECT_INTERVAL 				= 15;		// How often AI can detect AI & players
 SAR_DETECT_HOSTILE_FROM_VEHICLE 	= 500;		// How far AI can detect hostile AI & players while in a vehicle
 SAR_DETECT_FROM_VEHICLE_INTERVAL 	= 5;		// How often AI can detect hostile AI & players while in a vehicle
 
+// Chance the AI will spawn
 SAR_chance_bandits 			= 75; 	// Chance to spawn 1-100%
 SAR_chance_soldiers 		= 25; 	// Chance to spawn 1-100%
 SAR_chance_survivors 		= 50; 	// Chance to spawn 1-100%
+
+// Max number of AI groups allowed at once
 SAR_max_grps_bandits 		= 4; 	// Total groups per grid
 SAR_max_grps_soldiers 		= 2; 	// Total groups per grid
 SAR_max_grps_survivors 		= 2; 	// Total groups per grid
+
+// Size of AI groups plus a leader
 SAR_max_grpsize_bandits 	= 2; 	// Size of the group
 SAR_max_grpsize_soldiers 	= 2;	// Size of the group
 SAR_max_grpsize_survivors 	= 2; 	// Size of the group
 
+// Chance the AI Helicopters will spawn - IN DEVELOPMENT
 SAR_chance_band_heli		= 35;
 SAR_chance_surv_heli		= 35;
 SAR_chance_mili_heli		= 35;
 
-SAR_Blacklist = ["TraderZoneSebjan","NorthernBoatTrader","SouthernBoatTrader"];
-
+// AI experience system
 SAR_AI_XP_SYSTEM 	= true;		// Turn this feature on or off
+
+// Level 1 settings
 SAR_AI_XP_LVL_1 	= 0; 		// xp needed to reach this level
 SAR_AI_XP_NAME_1 	= "Rookie"; // name of the level range
 SAR_AI_XP_ARMOR_1 	= 1; 		// armor value for this level - values: 0.1 - 1, 1 = no change, 0.5 = damage taken reduced by 50%, 0.1 = damage taken reduced by 90%
 
+// Level 2 settings
 SAR_AI_XP_LVL_2 	= 5;
 SAR_AI_XP_NAME_2 	= "Veteran";
 SAR_AI_XP_ARMOR_2 	= 0.5;
 
+// Level 3 settings
 SAR_AI_XP_LVL_3 	= 20;
 SAR_AI_XP_NAME_3 	= "Legendary";
 SAR_AI_XP_ARMOR_3 	= 0.3;
+
+// Bonus factors for leaders
+SAR_leader_health_factor = 1; // values: 0.1 - 1, 1 = no change, 0.5 = damage taken reduced by 50%, 0.1 = damage taken reduced by 90% -  EXPERIMENTAL
 
 
 // military AI
@@ -269,7 +282,7 @@ SAR_heli_type = ["B_Heli_Light_01_stripped_F"];
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
-//SAR_HC = false // Depreciated
 SAR_AI_friendly_side = RESISTANCE;
 SAR_AI_unfriendly_side = EAST;
 SAR_AI_monitor = [];
+SAR_leader_number = 0;

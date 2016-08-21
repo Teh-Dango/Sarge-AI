@@ -11,7 +11,7 @@ class CfgPatches {
 };
 
 class CfgFunctions {
-	class SargeAI {
+	class SAR {
 		class main {
 			file = "addons\sarge\init";
 			class preInit {
@@ -21,31 +21,24 @@ class CfgFunctions {
 				postInit = 1;
 			};
 		};
-		/* class SAR_compiles {
-			class SAR_AI_base_trace {};
-			class SAR_AI_despawn {};
-			class SAR_AI_guards {};
-			class SAR_AI_hit {};
-			class SAR_AI_infantry {};
-			class SAR_AI_killed {};
-			class SAR_AI_mon_read {};
-			class SAR_AI_mon_upd {};
-			class SAR_AI_spawn {};
-			class SAR_AI_trace {};
-			class SAR_AI_trace_veh {};
-			class SAR_AI_veh_hit {};
-			class SAR_AI_vehicle {};
-			class SAR_debug_mon {};
-			class SAR_isKindOfWeapon {};
-			class SAR_returnConfigEntry {};
-			class SAR_returnVehicleTurrets {};
-			class SAR_unit_loadout {};
-			class SAR_unit_loadout_items {};
-			class SAR_unit_loadout_tools {};
-			class SAR_unit_loadout_weapons {};
-			class SAR_unit_refresh {};
-			class toggle_base_guards {};
-		}; */
+		class compiles {
+			file = "addons\sarge\code\functions";
+			class AI_despawn {};
+			class AI_guards {};
+			class AI_heli {};
+			class AI_hit {};
+			class AI_hit_vehicle {};
+			class AI_infantry {};
+			class AI_interact {};
+			class AI_killed {};
+			class AI_refresh {};
+			class AI_spawn {};
+			class AI_trace {};
+			class AI_trace_base {};
+			class AI_trace_vehicle {};
+			class AI_traders {};
+			class AI_vehicle {};
+		};
 	};
 };
 

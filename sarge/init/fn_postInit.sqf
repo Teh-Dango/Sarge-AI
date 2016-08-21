@@ -9,48 +9,16 @@
 	Sarge AI System 2.0+
 	Modded for Arma 3: Exile Mod
 	Changes: Dango
-	https://www.hod-servers.com
+	http://www.hod-servers.com
 	https://github.com/Teh-Dango
 */
 private ["_worldname","_startx","_starty","_gridsize_x","_gridsize_y","_gridwidth","_markername","_triggername","_trig_act_stmnt","_trig_deact_stmnt","_trig_cond","_check","_script_handler","_legendname"];
 
-call compile preProcessFileLineNumbers "\addons\sarge\Init_UPSMON.sqf";
+diag_log format ["Sarge's AI System: Welcome to Sarge AI!"];
+diag_log format ["Sarge's AI System: Now initializing Sarge AI version %1 for %2",SAR_version,worldName];
 
-SAR_AI_hit				= compile preprocessFileLineNumbers "\addons\sarge\SAR_aihit.sqf";
-SAR_AI_trace			= compile preprocessFileLineNumbers "\addons\sarge\SAR_trace_entities.sqf";
-SAR_AI_base_trace		= compile preprocessFileLineNumbers "\addons\sarge\SAR_trace_base_entities.sqf";
-
-call compile preprocessFileLineNumbers "\addons\sarge\SAR_config.sqf";
-
-diag_log format["Sarge's AI System: Starting Sarge AI version %1",SAR_version];
-
-SAR_AI_killed			= compile preprocessFileLineNumbers "\addons\sarge\SAR_aikilled.sqf";
-SAR_AI_VEH_HIT			= compile preprocessFileLineNumbers "\addons\sarge\SAR_ai_vehicle_hit.sqf";
-
-SAR_AI_trace_veh		= compile preprocessFileLineNumbers "\addons\sarge\SAR_trace_from_vehicle.sqf";
-
-SAR_AI_spawn			= compile preprocessFileLineNumbers "\addons\sarge\SAR_AI_spawn.sqf";
-//SAR_AI_Heli_spawn		= compile preprocessFileLineNumbers "\addons\sarge\SAR_AI_Heli_spawn.sqf";
-SAR_AI_despawn			= compile preprocessFileLineNumbers "\addons\sarge\SAR_AI_despawn.sqf";
-SAR_AI_reammo			= compile preprocessFileLineNumbers "\addons\sarge\SAR_reammo_refuel_AI.sqf";
-
-SAR_AI					= compile preprocessFileLineNumbers "\addons\sarge\SAR_setup_AI_patrol.sqf";
-SAR_AI_heli				= compile preprocessFileLineNumbers "\addons\sarge\SAR_setup_AI_patrol_heli.sqf";
-SAR_AI_land				= compile preprocessFileLineNumbers "\addons\sarge\SAR_setup_AI_patrol_land.sqf";
-SAR_AI_GUARDS			= compile preprocessFileLineNumbers "\addons\sarge\SAR_setup_AI_patrol_guards.sqf";
-
-call compile preprocessFileLineNumbers "\addons\sarge\SAR_functions.sqf";
-
-publicvariable "SAR_surv_kill_value";
-publicvariable "SAR_band_kill_value";
-publicvariable "SAR_DEBUG";
-publicvariable "SAR_EXTREME_DEBUG";
-publicvariable "SAR_DETECT_HOSTILE";
-publicvariable "SAR_DETECT_INTERVAL";
-publicvariable "SAR_HUMANITY_HOSTILE_LIMIT";
-
-createCenter EAST;
-createCenter WEST;
+call compile preProcessFileLineNumbers "\addons\sarge\UPSMON\Init_UPSMON.sqf";
+call compile preProcessFileLineNumbers "\addons\sarge\code\functions\fn_functions.sqf";
 
 // unfriendly AI bandits
 EAST setFriend [EAST, 1];
@@ -70,16 +38,14 @@ WEST setFriend [RESISTANCE, 1];
 waituntil {(!isNil "PublicServerIsLoaded")};
 waituntil {(PublicServerIsLoaded)};
 
-_worldname = toLower worldName;
-diag_log format["Sarge's AI System: Setting up SAR_AI for %1",_worldname];
-
 if (SAR_dynamic_spawning) then {
 
+	_worldname = toLower worldName;
 	if (!(_worldname in SAR_Maps)) exitWith {diag_log format ["Sarge's AI System: %1 does not currently support dynamic AI spawning! Dynamic AI spawning has been disabled!",_worldName];};
 	
 	diag_log format ["Sarge's AI System: Now generating dynamic map grid for %1.",_worldname];
 
-	call compile preprocessFileLineNumbers (format ["\addons\sarge\map_config\SAR_cfg_grid_%1.sqf",_worldname]);
+	call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grid_%1.sqf",_worldname]);
 	
 	// Create grid system and triggers
     SAR_area_ = text format ["SAR_area_%1","x"];
@@ -127,8 +93,8 @@ if (SAR_dynamic_spawning) then {
 
             call compile format ["SAR_trig_%1_%2 = _this",_ii,_i];
 
-            _trig_act_stmnt = format["if (SAR_DEBUG) then {diag_log 'SAR DEBUG: trigger on in %1';};[thislist,'%1'] spawn SAR_AI_spawn;",_triggername];
-            _trig_deact_stmnt = format["if (SAR_DEBUG) then {diag_log 'SAR DEBUG: trigger off in %1';};[thislist,thisTrigger,'%1'] spawn SAR_AI_despawn;",_triggername];
+            _trig_act_stmnt = format["if (SAR_DEBUG) then {diag_log 'SAR DEBUG: trigger on in %1';};[thislist,'%1'] spawn SAR_fnc_AI_spawn;",_triggername];
+            _trig_deact_stmnt = format["if (SAR_DEBUG) then {diag_log 'SAR DEBUG: trigger off in %1';};[thislist,thisTrigger,'%1'] spawn SAR_fnc_AI_despawn;",_triggername];
 
             _trig_cond = "{isPlayer _x} count thisList > 0;";
 
@@ -141,23 +107,24 @@ if (SAR_dynamic_spawning) then {
     };
     diag_log format["Sarge's AI System: The map grid has been established for %1.",worldName];
 	
-	["dynamic"] call compile preprocessFileLineNumbers (format ["\addons\sarge\map_config\SAR_cfg_grps_%1.sqf",_worldname]);
+	["dynamic"] call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grps_%1.sqf",_worldname]);
 	diag_log format["Sarge's AI System: Dynamic spawn definitions have been configured for %1.",worldName];
 };
 
-["static"] call compile preprocessFileLineNumbers (format ["\addons\sarge\map_config\SAR_cfg_grps_%1.sqf",_worldname]);
+["static"] call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grps_%1.sqf",_worldname]);
 diag_log format["Sarge's AI System: Static spawn definitions have been configured for %1.",_worldname];
 
-switch (_worldname) do {
-	case "namalsk": {SAR_Blacklist = ["TraderZoneSebjan","NorthernBoatTrader","SouthernBoatTrader"];};
-	case "altis": {SAR_Blacklist = ["MafiaTraderCity","TraderZoneSilderas","TraderZoneFolia"];};
-	case "tanoa": {SAR_Blacklist = ["ExileMarker1","ExileMarker13","ExileMarker15","ExileMarker35","ExileMarker51"];};
-	default {diag_log format ["Sarge's AI System: Blacklisted zones are not currently supported for %1!",worldName];};
+if (SAR_useBlacklist) then {
+	switch (_worldname) do {
+		case "namalsk": {SAR_Blacklist = ["TraderZoneSebjan","NorthernBoatTrader","SouthernBoatTrader"];};
+		case "altis": {SAR_Blacklist = ["MafiaTraderCity","TraderZoneSilderas","TraderZoneFolia"];};
+		case "tanoa": {SAR_Blacklist = ["ExileMarker1","ExileMarker13","ExileMarker15","ExileMarker35","ExileMarker51"];};
+		default {diag_log format ["Sarge's AI System: Blacklisted zones are not currently supported for %1!",worldName];};
+	};
+	diag_log format ["Sarge's AI System: Blacklisted zones have been established for %1",worldName];
+	diag_log format ["Sarge's AI System: Blacklisted zones are %1",SAR_Blacklist];
 };
 
-diag_log format ["Sarge's AI System: Blacklisted zones have been established for %1",worldName];
-diag_log format ["Sarge's AI System: Blacklisted zones are %1",SAR_Blacklist];
-	
 if (SAR_Base_Gaurds) then {
-	call compile PreprocessFileLineNumbers "\addons\sarge\SAR_init_Base_guards.sqf";
+	call compile PreprocessFileLineNumbers "\addons\sarge\code\init_base_guards.sqf";
 };

@@ -1,20 +1,6 @@
 #### Rolling Changes
-[New] Protected Zones
-- Safe zones will be changed into a zone that is no longer restricted.
-- Players that attack others will be shot on sight by armed guards.
-- Feature will be on a toggle to turn this feature on and off by admins.
-
-[New] Dynamic Map Support
-- All maps will be supported by way of dynamic grid creation rather than pre defined grids.
-
-[Update] AI Behaviour
-- AI will have more behavioral options such as walking, wepaon position and similar to further the realism.
-- AI leaders will provide medical assistance if they have the materials to provide it.
-- Players may ask the leader of an AI group to help them and the AI will decide if they should or not.
-
-[Change] Spawn Methods
-- Static spawns will be created from it's own file rather than out of the map_config files from now on.
-- Map_config files to adjust dynamic spawns will be called from a single file to make adjustments easier.
+# Major Changes
+ - Development for Sarge AI will be dropping support for the Exile Mod. It will be compatible with all of the same maps it has been but will not support the explicit use of the Exile Mod any longer. I will be creating a seperate folder to hold the current state of things for the Exile Mod but I will not be continuing the support. Sarge AI is being merged into a custom mod we are creating at HoD Servers and the primary focus will be for such. However, since everyone likes Sarge AI it will be available in a basic version that will work with pretty much any map/mod combination. If you wish to contact me please sign up on our fourms at www.hod-servers.com and send me a message or make a thread.
 
 #### 2.2.3 Current
 - [Fix] Static infantry now spawn as intended.

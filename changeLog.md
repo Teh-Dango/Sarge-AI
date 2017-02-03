@@ -1,20 +1,20 @@
 #### Rolling Changes
-	[New] Protected Zones
-	- Safe zones will be changed into a zone that is no longer restricted.
-	- Players that attack others will be shot on sight by armed guards.
-	- Feature will be on a toggle to turn this feature on and off by admins.
-	
-	[New] Dynamic Map Support
-	- All maps will be supported by way of dynamic grid creation rather than pre defined grids.
-	
-	[Update] AI Behaviour
-	- AI will have more behavioral options such as walking, wepaon position and similar to further the realism.
-	- AI leaders will provide medical assistance if they have the materials to provide it.
-	- Players may ask the leader of an AI group to help them and the AI will decide if they should or not.
-	
-	[Change] Spawn Methods
-	- Static spawns will be created from it's own file rather than out of the map_config files from now on.
-	- Map_config files to adjust dynamic spawns will be called from a single file to make adjustments easier.
+[New] Protected Zones
+- Safe zones will be changed into a zone that is no longer restricted.
+- Players that attack others will be shot on sight by armed guards.
+- Feature will be on a toggle to turn this feature on and off by admins.
+
+[New] Dynamic Map Support
+- All maps will be supported by way of dynamic grid creation rather than pre defined grids.
+
+[Update] AI Behaviour
+- AI will have more behavioral options such as walking, wepaon position and similar to further the realism.
+- AI leaders will provide medical assistance if they have the materials to provide it.
+- Players may ask the leader of an AI group to help them and the AI will decide if they should or not.
+
+[Change] Spawn Methods
+- Static spawns will be created from it's own file rather than out of the map_config files from now on.
+- Map_config files to adjust dynamic spawns will be called from a single file to make adjustments easier.
 	
 #### 2.2.3 Current
 	[Fix] Static infantry now spawn as intended.

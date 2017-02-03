@@ -1,19 +1,4 @@
-/*
-	# Original #
-	Sarge AI System 1.5
-	Created for Arma 2: DayZ Mod
-	Author: Sarge
-	https://github.com/Swiss-Sarge
-
-	# Fork #
-	Sarge AI System 2.0+
-	Modded for Arma 3: Exile Mod
-	Changes: Dango
-	https://www.hod-servers.com
-
-*/
-
-#### Rolling Changes ####
+#### Rolling Changes
 	[New] Protected Zones
 	- Safe zones will be changed into a zone that is no longer restricted.
 	- Players that attack others will be shot on sight by armed guards.

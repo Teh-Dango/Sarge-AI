@@ -23,4 +23,4 @@ Many thanks to:
 # Sarge AI Fork
 Dango
 
-http://www.hod-servers.com
+https://www.hod-servers.com/forum

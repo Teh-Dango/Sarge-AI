@@ -1,5 +1,9 @@
+#### 2.2.4
+- Sarge AI will remain in addon form.
+- Coming Soon!
+
 #### Major Changes
- - Development for Sarge AI will be dropping support for the Exile Mod. It will be compatible with all of the same maps it has been but will not support the explicit use of the Exile Mod any longer. I will be creating a seperate folder to hold the current state of things for the Exile Mod but I will not be continuing the support. Sarge AI is being merged into a custom mod we are creating at HoD Servers and the primary focus will be for such. However, since everyone likes Sarge AI it will be available in a basic version that will work with pretty much any map/mod combination. If you wish to contact me please sign up on our fourms at www.hod-servers.com and send me a message or make a thread.
+ - Development for Sarge AI will be dropping support for the Exile Mod. It will be compatible with all of the same maps it has been but will not support the explicit use of the Exile Mod any longer. I will be creating a seperate folder to hold the current state of things for the Exile Mod but I will not be continuing the support. Sarge AI is being merged into a custom mod we are creating at HoD Servers and the primary focus will be for such. However, since everyone likes Sarge AI it will be available in a basic version that will work with pretty much any map/mod combination. If you wish to contact me please sign up on our fourms at https://www.hod-servers.com/forum and send me a message or make a thread.
 
 #### 2.2.3 Current
 - [Fix] Static infantry now spawn as intended.

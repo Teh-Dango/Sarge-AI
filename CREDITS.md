@@ -1,3 +1,8 @@
+# Sarge AI Fork
+Dango
+
+https://www.hod-servers.com/forum
+
 # SARGE AI
 Thanks to SARGE for executing a great idea for Arma survival style servers.
 
@@ -19,8 +24,3 @@ Many thanks to:
 - Molina for all his advice...
 - Grumpy old man for taking time to test this new version of UPSMON and for all his support.
 - Gienkov,Kord,TMP95,RedArmy and many others who test all pieces of the script ...
-
-# Sarge AI Fork
-Dango
-
-https://www.hod-servers.com/forum

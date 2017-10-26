@@ -7,9 +7,8 @@
 
 	# Fork #
 	Sarge AI System 2.0+
-	Modded for Arma 3: Exile Mod
+	Modded for Arma 3: Epoch Mod
 	Changes: Dango
-	https://www.hod-servers.com
 	https://www.hod-servers.com
 
 	Tips:
@@ -18,7 +17,7 @@
 	- Secondary AI skills can be decimal values i.e. 0.23
 	- Lower time intervals for detections require more CPU resources
 */
-SAR_version = "2.2.4";
+SAR_version = "2.2.6";
 SAR_HC = true; // If there is no HC it will spawn on server automatically
 
 // TODO: Create dynamic map support for any map
@@ -292,8 +291,8 @@ SAR_heli_type = ["B_Heli_Light_01_stripped_F"];
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
-SAR_AI_friendly_side = RESISTANCE;
-SAR_AI_unfriendly_side = EAST;
+SAR_AI_friendly_side = WEST;
+SAR_AI_unfriendly_side = RESISTANCE;
 SAR_AI_monitor = [];
 SAR_leader_number = 0;
 

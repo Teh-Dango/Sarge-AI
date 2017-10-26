@@ -7,10 +7,9 @@
 
 	# Fork #
 	Sarge AI System 2.0+
-	Modded for Arma 3: Exile Mod
+	Modded for Arma 3: Epoch Mod
 	Changes: Dango
 	https://www.hod-servers.com
-	https://github.com/Teh-Dango
 */
 private ["_worldname","_startx","_starty","_gridsize_x","_gridsize_y","_gridwidth","_markername","_triggername","_trig_act_stmnt","_trig_deact_stmnt","_trig_cond","_check","_script_handler","_legendname"];
 
@@ -26,18 +25,19 @@ createCenter RESISTANCE;
 createCenter CIVILIAN;
 
 // unfriendly AI bandits
-EAST setFriend [EAST, 1];
-EAST setFriend [CIVILIAN, 1];
-EAST setFriend [WEST, 0];
-EAST setFriend [RESISTANCE, 0];
+RESISTANCE setFriend [EAST, 0];
+RESISTANCE setFriend [CIVILIAN, 0];
+RESISTANCE setFriend [WEST, 0];
+RESISTANCE setFriend [RESISTANCE, 0];
 
 // Players
-RESISTANCE setFriend [EAST, 0];
-RESISTANCE setFriend [WEST, 1];
+EAST setFriend [RESISTANCE, 1];
+WEST setFriend [RESISTANCE, 1];
 
 // friendly AI
-WEST setFriend [EAST, 0];
-WEST setFriend [RESISTANCE, 1];
+WEST setFriend [WEST, 1];
+WEST setFriend [EAST, 1];
+
 
 // Lets hope this helps with the AI's view of object locality
 /* waituntil {(!isNil "PublicServerIsLoaded")};

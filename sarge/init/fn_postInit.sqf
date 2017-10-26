@@ -31,8 +31,8 @@ RESISTANCE setFriend [WEST, 0];
 RESISTANCE setFriend [RESISTANCE, 0];
 
 // Players
-EAST setFriend [RESISTANCE, 1];
-WEST setFriend [RESISTANCE, 1];
+EAST setFriend [RESISTANCE, 0];
+WEST setFriend [RESISTANCE, 0];
 
 // friendly AI
 WEST setFriend [WEST, 1];

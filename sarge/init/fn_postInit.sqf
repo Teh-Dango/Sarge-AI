@@ -19,26 +19,6 @@ diag_log format ["Sarge's AI System: Now initializing Sarge AI version %1 for %2
 call compile preProcessFileLineNumbers "\addons\sarge\UPSMON\Init_UPSMON.sqf";
 call compile preProcessFileLineNumbers "\addons\sarge\code\functions\fn_functions.sqf";
 
-createCenter EAST;
-createCenter WEST;
-createCenter RESISTANCE;
-createCenter CIVILIAN;
-
-// unfriendly AI bandits
-RESISTANCE setFriend [EAST, 0];
-RESISTANCE setFriend [CIVILIAN, 0];
-RESISTANCE setFriend [WEST, 0];
-RESISTANCE setFriend [RESISTANCE, 0];
-
-// Players
-EAST setFriend [RESISTANCE, 0];
-WEST setFriend [RESISTANCE, 0];
-
-// friendly AI
-WEST setFriend [WEST, 1];
-WEST setFriend [EAST, 1];
-
-
 // Lets hope this helps with the AI's view of object locality
 /* waituntil {(!isNil "PublicServerIsLoaded")};
 waituntil {(PublicServerIsLoaded)}; */

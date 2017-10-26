@@ -7,32 +7,28 @@
 
 	# Fork #
 	Sarge AI System 2.0+
-	Modded for Arma 3: Exile Mod
+	Modded for Arma 3: Epoch Mod
 	Changes: Dango
 	https://www.hod-servers.com
 
 */
-private ["_ai","_entity_array","_humanity","_humanitylimit","_sleeptime","_detectrange","_tracewhat","_player_rating","_clientmachine"];
+private ["_ai","_entity_array","_tracewhat","_player_rating","_clientmachine"];
 
 if (!isServer) exitWith {};
 
 _ai = _this select 0;
 _tracewhat = "CAManBase";
 
-_detectrange = SAR_DETECT_HOSTILE_FROM_VEHICLE;
-_respectlimit = SAR_RESPECT_HOSTILE_LIMIT;
-_sleeptime = SAR_DETECT_FROM_VEHICLE_INTERVAL;
-
 while {alive _ai} do {
-    _entity_array = (position _ai) nearEntities [_tracewhat, _detectrange];
+    _entity_array = (position _ai) nearEntities [_tracewhat, SAR_DETECT_HOSTILE_FROM_VEHICLE];
     {
-        if(isPlayer _x && {vehicle _x == _x}) then { // only do that for players that are not in a vehicle
+        if (isPlayer _x && {vehicle _x == _x}) then { // only do that for players that are not in a vehicle
 
             _player_rating = rating _x;
-			_respect = _x getVariable ["ExileScore",0];
-            If (_respect < _respectlimit && {_player_rating > -10000}) then {
+			//_respect = _x getVariable ["ExileScore",0];
+            if (rating player < SAR_RESPECT_HOSTILE_LIMIT && (_player_rating > -10000)) then {
 
-                if(SAR_EXTREME_DEBUG) then {
+                if (SAR_EXTREME_DEBUG) then {
                     diag_log format["SAR EXTREME DEBUG: reducing rating (trace_from_vehicle) for player: %1", _x];
                 };
 				
@@ -50,5 +46,5 @@ while {alive _ai} do {
             };
         };
     } forEach _entity_array;
-    sleep _sleeptime;
+    sleep SAR_DETECT_FROM_VEHICLE_INTERVAL;
 };

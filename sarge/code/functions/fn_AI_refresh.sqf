@@ -7,7 +7,7 @@
 
 	# Fork #
 	Sarge AI System 2.0+
-	Modded for Arma 3: Exile Mod
+	Modded for Arma 3: Epoch Mod
 	Changes: Dango
 	https://www.hod-servers.com
 

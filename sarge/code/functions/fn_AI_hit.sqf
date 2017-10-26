@@ -45,7 +45,7 @@ if((alive _aiKiller) && (isPlayer _aikiller)) then {
 			diag_log format["SAR_HITKILL_DEBUG: friendly AI was hit by Player %1",_aikiller];
 		};
 		
-		_playerRespect = _aikiller getVariable ["ExileScore", 0];
+		/* _playerRespect = _aikiller getVariable ["ExileScore", 0];
 		_playerMoney = _aikiller getVariable ["ExileMoney", 0];
 
 		_repChange = SAR_surv_kill_value / 20;
@@ -57,8 +57,12 @@ if((alive _aiKiller) && (isPlayer _aikiller)) then {
 		(owner _aikiller) publicVariableClient "ExileClientPlayerScore";
 		ExileClientPlayerScore = nil;
 
-		format ["setAccountMoneyAndRespect:%1:%2:%3",_playerMoney ,_playerRespect ,getPlayerUID _aikiller] call ExileServer_system_database_query_fireAndForget;
+		format ["setAccountMoneyAndRespect:%1:%2:%3",_playerMoney ,_playerRespect ,getPlayerUID _aikiller] call ExileServer_system_database_query_fireAndForget; */
 	
+		_humanity = _aikiller getVariable ["humanity",0];
+        _humanity = _humanity - (SAR_surv_kill_value/10);   //substract 10% of kill penalty from humanity
+        _aikiller setVariable["humanity", _humanity,true];
+		
         if ((random 100) < 3) then {
 			_message = format["Sarge AI: Dammit %1! You are firing on a friendly group check your fire!",_aikiller_name];
 			_message remoteExec ["systemChat",0];
@@ -98,7 +102,11 @@ if((alive _aiKiller) && (isPlayer _aikiller)) then {
 			diag_log format["SAR_HITKILL_DEBUG: Adjusting respect for bandit hit by %2 for %1",_aikiller,(SAR_band_kill_value/10)];
 		};
 		
-		_playerRespect = _aikiller getVariable ["ExileScore", 0];
+		_humanity = _aikiller getVariable ["humanity",0];
+        _humanity = _humanity + (SAR_band_kill_value/10);
+        _aikiller setVariable["humanity", _humanity,true];
+		
+		/* _playerRespect = _aikiller getVariable ["ExileScore", 0];
 		_playerMoney = _aikiller getVariable ["ExileMoney", 0];
 
 		_repChange = SAR_surv_kill_value / 20;
@@ -110,6 +118,6 @@ if((alive _aiKiller) && (isPlayer _aikiller)) then {
 		(owner _aikiller) publicVariableClient "ExileClientPlayerScore";
 		ExileClientPlayerScore = nil;
 
-		format ["setAccountMoneyAndRespect:%1:%2:%3",_playerMoney ,_playerRespect ,getPlayerUID _aikiller] call ExileServer_system_database_query_fireAndForget;
+		format ["setAccountMoneyAndRespect:%1:%2:%3",_playerMoney ,_playerRespect ,getPlayerUID _aikiller] call ExileServer_system_database_query_fireAndForget; */
     };
 };

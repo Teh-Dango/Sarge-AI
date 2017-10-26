@@ -15,8 +15,8 @@
 //   area, group & spawn  cfg file for Chernarus
 //   last modified: 28.5.2013
 // ---------------------------------------------------------------------------------------------------------
-
-/* reconfiguring the properties of the grid (keep in mind the grid has default settings, but these you should overwrite where needed.
+/* 
+reconfiguring the properties of the grid (keep in mind the grid has default settings, but these you should overwrite where needed.
 
 IMPORTANT: The grid squares are named like : SAR_area_0_0
 
@@ -31,11 +31,11 @@ You want to change the number arrays in the below lines:
 The order for these numbers is always [BANDIT, SURVIVOR, SOLDIER]
 
 Lets take an example for Chernarus
- 
+
 // Kamenka, 0 bandit groups, 1 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
 _check = [["max_grps","rnd_grps","max_p_grp"],[[0,1,2],[0,75,100],[0,4,3]],"SAR_area_0_0"] call SAR_AI_mon_upd; 
-  
- [[0,1,2],[0,75,100],[0,4,3]]
+
+[[0,1,2],[0,75,100],[0,4,3]]
 
 the first set of numbers : 0,1,2
 stands for
@@ -56,20 +56,13 @@ thats the maximum number of ppl in the group (including the leader)
 max 4  soldiers
 max 3  survivors
 this number is randomized
-
- 
- */
-// 
-// grid definition for the automatic spawn system
-//
+*/
 
 if (SAR_dynamic_spawning) then {
 
-    
-
     diag_log format["SAR_AI: Dynamic spawning definition / adjustments started"];
-     
-    // Kamenka, 0 bandit groups, 1 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+
+    /* // Kamenka, 0 bandit groups, 1 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
     [["max_grps","rnd_grps","max_p_grp"],[[0,1,2],[0,100,100],[0,2,1]],"SAR_area_0_0"] call SAR_AI_mon_upd; 
 
     // Balota, 1 bandit groups, 0 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
@@ -127,7 +120,7 @@ if (SAR_dynamic_spawning) then {
     [["max_grps","rnd_grps","max_p_grp"],[[0,1,1],[0,75,75],[0,4,2]],"SAR_area_4_5"] call SAR_AI_mon_upd; 
 
     // test south of lopatino, 1 bandit groups, 0 soldier groups, 0 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-    [["max_grps","rnd_grps","max_p_grp"],[[1,0,0],[100,0,0],[6,0,0]],"SAR_area_0_3"] call SAR_AI_mon_upd; 
+    [["max_grps","rnd_grps","max_p_grp"],[[1,0,0],[100,0,0],[6,0,0]],"SAR_area_0_3"] call SAR_AI_mon_upd;  */
 
     diag_log format["SAR_AI: Dynamic spawning definition / adjustments finished"];
 
@@ -169,7 +162,7 @@ _this setMarkerDir 59.354115;
 SAR_marker_helipatrol_nwaf = _this;
 
 // NEAF, heli patrol area
-_this = createMarker ["SAR_marker_helipatrol_neaf", [12034.16, 12725.376, 0]];
+_this = createMarker ["SAR_marker_helipatrol_neaf", [12034.16, 12725.376]];
 _this setMarkerShape "RECTANGLE";
 _this setMarkeralpha 0;
 _this setMarkerType "Flag";
@@ -187,7 +180,7 @@ _this setMarkerSize [300, 1000];
 _this setMarkerDir -19.085985;
 SAR_marker_DEBUG_veh = _this;
 
-_this = createMarker ["SAR_marker_DEBUG_devilscastle", [6913.47,11437.2,0.001]];
+_this = createMarker ["SAR_marker_DEBUG_devilscastle", [6913.47,11437.2]];
 _this setMarkerShape "RECTANGLE";
 _this setMarkeralpha 0;
 _this setMarkerType "Flag";
@@ -240,25 +233,25 @@ diag_log format["Sarge AI: Static Spawning for Helicopter patrols started"];
 //
 
  //Heli Patrol NWAF
-[SAR_marker_helipatrol_nwaf,1,true] call SAR_fnc_AI_heli;
+[SAR_marker_helipatrol_nwaf,3,true] call SAR_fnc_AI_heli;
 
 //Heli Patrol NEAF
-[SAR_marker_helipatrol_neaf,1,true] call SAR_fnc_AI_heli;
+[SAR_marker_helipatrol_neaf,3,true] call SAR_fnc_AI_heli;
 
 // Heli patrol south coast
 [SAR_marker_helipatrol_southcoast,1,true] call SAR_fnc_AI_heli;
-[SAR_marker_helipatrol_southcoast,1,true] call SAR_fnc_AI_heli;
+//[SAR_marker_helipatrol_southcoast,1,true] call SAR_fnc_AI_heli;
 
 // heli patrol east coast
 [SAR_marker_helipatrol_eastcoast,1,true] call SAR_fnc_AI_heli;
-[SAR_marker_helipatrol_eastcoast,1,true] call SAR_fnc_AI_heli;
+//[SAR_marker_helipatrol_eastcoast,1,true] call SAR_fnc_AI_heli;
 
 
 // example war scenario in the northwest. Comment OUT after having had a look at it!
-[SAR_marker_DEBUG_veh,1,true,30] call SAR_fnc_AI_heli;
+/* [SAR_marker_DEBUG_veh,1,true,30] call SAR_fnc_AI_heli;
 [SAR_marker_DEBUG_veh,1,true,30] call SAR_fnc_AI_heli;
 [SAR_marker_DEBUG_veh,3,true,30] call SAR_fnc_AI_heli;
-[SAR_marker_DEBUG_veh,3,true,30] call SAR_fnc_AI_heli;
+[SAR_marker_DEBUG_veh,3,true,30] call SAR_fnc_AI_heli; */
 
 
 diag_log format["Sarge AI: Static Spawning for Helicopter patrols finished"];
@@ -305,13 +298,13 @@ diag_log format["Sarge AI: Static Spawning for infantry patrols started"];
 // define your static infantry patrols here
 //
 
-[SAR_marker_DEBUG_devilscastle,1,0,6,"fortify",true] call SAR_fnc_AI_infantry;
+[SAR_marker_DEBUG_devilscastle,3,0,6,"fortify",true] call SAR_fnc_AI_infantry;
 
 // example war scenario in the northwest. Comment OUT after having had a look at it!
-[SAR_marker_DEBUG_veh,1,0,9,"patrol",true] call SAR_fnc_AI_infantry;
+/* [SAR_marker_DEBUG_veh,1,0,9,"patrol",true] call SAR_fnc_AI_infantry;
 [SAR_marker_DEBUG_veh,2,0,9,"patrol",true] call SAR_fnc_AI_infantry;
 [SAR_marker_DEBUG_veh,3,0,9,"patrol",true] call SAR_fnc_AI_infantry;
-[SAR_marker_DEBUG_veh,3,0,9,"patrol",true] call SAR_fnc_AI_infantry;
+[SAR_marker_DEBUG_veh,3,0,9,"patrol",true] call SAR_fnc_AI_infantry; */
  
 
 diag_log format["Sarge AI: Static Spawning for infantry patrols finished"];
@@ -368,7 +361,7 @@ diag_log format["Sarge AI: Static Spawning for vehicle patrols started"];
 //
 
 // example war scenario in the northwest. Comment OUT after having had a look at it!
-[
+/* [
     SAR_marker_DEBUG_veh,                           // Name of the area that the vehicle patrol will spawn in
     1,                                              // type of group
     ["LandRover_CZ_EP1","M1030","M1030","LandRover_CZ_EP1"],        // used vehicle
@@ -393,7 +386,51 @@ diag_log format["Sarge AI: Static Spawning for vehicle patrols started"];
     [[1,1,0]],                          // Vehicle initial crew
     true,                               // if this group should respawn or not
     60                                  // waittime until this group will respawn
+] call SAR_fnc_AI_vehicle; */
+
+[
+    SAR_marker_helipatrol_nwaf,                   // Name of the area that the vehicle patrol will spawn in
+    3,                                      // type of group
+    ["CUP_C_UAZ_Unarmed_TK_CIV"],      // used vehicle
+    [[1,1,1]],      // Vehicle initial crew
+    true,                                   // if this group should respawn or not
+    (random 300)                                      // waittime until this group will respawn
 ] call SAR_fnc_AI_vehicle;
+
+[
+    SAR_marker_helipatrol_nwaf,                   // Name of the area that the vehicle patrol will spawn in
+    3,                                      // type of group
+    ["CUP_B_Ural_CDF"],      // used vehicle
+    [[1,2,5]],      // Vehicle initial crew
+    true,                                   // if this group should respawn or not
+    (random 300)                                      // waittime until this group will respawn
+] call SAR_fnc_AI_vehicle;
+[
+    SAR_marker_helipatrol_nwaf,                   // Name of the area that the vehicle patrol will spawn in
+    3,                                      // type of group
+    ["CUP_C_UAZ_Unarmed_TK_CIV"],      // used vehicle
+    [[1,1,2]],      // Vehicle initial crew
+    true,                                   // if this group should respawn or not
+    (random 300)                                      // waittime until this group will respawn
+] call SAR_fnc_AI_vehicle;
+
+/* [
+    SAR_marker_helipatrol_nwaf,                   // Name of the area that the vehicle patrol will spawn in
+    3,                                      // type of group
+    ["CUP_B_Ural_CDF"],      // used vehicle
+    [[1,2,5]],      // Vehicle initial crew
+    true,                                   // if this group should respawn or not
+    (random 300)                                      // waittime until this group will respawn
+] call SAR_fnc_AI_vehicle;
+
+[
+    SAR_marker_helipatrol_nwaf,                   // Name of the area that the vehicle patrol will spawn in
+    3,                                      // type of group
+    ["CUP_C_UAZ_Unarmed_TK_CIV"],      // used vehicle
+    [[1,1,2]],      // Vehicle initial crew
+    true,                                   // if this group should respawn or not
+    (random 300)                                      // waittime until this group will respawn
+] call SAR_fnc_AI_vehicle; */
 
 diag_log format["Sarge AI: Static Spawning for vehicle patrols finished"];
 // ---- end of configuration area ----

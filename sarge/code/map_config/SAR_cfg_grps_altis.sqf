@@ -51,6 +51,15 @@ if (_type == "static") then {
 	_this setMarkerBrush "Solid";
 	_this setMarkerSize [25, 25];
 	SAR_marker_MafiaTraderCity_Fortify = _this;
+	
+	_this = createMarker ["SAR_marker_Hotel_Mission", [14599.7,16797.7,0.101437]];
+	_this setMarkerShape "Ellipse";
+	_this setMarkeralpha 0;
+	_this setMarkerType "Flag";
+	_this setMarkerBrush "Solid";
+	_this setMarkerSize [50, 50];
+	SAR_marker_Hotel_Mission = _this;
+	
 /* 
 	// TraderZoneSilderas Markers
 	_this = createMarker ["SAR_marker_TraderZoneSilderas", [23334.605,4.0095582,0]];
@@ -72,6 +81,7 @@ if (_type == "static") then {
 */
 	diag_log format["Sarge's AI System: Static spawning area definition finished"];
 	
+	
 	diag_log format["Sarge's AI System: Static Spawning for Helicopter patrols started"];
 /* 
 	//Heli Patrol NWAF
@@ -88,43 +98,32 @@ if (_type == "static") then {
 	[SAR_marker_DEBUG_veh,1,true] call SAR_fnc_AI_heli;
 	[SAR_marker_DEBUG_veh,1,true] call SAR_fnc_AI_heli;
 
-	// example war scenario in the northwest. Comment OUT after having had a look at it!
-	[SAR_marker_DEBUG_veh,1,true,30] call SAR_fnc_AI_heli;
-	[SAR_marker_DEBUG_veh,1,true,30] call SAR_fnc_AI_heli;
-	[SAR_marker_DEBUG_veh,3,true,30] call SAR_fnc_AI_heli;
-	[SAR_marker_DEBUG_veh,3,true,30] call SAR_fnc_AI_heli;
  */
 	diag_log format["Sarge's AI System: Static Spawning for Helicopter patrols finished"];
+	
 	
 	diag_log format["Sarge's AI System: Static Spawning for infantry patrols started"];
 
 	// These are safe zone guards only! Notice the call --> call SAR_fnc_AI_traders
-	/* [SAR_marker_MafiaTraderCity_Outer_Patrol,1,0,0,"patrol",true] call SAR_fnc_AI_traders;
-	[SAR_marker_MafiaTraderCity_Outer_Patrol,1,0,0,"patrol",true] call SAR_fnc_AI_traders;
-	[SAR_marker_MafiaTraderCity_Outer_Patrol,1,0,0,"patrol",true] call SAR_fnc_AI_traders;
-	
-	[SAR_marker_MafiaTraderCity_Inner_Patrol,1,0,0,"patrol",true] call SAR_fnc_AI_traders;
-	[SAR_marker_MafiaTraderCity_Inner_Patrol,1,0,0,"patrol",true] call SAR_fnc_AI_traders;
-	[SAR_marker_MafiaTraderCity_Inner_Patrol,1,0,0,"patrol",true] call SAR_fnc_AI_traders; */
-	
 	[SAR_marker_MafiaTraderCity_Fortify,1,0,0,"fortify",true] call SAR_fnc_AI_traders;
 	[SAR_marker_MafiaTraderCity_Fortify,1,0,0,"fortify",true] call SAR_fnc_AI_traders;
 	[SAR_marker_MafiaTraderCity_Fortify,1,0,0,"fortify",true] call SAR_fnc_AI_traders;
 	
-	//CAUTION! These are not currently working. DO NOT use these unless you know how to fix the markers!
-	/* [SAR_marker_TraderZoneSilderas,1,2,3,"patrol",true] call SAR_fnc_AI_traders;
-	[SAR_marker_TraderZoneSilderas,1,2,3,"patrol",true] call SAR_fnc_AI_traders;
-	[SAR_marker_TraderZoneSilderas,1,3,2,"fortify",true] call SAR_fnc_AI_traders;
-
-	[SAR_marker_TraderZoneFolia,1,2,3,"patrol",true] call SAR_fnc_AI_traders;
-	[SAR_marker_TraderZoneFolia,1,2,3,"patrol",true] call SAR_fnc_AI_traders;
-	[SAR_marker_TraderZoneFolia,1,3,2,"fortify",true] call SAR_fnc_AI_traders;  */
+	// Hotel Mission AI
+	/* [SAR_marker_Hotel_Mission,1,floor(round(random 1)),floor(round(random 1)),["fortify","patrol","ambush"] call BIS_fnc_selectRandom,true,random 60] call SAR_fnc_AI_infantry;
+	[SAR_marker_Hotel_Mission,1,floor(round(random 1)),floor(round(random 1)),["fortify","patrol","ambush"] call BIS_fnc_selectRandom,true,random 60] call SAR_fnc_AI_infantry;
+	
+	[SAR_marker_Hotel_Mission,2,floor(round(random 1)),floor(round(random 1)),["fortify","patrol","ambush"] call BIS_fnc_selectRandom,true,random 60] call SAR_fnc_AI_infantry;
+	[SAR_marker_Hotel_Mission,2,floor(round(random 1)),floor(round(random 1)),["fortify","patrol","ambush"] call BIS_fnc_selectRandom,true,random 60] call SAR_fnc_AI_infantry;
+	
+	[SAR_marker_Hotel_Mission,3,floor(round(random 1)),floor(round(random 1)),["fortify","patrol","ambush"] call BIS_fnc_selectRandom,true,random 60] call SAR_fnc_AI_infantry;
+	[SAR_marker_Hotel_Mission,3,floor(round(random 1)),floor(round(random 1)),["fortify","patrol","ambush"] call BIS_fnc_selectRandom,true,random 60] call SAR_fnc_AI_infantry; */
 	
 	diag_log format["Sarge's AI System: Static Spawning for infantry patrols finished"];
 	
+	
 	diag_log format["Sarge's AI System: Static Spawning for vehicle patrols started"];
 
-	// define your static vehicle patrols here
 	/* [SAR_marker_DEBUG_veh,1,["SUV_Base"],[[1,1,1]],true,60] call SAR_fnc_AI_vehicle;
 	[SAR_marker_DEBUG_veh,2,["SUV_Base"],[[1,1,1]],true,60] call SAR_fnc_AI_vehicle;
 	[SAR_marker_DEBUG_veh,3,["SUV_Base"],[[1,1,1]],true,60] call SAR_fnc_AI_vehicle; */

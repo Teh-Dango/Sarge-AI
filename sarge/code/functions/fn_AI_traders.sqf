@@ -9,7 +9,7 @@
 	Sarge AI System 2.0+
 	Modded for Arma 3: Exile Mod
 	Changes: Dango
-	https://www.hod-servers.com
+	http://www.hod-servers.com
 
 */
 private ["_leadername","_type","_patrol_area_name","_grouptype","_snipers","_riflemen","_action","_side","_leaderList","_riflemenlist","_sniperlist","_rndpos","_group","_leader","_cond","_respawn","_leader_weapon_names","_leader_items","_leader_tools","_soldier_weapon_names","_soldier_items","_soldier_tools","_sniper_weapon_names","_sniper_items","_sniper_tools","_leaderskills","_riflemanskills","_sniperskills","_ups_para_list","_respawn_time","_argc","_ai_type"];
@@ -56,12 +56,12 @@ _leaderList = call compile format ["SAR_leader_%1_list", _type];
 _leaderskills = call compile format ["SAR_leader_%1_skills", _type];
 
 // get a random starting position that is on land
-_rndpos = [_patrol_area_name] call UPSMON_pos;
+_rndpos = [_patrol_area_name,0] call UPSMON_pos;
 
 _group = createGroup _side;
 
 // create leader of the group
-_leader = _group createunit [_leaderList call BIS_fnc_selectRandom, [(_rndpos select 0) , _rndpos select 1, 0], [], 0.5, "CAN_COLLIDE"];
+_leader = _group createunit [_leaderList call BIS_fnc_selectRandom, [(_rndpos select 0) , _rndpos select 1, 0], [], 0.5, "NONE"];
 
 _leader_weapon_names = ["leader",_type] call SAR_unit_loadout_weapons;
 _leader_items = ["leader",_type] call SAR_unit_loadout_items;
@@ -85,7 +85,7 @@ _leader addEventHandler ["HandleDamage",{if (_this select 1!="") then {_unit=_th
 //["I need assistance!",{"sarge\SAR_interact.sqf","",1,true,true,"","(side _target != EAST)"}]
 //_leader addaction ["Help Me!", {"sarge\SAR_interact.sqf" remoteExec [ "BIS_fnc_execVM",0]}]; 
 
-[_leader] join _group;
+[_leader] joinSilent _group;
 
 // set skills of the leader
 {
@@ -104,11 +104,6 @@ _leader setVariable ["SAR_AI_type",_ai_type + " Leader",false];
 // store experience value on AI
 _leader setVariable ["SAR_AI_experience",0,false];
 
-// set behaviour & speedmode
-_leader setspeedmode "NORMAL";
-_leader setBehaviour "CARELESS";
-_leader setCombatMode "RED";
-
 // Establish siper unit type and skills
 _sniperlist = call compile format ["SAR_sniper_%1_list", _type];
 _sniperskills = call compile format ["SAR_sniper_%1_skills", _type];
@@ -116,7 +111,7 @@ _sniperskills = call compile format ["SAR_sniper_%1_skills", _type];
 // create crew
 for "_i" from 0 to (_snipers - 1) do
 {
-	_this = _group createunit [_sniperlist call BIS_fnc_selectRandom, [(_rndpos select 0), _rndpos select 1, 0], [], 0.5, "CAN_COLLIDE"];
+	_this = _group createunit [_sniperlist call BIS_fnc_selectRandom, [(_rndpos select 0), _rndpos select 1, 0], [], 0.5, "NONE"];
 	
 	_sniper_weapon_names = ["sniper",_type] call SAR_unit_loadout_weapons;
 	_sniper_items = ["sniper",_type] call SAR_unit_loadout_items;
@@ -135,7 +130,7 @@ for "_i" from 0 to (_snipers - 1) do
 
 	_this addEventHandler ["HandleDamage",{if (_this select 1!="") then {_unit=_this select 0;damage _unit+((_this select 2)-damage _unit)*1}}];    
 	
-	[_this] join _group;
+	[_this] joinSilent _group;
 	
 	// set skills
 	{
@@ -147,11 +142,6 @@ for "_i" from 0 to (_snipers - 1) do
 	
 	// store experience value on AI
     _this setVariable ["SAR_AI_experience",0,false];
-	
-	// set behaviour & speedmode
-	_this setspeedmode "NORMAL";
-	_this setBehaviour "CARELESS";
-	_this setCombatMode "RED";
 
 };
 
@@ -161,7 +151,7 @@ _riflemanskills = call compile format ["SAR_soldier_%1_skills", _type];
 
 for "_i" from 0 to (_riflemen - 1) do
 {
-    _this = _group createunit [_riflemenlist call BIS_fnc_selectRandom, [(_rndpos select 0) , _rndpos select 1, 0], [], 0.5, "CAN_COLLIDE"];
+    _this = _group createunit [_riflemenlist call BIS_fnc_selectRandom, [(_rndpos select 0) , _rndpos select 1, 0], [], 0.5, "NONE"];
 
     _soldier_items = ["rifleman",_type] call SAR_unit_loadout_items;
     _soldier_tools = ["rifleman",_type] call SAR_unit_loadout_tools;
@@ -180,7 +170,7 @@ for "_i" from 0 to (_riflemen - 1) do
 
 	_this addEventHandler ["HandleDamage",{if (_this select 1!="") then {_unit=_this select 0;damage _unit+((_this select 2)-damage _unit)*1}}];    
 	
-    [_this] join _group;
+    [_this] joinSilent _group;
 
     // set skills
     {
@@ -192,15 +182,10 @@ for "_i" from 0 to (_riflemen - 1) do
 	
 	// store experience value on AI
     _this setVariable ["SAR_AI_experience",0,false];
-	
-	// set behaviour & speedmode
-	_this setspeedmode "NORMAL";
-	_this setBehaviour "CARELESS";
-	_this setCombatMode "RED";
 };
 
 // initialize upsmon for the group
-_ups_para_list = [_leader,_patrol_area_name,"NOFOLLOW","SPAWNED","DELETE:",SAR_DELETE_TIMEOUT];
+_ups_para_list = [_leader,_patrol_area_name,"LANDDROP","NORMAL","CARELESS","NOFOLLOW","SPAWNED","DELETE:",SAR_DELETE_TIMEOUT];
 
 if (_respawn) then {
     _ups_para_list pushBack ["RESPAWN","RESPAWNTIME:",_respawn_time];
@@ -224,7 +209,7 @@ switch (_patrol_area_name) do {
     case "SAR_marker_MafiaTraderCity_Fortify":
     {
 		// Tell group in terminal to fortify
-        _ups_para_list pushBack ["RANDOMA","NOWP"];
+        _ups_para_list pushBack [/* "RANDOMA", */"NOWP"];
         _ups_para_list spawn UPSMON;
     };
 	default

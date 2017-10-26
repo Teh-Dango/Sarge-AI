@@ -9,7 +9,7 @@
 	Sarge AI System 2.0+
 	Modded for Arma 3: Exile Mod
 	Changes: Dango
-	https://www.hod-servers.com
+	http://www.hod-servers.com
 
 */
 private ["_snipers","_soldiers","_group","_check","_probability","_chance","_playerlist","_triggername","_tmparr","_markername","_player","_valuearray","_max_grps","_rnd_grps","_max_p_grp","_grps_band","_grps_sold","_grps_surv","_grps_upd","_respawn"];
@@ -39,6 +39,8 @@ if (SAR_EXTREME_DEBUG) then {
 
 if (SAR_dynamic_group_respawn) then {
     _respawn = true;
+} else {
+	_respawn = false;
 };
 
 _valuearray= [["max_grps","rnd_grps","max_p_grp","grps_band","grps_sold","grps_surv"],_markername] call SAR_AI_mon_read;
@@ -66,23 +68,6 @@ for "_i" from (count _grps_band) to ((_max_grps select 0) - 1) do
             _grps_upd set [count _grps_upd,_group];
             // update AI monitor
             _check = [["grps_band"],[_grps_upd],_markername] call SAR_AI_mon_upd;
-			if (SAR_HC) then {
-				{
-					_hcID = getPlayerUID _x;
-					if(_hcID select [0,2] isEqualTo 'HC')then {
-						_SAIS_HC = _group setGroupOwner (owner _x);
-						if (_SAIS_HC) then {
-							if (SAR_DEBUG) then {
-								diag_log format ["Sarge's AI System: Now moving group %1 to Headless Client %2",_group,_hcID];
-							};
-						} else {
-							if (SAR_DEBUG) then {
-								diag_log format ["Sarge's AI System: ERROR! Moving group %1 to Headless Client %2 has failed!",_group,_hcID];
-							};
-						};
-					};
-				} forEach allPlayers;
-			};
         };
     };
 };
@@ -102,23 +87,6 @@ for "_i" from (count _grps_sold) to ((_max_grps select 1) - 1) do
             _grps_upd set [count _grps_upd,_group];
             // update AI monitor
             _check = [["grps_sold"],[_grps_upd],_markername] call SAR_AI_mon_upd;
-			if (SAR_HC) then {
-				{
-					_hcID = getPlayerUID _x;
-					if(_hcID select [0,2] isEqualTo 'HC')then {
-						_SAIS_HC = _group setGroupOwner (owner _x);
-						if (_SAIS_HC) then {
-							if (SAR_DEBUG) then {
-								diag_log format ["Sarge's AI System: Now moving group %1 to Headless Client %2",_group,_hcID];
-							};
-						} else {
-							if (SAR_DEBUG) then {
-								diag_log format ["Sarge's AI System: ERROR! Moving group %1 to Headless Client %2 has failed!",_group,_hcID];
-							};
-						};
-					};
-				} forEach allPlayers;
-			};
         };
     };
 };
@@ -138,23 +106,6 @@ for "_i" from (count _grps_surv) to ((_max_grps select 2) - 1) do
             _grps_upd set [count _grps_upd,_group];
             // update AI monitor
             _check = [["grps_surv"],[_grps_upd],_markername] call SAR_AI_mon_upd;
-			if (SAR_HC) then {
-				{
-					_hcID = getPlayerUID _x;
-					if(_hcID select [0,2] isEqualTo 'HC')then {
-						_SAIS_HC = _group setGroupOwner (owner _x);
-						if (_SAIS_HC) then {
-							if (SAR_DEBUG) then {
-								diag_log format ["Sarge's AI System: Now moving group %1 to Headless Client %2",_group,_hcID];
-							};
-						} else {
-							if (SAR_DEBUG) then {
-								diag_log format ["Sarge's AI System: ERROR! Moving group %1 to Headless Client %2 has failed!",_group,_hcID];
-							};
-						};
-					};
-				} forEach allPlayers;
-			};
         };
     };
 };

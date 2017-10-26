@@ -45,7 +45,11 @@ _dstX = abs(_posX - _centerX);
 _dstY = abs(_posY - _centerY);
 
 private ["_sum"];
-_sum = ((_dstX * _dstX)/(_sizeX * _sizeX)) + ((_dstY * _dstY)/(_sizeY * _sizeY));
+if (_dstX != 0 && _sizeX != 0 && _dstY != 0 && _sizeY != 0) then {
+	_sum = ((_dstX * _dstX)/(_sizeX * _sizeX)) + ((_dstY * _dstY)/(_sizeY * _sizeY));
+} else {
+	_sum = 0;
+};
 
 if (_sum <= 1) then {
   _return = true;

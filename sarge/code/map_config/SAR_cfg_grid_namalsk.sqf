@@ -1,5 +1,5 @@
 // =========================================================================================================
-//  Sarge's AI System: - DayZ AI library
+//  SAR_AI - DayZ AI library
 //  Version: 1.0.0 
 //  Author: Sarge (sarge@krumeich.ch) 
 //

@@ -159,17 +159,21 @@ SAR_unit_loadout_items = {
 
     _unit_items_list = call compile format["SAR_%2_%1_items",_unittype,_side];
 
-    _unit_items = [];
-    {
-        _item = _x select 0;
-        _probability = _x select 1;
-        _chance = (random 100);
-        if(_chance < _probability) then {
-            _unit_items set [count _unit_items, _item];
-        };
-    } foreach _unit_items_list;
-
-    _unit_items;
+	if ((count _unit_items_list) > 0) then {
+		_unit_items = [];
+		{
+			_item = _x select 0;
+			_probability = _x select 1;
+			_chance = (random 100);
+			if(_chance < _probability) then {
+				_unit_items set [count _unit_items, _item];
+			};
+		} foreach _unit_items_list;
+		
+	} else {
+		_unit_items = [];
+	};
+	_unit_items;
 };
 
 SAR_unit_loadout_weapons = {

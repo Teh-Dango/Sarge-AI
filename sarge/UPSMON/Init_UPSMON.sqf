@@ -13,7 +13,7 @@ UPSMON_Debug = 0;
 UPSMON_maxwaiting = 10;
 
 // Set How many time a unit will search around a suspect position
-UPSMON_SRCHTIME = 90;
+UPSMON_SRCHTIME = 120;
 
 // if you are spotted by AI group, how close the other AI group have to be to You , to be informed about your present position. over this, will lose target
 UPSMON_sharedist = 800; // org value 800 => increased for ArmA3 map sizes for less predictable missions..
@@ -89,7 +89,7 @@ UPSMON_USE_SMOKE = 20; // org 13: decreased while AI is popping smoke a bit too 
 UPSMON_Allowfireplace = true;
 
 //Allow Units to Rearm
-UPSMON_AllowRearm = false;
+UPSMON_AllowRearm = true;
 
 //=============================================================================================================================
 //=============================== DO NOT TOUCH THESE VARIABLES ================================================================

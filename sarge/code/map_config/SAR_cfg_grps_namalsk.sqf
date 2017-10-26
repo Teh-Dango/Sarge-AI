@@ -1,4 +1,23 @@
-/* 
+// =========================================================================================================
+//  SAR_AI - DayZ AI library
+//  Version: 1.0.0 
+//  Author: Sarge (sarge@krumeich.ch) 
+//
+//		Wiki: to come
+//		Forum: to come
+//		
+// ---------------------------------------------------------------------------------------------------------
+//  Required:
+//  UPSMon  
+//  SHK_pos 
+//  
+// ---------------------------------------------------------------------------------------------------------
+//   area, group & spawn  cfg file for Namalsk
+//   last modified: 5.3.2013
+// ---------------------------------------------------------------------------------------------------------
+
+/* reconfiguring the properties of the grid (keep in mind the grid has default settings, but these you should overwrite where needed).
+
 IMPORTANT: The grid squares are named like : SAR_area_0_0
 
 where the first 0 is the x counter, and the second 0 the y counter.
@@ -37,109 +56,105 @@ thats the maximum number of ppl in the group (plus 1 leader)
 max 4 (+1 leader) soldiers
 max 3 (+1 leader) survivors
 this number is randomized
-*/
+
+ 
+ */
 // 
 // grid definition for the automatic spawn system
 //
-_type = _this select 0;
+ 
+ // West Point, 2 bandit groups, 1 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+_check = [["max_grps","rnd_grps","max_p_grp"],[[2,1,2],[50,75,100],[2,3,3]],"SAR_area_0_0"] call SAR_AI_mon_upd; 
 
-// grid definition for the automatic spawn system
-if ((_type == "dynamic") && SAR_dynamic_spawning) then {
+ // Water, 0 bandit groups, 0 soldier groups, 0 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+_check = [["max_grps","rnd_grps","max_p_grp"],[[0,0,0],[0,0,0],[0,0,0]],"SAR_area_0_3"] call SAR_AI_mon_upd; 
 
-	/* // West Point, 2 bandit groups, 1 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-	_check = [["max_grps","rnd_grps","max_p_grp"],[[2,1,2],[50,75,100],[2,3,3]],"SAR_area_0_0"] call SAR_AI_mon_upd; 
+// Brensk, 3 bandit groups, 1 soldier groups, 1 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+_check = [["max_grps","rnd_grps","max_p_grp"],[[3,1,1],[80,50,75],[2,2,3]],"SAR_area_1_0"] call SAR_AI_mon_upd; 
 
-	 // Water, 0 bandit groups, 0 soldier groups, 0 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-	_check = [["max_grps","rnd_grps","max_p_grp"],[[0,0,0],[0,0,0],[0,0,0]],"SAR_area_0_3"] call SAR_AI_mon_upd; 
+// Tara Bridge, 2 bandit groups, 0 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+_check = [["max_grps","rnd_grps","max_p_grp"],[[2,0,2],[70,0,70],[3,0,3]],"SAR_area_2_0"] call SAR_AI_mon_upd; 
 
-	// Brensk, 3 bandit groups, 1 soldier groups, 1 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-	_check = [["max_grps","rnd_grps","max_p_grp"],[[3,1,1],[80,50,75],[2,2,3]],"SAR_area_1_0"] call SAR_AI_mon_upd; 
+// South East coast, 1 bandit groups, 1 soldier groups, 3 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+_check = [["max_grps","rnd_grps","max_p_grp"],[[1,1,3],[30,20,60],[2,2,3]],"SAR_area_3_0"] call SAR_AI_mon_upd; 
 
-	// Tara Bridge, 2 bandit groups, 0 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-	_check = [["max_grps","rnd_grps","max_p_grp"],[[2,0,2],[70,0,70],[3,0,3]],"SAR_area_2_0"] call SAR_AI_mon_upd; 
+// Lubjansk, 1 bandit groups, 0 soldier groups, 3 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+_check = [["max_grps","rnd_grps","max_p_grp"],[[1,0,3],[50,0,75],[2,0,4]],"SAR_area_1_3"] call SAR_AI_mon_upd; 
 
-	// South East coast, 1 bandit groups, 1 soldier groups, 3 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-	_check = [["max_grps","rnd_grps","max_p_grp"],[[1,1,3],[30,20,60],[2,2,3]],"SAR_area_3_0"] call SAR_AI_mon_upd; 
+// Sebjan airport, 2 bandit groups, 2 soldier groups, 1 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+_check = [["max_grps","rnd_grps","max_p_grp"],[[2,2,1],[50,50,30],[3,3,2]],"SAR_area_2_2"] call SAR_AI_mon_upd; 
 
-	// Lubjansk, 1 bandit groups, 0 soldier groups, 3 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-	_check = [["max_grps","rnd_grps","max_p_grp"],[[1,0,3],[50,0,75],[2,0,4]],"SAR_area_1_3"] call SAR_AI_mon_upd; 
+// Norinsk, 2 bandit groups, 3 soldier groups, 1 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+_check = [["max_grps","rnd_grps","max_p_grp"],[[2,3,1],[75,75,50],[3,3,3]],"SAR_area_1_1"] call SAR_AI_mon_upd; 
 
-	// Sebjan airport, 2 bandit groups, 2 soldier groups, 1 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-	_check = [["max_grps","rnd_grps","max_p_grp"],[[2,2,1],[50,50,30],[3,3,2]],"SAR_area_2_2"] call SAR_AI_mon_upd; 
+// Object A1, 2 bandit groups, 1 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+_check = [["max_grps","rnd_grps","max_p_grp"],[[2,1,2],[80,75,75],[2,2,4]],"SAR_area_1_2"] call SAR_AI_mon_upd; 
 
-	// Norinsk, 2 bandit groups, 3 soldier groups, 1 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-	_check = [["max_grps","rnd_grps","max_p_grp"],[[2,3,1],[75,75,50],[3,3,3]],"SAR_area_1_1"] call SAR_AI_mon_upd; 
+// Jalovisko, 2 bandit groups, 0 soldier groups, 0 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+_check = [["max_grps","rnd_grps","max_p_grp"],[[1,0,3],[20,0,50],[3,0,3]],"SAR_area_3_3"] call SAR_AI_mon_upd; 
 
-	// Object A1, 2 bandit groups, 1 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-	_check = [["max_grps","rnd_grps","max_p_grp"],[[2,1,2],[80,75,75],[2,2,4]],"SAR_area_1_2"] call SAR_AI_mon_upd; 
+// Tara, 2 bandit groups, 0 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
+_check = [["max_grps","rnd_grps","max_p_grp"],[[2,0,2],[75,0,75],[3,0,3]],"SAR_area_2_1"] call SAR_AI_mon_upd; 
 
-	// Jalovisko, 2 bandit groups, 0 soldier groups, 0 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-	_check = [["max_grps","rnd_grps","max_p_grp"],[[1,0,3],[20,0,50],[3,0,3]],"SAR_area_3_3"] call SAR_AI_mon_upd; 
+// ---------------------------------------------------------------
+// Definition of area markers for static spawns
+// ---------------------------------------------------------------
 
-	// Tara, 2 bandit groups, 0 soldier groups, 2 survivor groups - spawn probability ba,so,su - maximum group members ba,so,su
-	_check = [["max_grps","rnd_grps","max_p_grp"],[[2,0,2],[75,0,75],[3,0,3]],"SAR_area_2_1"] call SAR_AI_mon_upd; 
-}; */
-
-if (_type == "static") then {
-	// ---------------------------------------------------------------
-	// Definition of area markers for static spawns
-	// ---------------------------------------------------------------
-
-	// add if needed, see examples in the chernarus file
+// add if needed, see examples in the chernarus file
 
 
-	// ----------------------------------------------------------------------------------------
-	// End of area marker definition section
-	// ----------------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------------
+// End of area marker definition section
+// ----------------------------------------------------------------------------------------
 
-	diag_log format["Sarge's AI System: Area & Trigger definition finalized"];
-	diag_log format["Sarge's AI System: Static Spawning for Helicopter patrols started"];
+diag_log format["SAR_AI: Area & Trigger definition finalized"];
+diag_log format["SAR_AI: Static Spawning for Helicopter patrols started"];
 
-	//
-	// Static, predefined heli patrol areas with configurable units
-	//
-	// Parameters used: 
-	//                  Areaname
-	//                  1,2,3 = soldier, survivors, bandits
-	//
+//
+// Static, predefined heli patrol areas with configurable units
+//
+// Parameters used: 
+//                  Areaname
+//                  1,2,3 = soldier, survivors, bandits
+//
 
-	// add if needed, see examples in the chernarus file
+// add if needed, see examples in the chernarus file
 
-	diag_log format["Sarge's AI System: Static Spawning for Helicopter patrols finished"];
+diag_log format["SAR_AI: Static Spawning for Helicopter patrols finished"];
 
-	//---------------------------------------------------------------------------------
-	// Static, predefined infantry patrols in defined areas with configurable units
-	//---------------------------------------------------------------------------------
-	// Example: [SAR_area_DEBUG,1,0,1,""] call Sarge's AI System:;
-	// 
-	// SAR_area_DEBUG = areaname (must have been defined further up)
-	// 1 = type of group (1 = soldiers, 2 = survivors, 3 = bandits)
-	// 0 = amount of snipers in the group
-	// 1 = amount of rifleman in the group
-	//
-	//
+//---------------------------------------------------------------------------------
+// Static, predefined infantry patrols in defined areas with configurable units
+//---------------------------------------------------------------------------------
+// Example: [SAR_area_DEBUG,1,0,1,""] call SAR_AI;
+// 
+// SAR_area_DEBUG = areaname (must have been defined further up)
+// 1 = type of group (1 = soldiers, 2 = survivors, 3 = bandits)
+// 0 = amount of snipers in the group
+// 1 = amount of rifleman in the group
+//
+//
 
-	// Example entries:
-	// SARGE DEBUG - Debug group
-	// military, 0 snipers, 1 riflemen, patrol
-	//[SAR_area_DEBUG,1,0,1,""] call Sarge's AI System:;
+// Example entries:
+// SARGE DEBUG - Debug group
+// military, 0 snipers, 1 riflemen, patrol
+//[SAR_area_DEBUG,1,0,1,""] call SAR_AI;
 
-	// military, 2 snipers, 4 riflemen, patrol
-	//[SAR_area_DEBUG,1,2,4,""] call Sarge's AI System:;
+// military, 2 snipers, 4 riflemen, patrol
+//[SAR_area_DEBUG,1,2,4,""] call SAR_AI;
 
-	// survivors, 1 snipers, 3 riflemen, patrolling the NWAF
-	//[SAR_marker_helipatrol_nwaf,2,1,3,""] call Sarge's AI System:;
+// survivors, 1 snipers, 3 riflemen, patrolling the NWAF
+//[SAR_marker_helipatrol_nwaf,2,1,3,""] call SAR_AI;
 
-	// bandits, 5 snipers, 2 riflemen, patrolling the NWAF
-	//[SAR_marker_helipatrol_nwaf,3,5,2,""] call Sarge's AI System:;
-	//---------------------------------------------------------------------------------
+// bandits, 5 snipers, 2 riflemen, patrolling the NWAF
+//[SAR_marker_helipatrol_nwaf,3,5,2,""] call SAR_AI;
+//---------------------------------------------------------------------------------
 
-	// add here if needed
+// add here if needed
 
 
 
 
-	// ---- end of configuration area ----
+// ---- end of configuration area ----
 
-	diag_log format["Sarge's AI System: Static Spawning for infantry patrols finished"];
-};
+diag_log format["SAR_AI: Static Spawning for infantry patrols finished"];
+

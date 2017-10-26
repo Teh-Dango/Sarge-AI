@@ -18,9 +18,7 @@ private["_sizeX","_sizeY","_snipers","_rifleMen","_sizeOfBase","_marker","_marke
 
 _flagPoles = nearestObjects [getArray (configFile >> "CfgWorlds" >> worldName >> "centerPosition"), ["Exile_Construction_Flag_Static"], 25000];
 
-diag_log "Sarge AI System: Territory Base Gaurds Are Now Initializing";
-
-diag_log format["Sarge AI System: Total Territory Locations Query Returned With: %1",(count _flagPoles)];
+diag_log format ["Sarge AI System: Starting territory guards for %1!",worldName];
 
 {
 	_baseName = _x getVariable ["ExileTerritoryName",""];
@@ -28,7 +26,7 @@ diag_log format["Sarge AI System: Total Territory Locations Query Returned With:
 	_fakeFlag = _x getVariable ["ExileDatabaseID", 0];
 	
 	if (_fakeFlag == 0) then {
-		diag_log "Sarge AI System: Non territory flag detected! Skipping fake flag!";
+		
 	} else {
 		_padding = 5;
 		_spawnRadius = _sizeOfBase + _padding;
@@ -64,9 +62,9 @@ diag_log format["Sarge AI System: Total Territory Locations Query Returned With:
 
 		[_x,_spawnMark,2,_snipers,_rifleMen,_behavior,false,5200] call SAR_fnc_AI_guards;
 		
-		s_player_guardToggle = _x addaction [format[("<t color=""#FFFFFF"">" + ("Make guards hostile") +"</t>"),""],"\addons\sarge\code\toggle_base_guards.sqf",_x,1,false,true,"",""];
+		s_player_guardToggle = _x addaction [format[("<t color=""#FFFFFF"">" + ("Make guards hostile") +"</t>"),""],"\addons\sarge\code\scripts\toggle_base_guards.sqf",_x,1,false,true,"",""];
 	};
 	
-} foreach _flagPoles;
+} forEach _flagPoles;
 
-diag_log "Sarge AI System: Territory base gaurds have now completed spawning.";
+diag_log format ["Sarge AI System: Territory guards have completed successfully!",worldName,(count _flagPoles)];

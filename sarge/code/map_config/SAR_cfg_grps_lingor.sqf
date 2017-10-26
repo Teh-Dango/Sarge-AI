@@ -1,5 +1,5 @@
 // =========================================================================================================
-//  Sarge's AI System: - DayZ AI library
+//  SAR_AI - DayZ AI library
 //  Version: 1.0.0 
 //  Author: Sarge (sarge@krumeich.ch) 
 //
@@ -164,8 +164,8 @@ SAR_marker_helipatrol_mainland = _this;
 // End of area marker definition section
 // ----------------------------------------------------------------------------------------
 
-diag_log format["Sarge's AI System: Area & Trigger definition finalized"];
-diag_log format["Sarge's AI System: Static Spawning for Helicopter patrols started"];
+diag_log format["SAR_AI: Area & Trigger definition finalized"];
+diag_log format["SAR_AI: Static Spawning for Helicopter patrols started"];
 
 //
 // Static, predefined heli patrol areas with configurable units
@@ -177,18 +177,18 @@ diag_log format["Sarge's AI System: Static Spawning for Helicopter patrols start
 
 // add if needed, see examples in the chernarus file
 
-[SAR_marker_helipatrol_prison,floor(random 2)+1] call Sarge's AI System:;
-[SAR_marker_helipatrol_maruko_airport,floor(random 2)+1] call Sarge's AI System:;
-[SAR_marker_helipatrol_fob_eddie,floor(random 2)+1] call Sarge's AI System:;
-[SAR_marker_helipatrol_calamar,floor(random 2)+1] call Sarge's AI System:;
-[SAR_marker_helipatrol_mainland,floor(random 2)+1] call Sarge's AI System:;
+[SAR_marker_helipatrol_prison,floor(random 2)+1] call SAR_AI_heli;
+[SAR_marker_helipatrol_maruko_airport,floor(random 2)+1] call SAR_AI_heli;
+[SAR_marker_helipatrol_fob_eddie,floor(random 2)+1] call SAR_AI_heli;
+[SAR_marker_helipatrol_calamar,floor(random 2)+1] call SAR_AI_heli;
+[SAR_marker_helipatrol_mainland,floor(random 2)+1] call SAR_AI_heli;
 
-diag_log format["Sarge's AI System: Static Spawning for Helicopter patrols finished"];
+diag_log format["SAR_AI: Static Spawning for Helicopter patrols finished"];
 
 //---------------------------------------------------------------------------------
 // Static, predefined infantry patrols in defined areas with configurable units
 //---------------------------------------------------------------------------------
-// Example: [SAR_area_DEBUG,1,0,1,""] call Sarge's AI System:;
+// Example: [SAR_area_DEBUG,1,0,1,""] call SAR_AI;
 // 
 // SAR_area_DEBUG = areaname (must have been defined further up)
 // 1 = type of group (1 = soldiers, 2 = survivors, 3 = bandits)
@@ -200,16 +200,16 @@ diag_log format["Sarge's AI System: Static Spawning for Helicopter patrols finis
 // Example entries:
 // SARGE DEBUG - Debug group
 // military, 0 snipers, 1 riflemen, patrol
-//[SAR_area_DEBUG,1,0,1,""] call Sarge's AI System:;
+//[SAR_area_DEBUG,1,0,1,""] call SAR_AI;
 
 // military, 2 snipers, 4 riflemen, patrol
-//[SAR_area_DEBUG,1,2,4,""] call Sarge's AI System:;
+//[SAR_area_DEBUG,1,2,4,""] call SAR_AI;
 
 // survivors, 1 snipers, 3 riflemen, patrolling the NWAF
-//[SAR_marker_helipatrol_nwaf,2,1,3,""] call Sarge's AI System:;
+//[SAR_marker_helipatrol_nwaf,2,1,3,""] call SAR_AI;
 
 // bandits, 5 snipers, 2 riflemen, patrolling the NWAF
-//[SAR_marker_helipatrol_nwaf,3,5,2,""] call Sarge's AI System:;
+//[SAR_marker_helipatrol_nwaf,3,5,2,""] call SAR_AI;
 //---------------------------------------------------------------------------------
 
 // add here if needed
@@ -219,5 +219,5 @@ diag_log format["Sarge's AI System: Static Spawning for Helicopter patrols finis
 
 // ---- end of configuration area ----
 
-diag_log format["Sarge's AI System: Static Spawning for infantry patrols finished"];
+diag_log format["SAR_AI: Static Spawning for infantry patrols finished"];
 

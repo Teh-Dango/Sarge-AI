@@ -9,7 +9,7 @@
 	Sarge AI System 2.0+
 	Modded for Arma 3: Exile Mod
 	Changes: Dango
-	http://www.hod-servers.com
+	https://www.hod-servers.com
 	https://github.com/Teh-Dango
 */
 private ["_worldname","_startx","_starty","_gridsize_x","_gridsize_y","_gridwidth","_markername","_triggername","_trig_act_stmnt","_trig_deact_stmnt","_trig_cond","_check","_script_handler","_legendname"];
@@ -19,6 +19,11 @@ diag_log format ["Sarge's AI System: Now initializing Sarge AI version %1 for %2
 
 call compile preProcessFileLineNumbers "\addons\sarge\UPSMON\Init_UPSMON.sqf";
 call compile preProcessFileLineNumbers "\addons\sarge\code\functions\fn_functions.sqf";
+
+createCenter EAST;
+createCenter WEST;
+createCenter RESISTANCE;
+createCenter CIVILIAN;
 
 // unfriendly AI bandits
 EAST setFriend [EAST, 1];
@@ -35,8 +40,8 @@ WEST setFriend [EAST, 0];
 WEST setFriend [RESISTANCE, 1];
 
 // Lets hope this helps with the AI's view of object locality
-waituntil {(!isNil "PublicServerIsLoaded")};
-waituntil {(PublicServerIsLoaded)};
+/* waituntil {(!isNil "PublicServerIsLoaded")};
+waituntil {(PublicServerIsLoaded)}; */
 
 if (SAR_dynamic_spawning) then {
 
@@ -102,7 +107,6 @@ if (SAR_dynamic_spawning) then {
 
             // standard grid definition - maxgroups (ba,so,su) - probability (ba,so,su) - max group members (ba,so,su)
             SAR_AI_monitor set[count SAR_AI_monitor, [_markername,[SAR_max_grps_bandits,SAR_max_grps_soldiers,SAR_max_grps_survivors],[SAR_chance_bandits,SAR_chance_soldiers,SAR_chance_survivors],[SAR_max_grpsize_bandits,SAR_max_grpsize_soldiers,SAR_max_grpsize_survivors],[],[],[]]];
-
         };
     };
     diag_log format["Sarge's AI System: The map grid has been established for %1.",worldName];
@@ -111,20 +115,22 @@ if (SAR_dynamic_spawning) then {
 	diag_log format["Sarge's AI System: Dynamic spawn definitions have been configured for %1.",worldName];
 };
 
+if (SAR_useBlacklist) then {
+	switch (_worldname) do {
+		case "namalsk": {SAR_Blacklist = ["TraderZoneSebjan","NorthernBoatTrader","SouthernBoatTrader"];diag_log format ["Sarge's AI System: Blacklisted zones are %1",SAR_Blacklist];};
+		case "altis": {SAR_Blacklist = ["MafiaTraderCity","TraderZoneSilderas","TraderZoneFolia"];diag_log format ["Sarge's AI System: Blacklisted zones are %1",SAR_Blacklist];};
+		case "tanoa": {SAR_Blacklist = ["ExileMarker1","ExileMarker13","ExileMarker15","ExileMarker35","ExileMarker51"];diag_log format ["Sarge's AI System: Blacklisted zones are %1",SAR_Blacklist];};
+		default {SAR_Blacklist = [];diag_log format ["Sarge's AI System: Blacklisted zones are not currently supported for %1!",worldName];};
+	};	
+};
+
 ["static"] call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grps_%1.sqf",_worldname]);
 diag_log format["Sarge's AI System: Static spawn definitions have been configured for %1.",_worldname];
 
-if (SAR_useBlacklist) then {
-	switch (_worldname) do {
-		case "namalsk": {SAR_Blacklist = ["TraderZoneSebjan","NorthernBoatTrader","SouthernBoatTrader"];};
-		case "altis": {SAR_Blacklist = ["MafiaTraderCity","TraderZoneSilderas","TraderZoneFolia"];};
-		case "tanoa": {SAR_Blacklist = ["ExileMarker1","ExileMarker13","ExileMarker15","ExileMarker35","ExileMarker51"];};
-		default {diag_log format ["Sarge's AI System: Blacklisted zones are not currently supported for %1!",worldName];};
-	};
-	diag_log format ["Sarge's AI System: Blacklisted zones have been established for %1",worldName];
-	diag_log format ["Sarge's AI System: Blacklisted zones are %1",SAR_Blacklist];
-};
-
 if (SAR_Base_Gaurds) then {
 	call compile PreprocessFileLineNumbers "\addons\sarge\code\init_base_guards.sqf";
+};
+
+if (SAR_anim_heli) then {
+	nul = [900,1,10000,0,true] spawn SAR_fnc_AI_anim_heli;
 };

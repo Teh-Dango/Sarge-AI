@@ -108,7 +108,7 @@ _groupvehicles = createGroup _side;
     // create the vehicle
     _veh = createVehicle [_x, [_rndpos select 0, _rndpos select 1, 0], [], 0, "CAN_COLLIDE"];
     _veh setFuel 1;
-    _veh setVariable ["Sarge",1,true];
+    _veh setVariable ["SAR_protect",true,true];
     _veh engineon true;
 
     _veh addMPEventHandler ["HandleDamage", {_this spawn SAR_fnc_AI_hit_vehicle;_this select 2;}];
@@ -160,11 +160,6 @@ _groupvehicles = createGroup _side;
 
         // store experience value on AI
         _leader setVariable ["SAR_AI_experience",0,false];
-
-        // set behaviour & speedmode
-        _leader setspeedmode "FULL";
-        _leader setBehaviour "SAFE";
-		
     };
 
     _snipers = _veh_setup select 1;
@@ -284,10 +279,28 @@ if (SAR_AI_disable_UPSMON_AI) then {
 	_ups_para_list pushBack ['NOAI'];
 };
 
-_ups_para_list spawn UPSMON;
+_ups_para_list execVM "\addons\sarge\UPSMON\UPSMON.sqf";
 
 if(SAR_DEBUG) then {
     diag_log format["Sarge's AI System: Land vehicle group (%2), side %3 spawned in %1 in a %4, side %5.",_patrol_area_name,_groupvehicles, _side, typeOf _veh, side _veh];
+};
+
+if (SAR_HC) then {
+	{
+		_hcID = getPlayerUID _x;
+		if(_hcID select [0,2] isEqualTo 'HC')then {
+			_SAIS_HC = _groupvehicles setGroupOwner (owner _x);
+			if (_SAIS_HC) then {
+				if (SAR_DEBUG) then {
+					diag_log format ["Sarge's AI System: Now moving group %1 to Headless Client %2",_groupvehicles,_hcID];
+				};
+			} else {
+				if (SAR_DEBUG) then {
+					diag_log format ["Sarge's AI System: ERROR! Moving group %1 to Headless Client %2 has failed!",_groupvehicles,_hcID];
+				};
+			};
+		};
+	} forEach allPlayers;
 };
 
 _groupvehicles;

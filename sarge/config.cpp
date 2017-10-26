@@ -1,8 +1,23 @@
+/*
+	# Original #
+	Sarge AI System 1.5
+	Created for Arma 2: DayZ Mod
+	Author: Sarge
+	https://github.com/Swiss-Sarge
+
+	# Fork #
+	Sarge AI System 2.0+
+	Modded for Arma 3: Exile Mod
+	Changes: Dango
+	http://www.hod-servers.com
+	https://github.com/Teh-Dango
+	
+*/
 class CfgPatches {
 	class Sarge_AI {
 		requiredVersion = 1.36;
 		SAR_version = 2.2;
-		requiredAddons[] = {"exile_client","exile_server_config"};
+		requiredAddons[] = {};
 		units[] = {};
 		weapons[] = {};
 		magazines[] = {};
@@ -23,6 +38,7 @@ class CfgFunctions {
 		};
 		class compiles {
 			file = "addons\sarge\code\functions";
+			class AI_anim_heli {};
 			class AI_despawn {};
 			class AI_guards {};
 			class AI_heli {};

@@ -23,7 +23,7 @@ SAR_HC = true; // If there is no HC it will spawn on server automatically
 
 // TODO: Create dynamic map support for any map
 SAR_maps = ["altis","chernarus","chernarus_summer","taviana","namalsk","lingor3","mbg_celle2","takistan","fallujah","panthera2","tanoa"];
-SAR_useBlacklist = false;
+SAR_useBlacklist = false; // ! ONLY USE FOR EXILE MOD !
 
 /* Debug Settings */
 SAR_DEBUG 			= false; // Set to true for RPT info on AI

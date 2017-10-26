@@ -1,8 +1,6 @@
 # Sarge-AI
-Attention! This AI system should not be used with other AI systems that can not accomodate friendly factions.
-
 ## Description
-Dynamic AI System for Arma 3 Exile
+Dynamic AI System
 
 This is an AI system that is intended to simulate real players roaming the map, scavenging, looting and engaging in combat. Unlike other AI systems Sarge AI designates two factions as friendly and only one faction as hostile. This approach provides a simulated pvp/pve environment that changes depending on how players react to the AI. If a player fires and hits a friendly unit the entire group will become hostile and return fire. AI groups will perceive a player that has fired and hit one of it's members as hostile until the group is dead or the player is dead. AI are configured to treat any player with a specific amount of respect one of two ways. If the player has respect below the threshold they will be considered hostile and treated as an enemy by all AI. If the player has respect above the threshold they will be considered friendly only by the friendly factions of AI. If a player shoots or kills any AI the player's respect will be changed in one of two ways. If the AI target is from a friendly faction the player will lose respect for each shot and kill. If the AI target is from a hostile faction the player will be rewarded respect for each shot and kill. 
 

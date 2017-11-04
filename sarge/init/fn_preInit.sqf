@@ -17,11 +17,11 @@
 	- Secondary AI skills can be decimal values i.e. 0.23
 	- Lower time intervals for detections require more CPU resources
 */
-SAR_version = "2.2.6";
+SAR_version = "2.2.7";
 SAR_HC = true; // If there is no HC it will spawn on server automatically
 
 // TODO: Create dynamic map support for any map
-SAR_maps = ["altis","chernarus","chernarus_summer","taviana","namalsk","lingor3","mbg_celle2","takistan","fallujah","panthera2","tanoa"];
+SAR_maps = ["altis","chernarus","chernarus_summer","chernarusredux","taviana","namalsk","lingor3","mbg_celle2","takistan","fallujah","panthera2","tanoa"];
 SAR_useBlacklist = false; // ! ONLY USE FOR EXILE MOD !
 
 /* Debug Settings */
@@ -285,7 +285,7 @@ SAR_band_sniper_tools = [["ItemMap",50],["ItemCompass",30]];
 
 // Helicopter Types ----------------------------------------------------
 // ---------------------------------------------------------------------
-SAR_heli_type = ["B_Heli_Light_01_stripped_F"];
+SAR_heli_type = ["O_Heli_Light_02_unarmed_EPOCH"];
 
 
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */

@@ -11,7 +11,7 @@
 	Changes: Dango
 	https://www.hod-servers.com
 */
-private ["_worldname","_startx","_starty","_gridsize_x","_gridsize_y","_gridwidth","_markername","_triggername","_trig_act_stmnt","_trig_deact_stmnt","_trig_cond","_check","_script_handler","_legendname"];
+private ["_worldname","_startx","_starty","_gridsize_x","_gridsize_y","_gridwidth","_markername","_triggername","_trig_act_stmnt","_trig_deact_stmnt","_trig_cond","_legendname"];
 
 diag_log format ["Sarge's AI System: Welcome to Sarge AI!"];
 diag_log format ["Sarge's AI System: Now initializing Sarge AI version %1 for %2",SAR_version,worldName];
@@ -19,18 +19,19 @@ diag_log format ["Sarge's AI System: Now initializing Sarge AI version %1 for %2
 call compile preProcessFileLineNumbers "\addons\sarge\UPSMON\Init_UPSMON.sqf";
 call compile preProcessFileLineNumbers "\addons\sarge\code\functions\fn_functions.sqf";
 
-// Lets hope this helps with the AI's view of object locality
-/* waituntil {(!isNil "PublicServerIsLoaded")};
-waituntil {(PublicServerIsLoaded)}; */
-
 if (SAR_dynamic_spawning) then {
 
 	_worldname = toLower worldName;
+	
 	if (!(_worldname in SAR_Maps)) exitWith {diag_log format ["Sarge's AI System: %1 does not currently support dynamic AI spawning! Dynamic AI spawning has been disabled!",_worldName];};
 	
+	if (_worldname isEqualTo "chernarus") then {
+		call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grid_chernarus.sqf"]);
+	} else {
+		call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grid_%1.sqf",_worldname]);
+	};
+	
 	diag_log format ["Sarge's AI System: Now generating dynamic map grid for %1.",_worldname];
-
-	call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grid_%1.sqf",_worldname]);
 	
 	// Create grid system and triggers
     SAR_area_ = text format ["SAR_area_%1","x"];
@@ -91,24 +92,34 @@ if (SAR_dynamic_spawning) then {
     };
     diag_log format["Sarge's AI System: The map grid has been established for %1.",worldName];
 	
-	["dynamic"] call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grps_%1.sqf",_worldname]);
+	if (_worldname isEqualTo "chernarus") then {
+		["dynamic"] call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grps_chernarus.sqf"]);
+	} else {
+		["dynamic"] call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grps_%1.sqf",_worldname]);
+	};
+	
 	diag_log format["Sarge's AI System: Dynamic spawn definitions have been configured for %1.",worldName];
 };
 
 if (SAR_useBlacklist) then {
-	switch (_worldname) do {
+	/* switch (_worldname) do {
 		case "namalsk": {SAR_Blacklist = ["TraderZoneSebjan","NorthernBoatTrader","SouthernBoatTrader"];diag_log format ["Sarge's AI System: Blacklisted zones are %1",SAR_Blacklist];};
 		case "altis": {SAR_Blacklist = ["MafiaTraderCity","TraderZoneSilderas","TraderZoneFolia"];diag_log format ["Sarge's AI System: Blacklisted zones are %1",SAR_Blacklist];};
 		case "tanoa": {SAR_Blacklist = ["ExileMarker1","ExileMarker13","ExileMarker15","ExileMarker35","ExileMarker51"];diag_log format ["Sarge's AI System: Blacklisted zones are %1",SAR_Blacklist];};
 		default {SAR_Blacklist = [];diag_log format ["Sarge's AI System: Blacklisted zones are not currently supported for %1!",worldName];};
-	};	
+	}; */
 };
 
-["static"] call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grps_%1.sqf",_worldname]);
+if (_worldname isEqualTo "chernarus") then {
+	["static"] call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grps_chernarus.sqf"]);
+} else {
+	["static"] call compile preprocessFileLineNumbers (format ["\addons\sarge\code\map_config\SAR_cfg_grps_%1.sqf",_worldname]);
+};
+
 diag_log format["Sarge's AI System: Static spawn definitions have been configured for %1.",_worldname];
 
 if (SAR_Base_Gaurds) then {
-	call compile PreprocessFileLineNumbers "\addons\sarge\code\init_base_guards.sqf";
+	//call compile PreprocessFileLineNumbers "\addons\sarge\code\init_base_guards.sqf";
 };
 
 if (SAR_anim_heli) then {

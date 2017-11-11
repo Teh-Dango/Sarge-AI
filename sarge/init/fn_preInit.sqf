@@ -17,7 +17,7 @@
 	- Secondary AI skills can be decimal values i.e. 0.23
 	- Lower time intervals for detections require more CPU resources
 */
-SAR_version = "2.2.7";
+SAR_version = "2.2.8";
 SAR_HC = true; // If there is no HC it will spawn on server automatically
 
 // TODO: Create dynamic map support for any map
@@ -33,20 +33,20 @@ SAR_KILL_MSG 		= false; // Set to true for announcing AI kills to the server ! I
 
 /* AI Settings */
 SAR_dynamic_spawning 				= true;		// Turn dynamic grid spawns on or off
-SAR_Base_Gaurds 					= false;	// Turn AI territory gurads on or off ! ONLY USE FOR EXILE MOD !
+SAR_Base_Gaurds 					= false;	// Turn AI territory guards on or off ! ONLY USE FOR EXILE MOD !
 SAR_anim_heli						= true;		// Turn animated heli crashes on or off ! Loot only configured for EXILE !
 SAR_dynamic_group_respawn 			= true;		// Turn dynamic grid AI respawn on or off
 SAR_dynamic_heli_respawn 			= true;		// Turn dynamic grid AI respawn on or off
 SAR_AI_COMBAT_VEHICLE 				= false;	// AI will steal a vehicle while in combat.
 SAR_AI_STEAL_VEHICLE 				= false;	// AI will steal any vehicle to reach target location.
-SAR_AI_disable_UPSMON_AI			= false; 	// Turn of UPSMON scripts for all AI ! May cause AI to act in unexpected ways !
+SAR_AI_disable_UPSMON_AI			= false; 	// Turn off UPSMON scripts for all AI ! May cause AI to act in unexpected ways !
 SAR_respawn_waittime 				= 300;		// How long to wait before dynamic AI respawns
 SAR_DESPAWN_TIMEOUT 				= 120;		// How long to wait before despawning dynamic AI
 SAR_DELETE_TIMEOUT 					= 600;		// How long to wait before deleting dead AI
-SAR_surv_kill_value 				= 50;		// How much respect players lose if killing friendly AI ! ONLY USE FOR EXILE MOD !
-SAR_band_kill_value 				= 100;		// How much respect players gain if killing hostile AI ! ONLY USE FOR EXILE MOD !
-SAR_RESPECT_HOSTILE_LIMIT 			= -2000;	// Friendly AI will shoot at players with respect below this number ! ONLY USE FOR EXILE MOD !
-SAR_REAMMO_INTERVAL					= 30;		// How often AI will replenish their ammunitions
+SAR_surv_kill_value 				= 50;		// How much respect players lose if killing friendly AI
+SAR_band_kill_value 				= 100;		// How much respect players gain if killing hostile AI
+SAR_RESPECT_HOSTILE_LIMIT 			= -2500;	// Friendly AI will shoot at players with respect below this number
+SAR_REAMMO_INTERVAL					= 30;		// How often AI will replenish their ammo
 SAR_DETECT_HOSTILE 					= 200;		// How far away AI can detect hostile AI & players
 SAR_DETECT_INTERVAL 				= 10;		// How often AI can detect AI & players
 SAR_DETECT_HOSTILE_FROM_VEHICLE 	= 400;		// How far AI can detect hostile AI & players while in a vehicle

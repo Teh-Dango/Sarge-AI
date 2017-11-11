@@ -16,7 +16,7 @@ private ["_worldname","_startx","_starty","_gridsize_x","_gridsize_y","_gridwidt
 diag_log format ["Sarge's AI System: Welcome to Sarge AI!"];
 diag_log format ["Sarge's AI System: Now initializing Sarge AI version %1 for %2",SAR_version,worldName];
 
-call compile preProcessFileLineNumbers "\addons\sarge\UPSMON\Init_UPSMON.sqf";
+/* call compile preProcessFileLineNumbers "\addons\sarge\UPSMON\Init_UPSMON.sqf"; */ // DO NOT ENABLE THIS!
 call compile preProcessFileLineNumbers "\addons\sarge\code\functions\fn_functions.sqf";
 
 if (SAR_dynamic_spawning) then {

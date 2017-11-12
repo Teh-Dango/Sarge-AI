@@ -17,7 +17,7 @@
 	- Secondary AI skills can be decimal values i.e. 0.23
 	- Lower time intervals for detections require more CPU resources
 */
-SAR_version = "2.2.9";
+SAR_version = "2.3.0";
 SAR_HC = true; // If there is no HC it will spawn on server automatically
 
 // TODO: Create dynamic map support for any map

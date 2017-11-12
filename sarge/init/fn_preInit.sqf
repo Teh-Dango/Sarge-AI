@@ -17,7 +17,7 @@
 	- Secondary AI skills can be decimal values i.e. 0.23
 	- Lower time intervals for detections require more CPU resources
 */
-SAR_version = "2.2.8";
+SAR_version = "2.2.9";
 SAR_HC = true; // If there is no HC it will spawn on server automatically
 
 // TODO: Create dynamic map support for any map
@@ -43,9 +43,9 @@ SAR_AI_disable_UPSMON_AI			= false; 	// Turn off UPSMON scripts for all AI ! May
 SAR_respawn_waittime 				= 300;		// How long to wait before dynamic AI respawns
 SAR_DESPAWN_TIMEOUT 				= 120;		// How long to wait before despawning dynamic AI
 SAR_DELETE_TIMEOUT 					= 600;		// How long to wait before deleting dead AI
-SAR_surv_kill_value 				= 50;		// How much respect players lose if killing friendly AI
-SAR_band_kill_value 				= 100;		// How much respect players gain if killing hostile AI
-SAR_RESPECT_HOSTILE_LIMIT 			= -2500;	// Friendly AI will shoot at players with respect below this number
+SAR_surv_kill_value 				= 20;		// How much respect players lose if killing friendly AI
+SAR_band_kill_value 				= 10;		// How much respect players gain if killing hostile AI
+SAR_RESPECT_HOSTILE_LIMIT 			= -60;		// Friendly AI will shoot at players with respect below this number
 SAR_REAMMO_INTERVAL					= 30;		// How often AI will replenish their ammo
 SAR_DETECT_HOSTILE 					= 200;		// How far away AI can detect hostile AI & players
 SAR_DETECT_INTERVAL 				= 10;		// How often AI can detect AI & players
@@ -63,7 +63,7 @@ SAR_max_grps_soldiers 		= 2; 	// Total groups per grid
 SAR_max_grps_survivors 		= 2; 	// Total groups per grid
 
 // Size of AI groups plus a leader
-SAR_max_grpsize_bandits 	= 3; 	// Size of the group If using HC use +1 at least to offset AI side bug only for bandits
+SAR_max_grpsize_bandits 	= 3; 	// Size of the group !If using HC use +1 at least to offset AI side bug only for bandits!
 SAR_max_grpsize_soldiers 	= 2;	// Size of the group
 SAR_max_grpsize_survivors 	= 2; 	// Size of the group
 
@@ -94,199 +94,201 @@ SAR_AI_XP_ARMOR_3 	= 0.3;
 // Bonus factors for leaders
 SAR_leader_health_factor = 1; // values: 0.1 - 1, 1 = no change, 0.5 = damage taken reduced by 50%, 0.1 = damage taken reduced by 90% -  EXPERIMENTAL
 
-
-// military AI
-SAR_leader_sold_skills = [
-    ["aimingAccuracy",0.35, 0], // skilltype, <min value>, <random value added to min>;
-    ["aimingShake",   0.35, 0],
-    ["aimingSpeed",   0.35, 0],
-    ["spotDistance",  0.35, 0],
-    ["spotTime",      0.35, 0],
-    ["endurance",     0.35, 0],
-    ["courage",       0.35, 0],
-    ["reloadSpeed",   0.35, 0],
-    ["commanding",    0.35, 0],
-    ["general",       0.35, 0]
-];
-SAR_soldier_sold_skills  = [
-    ["aimingAccuracy",0.35, 0], // skilltype, <min value>, <random value added to min>;
-    ["aimingShake",   0.35, 0],
-    ["aimingSpeed",   0.35, 0],
-    ["spotDistance",  0.35, 0],
-    ["spotTime",      0.35, 0],
-    ["endurance",     0.35, 0],
-    ["courage",       0.35, 0],
-    ["reloadSpeed",   0.35, 0],
-    ["commanding",    0.35, 0],
-    ["general",       0.35, 0]
-
-];
-SAR_sniper_sold_skills = [
-    ["aimingAccuracy",0.35, 0], // skilltype, <min value>, <random value added to min>;
-    ["aimingShake",   0.35, 0],
-    ["aimingSpeed",   0.35, 0],
-    ["spotDistance",  0.35, 0],
-    ["spotTime",      0.35, 0],
-    ["endurance",     0.35, 0],
-    ["courage",       0.35, 0],
-    ["reloadSpeed",   0.35, 0],
-    ["commanding",    0.35, 0],
-    ["general",       0.35, 0]
-];
-
-// bandit AI
-SAR_leader_band_skills = [
-    ["aimingAccuracy",0.35, 0], // skilltype, <min value>, <random value added to min>;
-    ["aimingShake",   0.35, 0],
-    ["aimingSpeed",   0.35, 0],
-    ["spotDistance",  0.35, 0],
-    ["spotTime",      0.35, 0],
-    ["endurance",     0.35, 0],
-    ["courage",       0.35, 0],
-    ["reloadSpeed",   0.35, 0],
-    ["commanding",    0.35, 0],
-    ["general",       0.35, 0]
-];
-SAR_soldier_band_skills = [
-    ["aimingAccuracy",0.35, 0], // skilltype, <min value>, <random value added to min>;
-    ["aimingShake",   0.35, 0],
-    ["aimingSpeed",   0.35, 0],
-    ["spotDistance",  0.35, 0],
-    ["spotTime",      0.35, 0],
-    ["endurance",     0.35, 0],
-    ["courage",       0.35, 0],
-    ["reloadSpeed",   0.35, 0],
-    ["commanding",    0.35, 0],
-    ["general",       0.35, 0]
-];
-SAR_sniper_band_skills = [
-    ["aimingAccuracy",0.35, 0], // skilltype, <min value>, <random value added to min>;
-    ["aimingShake",   0.35, 0],
-    ["aimingSpeed",   0.35, 0],
-    ["spotDistance",  0.35, 0],
-    ["spotTime",      0.35, 0],
-    ["endurance",     0.35, 0],
-    ["courage",       0.35, 0],
-    ["reloadSpeed",   0.35, 0],
-    ["commanding",    0.35, 0],
-    ["general",       0.35, 0]
-];
-
-// survivor AI
-SAR_leader_surv_skills = [
-    ["aimingAccuracy",0.35, 0], // skilltype, <min value>, <random value added to min>;
-    ["aimingShake",   0.35, 0],
-    ["aimingSpeed",   0.35, 0],
-    ["spotDistance",  0.35, 0],
-    ["spotTime",      0.35, 0],
-    ["endurance",     0.35, 0],
-    ["courage",       0.35, 0],
-    ["reloadSpeed",   0.35, 0],
-    ["commanding",    0.35, 0],
-    ["general",       0.35, 0]
-];
-SAR_soldier_surv_skills = [
-    ["aimingAccuracy",0.35, 0], // skilltype, <min value>, <random value added to min>;
-    ["aimingShake",   0.35, 0],
-    ["aimingSpeed",   0.35, 0],
-    ["spotDistance",  0.35, 0],
-    ["spotTime",      0.35, 0],
-    ["endurance",     0.35, 0],
-    ["courage",       0.35, 0],
-    ["reloadSpeed",   0.35, 0],
-    ["commanding",    0.35, 0],
-    ["general",       0.35, 0]
-];
-SAR_sniper_surv_skills = [
-    ["aimingAccuracy",0.35, 0], // skilltype, <min value>, <random value added to min>;
-    ["aimingShake",   0.35, 0],
-    ["aimingSpeed",   0.35, 0],
-    ["spotDistance",  0.35, 0],
-    ["spotTime",      0.35, 0],
-    ["endurance",     0.35, 0],
-    ["courage",       0.35, 0],
-    ["reloadSpeed",   0.35, 0],
-    ["commanding",    0.35, 0],
-    ["general",       0.35, 0]
-];
-
-// Military AI ----------------------------------------------------------
-// ----------------------------------------------------------------------
-SAR_leader_sold_list = ["B_officer_F"];
-SAR_sniper_sold_list = ["B_ghillie_lsh_F","B_sniper_F"];
-SAR_soldier_sold_list = ["B_G_medic_F","B_G_engineer_F","b_soldier_survival_F","B_G_Soldier_TL_F"];
-
-SAR_sold_leader_weapon_list = ["arifle_Katiba_F","arifle_Mk20_F","arifle_MXC_F","arifle_MX_F","arifle_TRG21_F","arifle_TRG20_F"];
-SAR_sold_leader_pistol_list = [];
-
-SAR_sold_leader_items = [];
-SAR_sold_leader_tools =  [["ItemMap",50],["ItemCompass",30],["NVGoggles",5],["ItemRadio",100]];
-
-SAR_sold_rifleman_weapon_list = ["arifle_Katiba_F","arifle_Mk20_F","arifle_MXC_F","arifle_MX_F","arifle_TRG21_F","arifle_TRG20_F"];
-SAR_sold_rifleman_pistol_list = [];
-
-SAR_sold_rifleman_items = [];
-SAR_sold_rifleman_tools = [["ItemMap",50],["ItemCompass",30]];
-
-SAR_sold_sniper_weapon_list = ["srifle_DMR_02_F","arifle_MXM_F","srifle_DMR_04_F"];
-SAR_sold_sniper_pistol_list = [];
-
-SAR_sold_sniper_items = [];
-SAR_sold_sniper_tools = [["ItemMap",50],["ItemCompass",30]];
-
-// Survivor AI ----------------------------------------------------------
-// ---------------------------------------------------------------------
-SAR_leader_surv_list = ["B_G_Soldier_A_F"];
-SAR_sniper_surv_list = ["B_G_Soldier_LAT_F"];
-SAR_soldier_surv_list = ["B_G_Soldier_M_F"];
-
-SAR_surv_leader_weapon_list = ["arifle_Katiba_F","arifle_Mk20_F","arifle_MXC_F","arifle_MX_F","arifle_TRG21_F","arifle_TRG20_F"];
-SAR_surv_leader_pistol_list = [];
-
-SAR_surv_leader_items = [];
-SAR_surv_leader_tools =  [["ItemMap",50],["ItemCompass",30],["NVGoggles",5],["ItemRadio",100]];
-
-SAR_surv_rifleman_weapon_list = ["arifle_Katiba_F","arifle_Mk20_F","arifle_MXC_F","arifle_MX_F","arifle_TRG21_F","arifle_TRG20_F"];
-SAR_surv_rifleman_pistol_list = [];
-
-SAR_surv_rifleman_items = [];
-SAR_surv_rifleman_tools = [["ItemMap",50],["ItemCompass",30]];
-
-SAR_surv_sniper_weapon_list = ["srifle_DMR_02_F","arifle_MXM_F","srifle_DMR_04_F"];
-SAR_surv_sniper_pistol_list = [];
-
-SAR_surv_sniper_items = [];
-SAR_surv_sniper_tools = [["ItemMap",50],["ItemCompass",30]];
-
-// Hostile AI ----------------------------------------------------------
-// ---------------------------------------------------------------------
-SAR_leader_band_list = ["O_G_Soldier_lite_F"];
-SAR_sniper_band_list = ["O_G_Soldier_lite_F"];
-SAR_soldier_band_list = ["O_G_Soldier_lite_F"];
-
-SAR_band_leader_weapon_list = ["arifle_Katiba_F","arifle_Mk20_F","arifle_MXC_F","arifle_MX_F","arifle_TRG21_F","arifle_TRG20_F"];
-SAR_band_leader_pistol_list = [];
-
-SAR_band_leader_items = [];
-SAR_band_leader_tools =  [["ItemMap",50],["ItemCompass",30],["NVGoggles",5],["ItemRadio",100]];
-
-SAR_band_rifleman_weapon_list = ["arifle_Katiba_F","arifle_Mk20_F","arifle_MXC_F","arifle_MX_F","arifle_TRG21_F","arifle_TRG20_F"];
-SAR_band_rifleman_pistol_list = [];
-
-SAR_band_rifleman_items = [];
-SAR_band_rifleman_tools = [["ItemMap",50],["ItemCompass",30]];
-
-SAR_band_sniper_weapon_list = ["srifle_DMR_02_F","arifle_MXM_F","srifle_DMR_04_F"];
-SAR_band_sniper_pistol_list = [];
-
-SAR_band_sniper_items = [];
-SAR_band_sniper_tools = [["ItemMap",50],["ItemCompass",30]];
-
-
 // Helicopter Types ----------------------------------------------------
-// ---------------------------------------------------------------------
 SAR_heli_type = ["O_Heli_Light_02_unarmed_EPOCH"];
 
+// ---------------------------------------------------------------------
+// Military AI ---------------------------------------------------------
+// ---------------------------------------------------------------------
+
+// Leader lodout options
+SAR_sold_leader_gender 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_sold_leader_uniform = [["U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F"],["U_Camo_uniform"]];
+SAR_sold_leader_primary = ["arifle_Katiba_F","arifle_Mk20_F","arifle_MXC_F","arifle_MX_F","arifle_TRG21_F","arifle_TRG20_F"];
+SAR_sold_leader_pistol 	= [];
+SAR_sold_leader_items 	= [];
+SAR_sold_leader_tools 	= [["ItemMap",50],["ItemCompass",30],["NVGoggles",5],["ItemRadio",100]];
+SAR_sold_leader_skills 	= [
+    ["aimingAccuracy",0.10, round(random 2)], // skilltype, <min value>, <random value added to min>;
+    ["aimingShake",   0.10, round(random 2)],
+    ["aimingSpeed",   0.10, round(random 2)],
+    ["spotDistance",  0.10, round(random 2)],
+    ["spotTime",      0.10, round(random 2)],
+    ["endurance",     0.10, round(random 2)],
+    ["courage",       0.10, round(random 2)],
+    ["reloadSpeed",   0.10, round(random 2)],
+    ["commanding",    0.10, round(random 2)],
+    ["general",       0.10, round(random 2)]
+];
+
+// Riflemen loadout options
+SAR_sold_rifleman_gender 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_sold_rifleman_uniform 	= [["U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F"],["U_Camo_uniform"]];
+SAR_sold_rifleman_primary 	= ["arifle_Katiba_F","arifle_Mk20_F","arifle_MXC_F","arifle_MX_F","arifle_TRG21_F","arifle_TRG20_F"];
+SAR_sold_rifleman_pistol 	= [];
+SAR_sold_rifleman_items 	= [];
+SAR_sold_rifleman_tools 	= [["ItemMap",50],["ItemCompass",30]];
+SAR_sold_rifleman_skills  	= [
+    ["aimingAccuracy",0.10, round(random 2)], // skilltype, <min value>, <random value added to min>;
+    ["aimingShake",   0.10, round(random 2)],
+    ["aimingSpeed",   0.10, round(random 2)],
+    ["spotDistance",  0.10, round(random 2)],
+    ["spotTime",      0.10, round(random 2)],
+    ["endurance",     0.10, round(random 2)],
+    ["courage",       0.10, round(random 2)],
+    ["reloadSpeed",   0.10, round(random 2)],
+    ["commanding",    0.10, round(random 2)],
+    ["general",       0.10, round(random 2)]
+
+];
+
+// Sniper loadout options
+SAR_sold_sniper_gender 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_sold_sniper_uniform = [["U_O_FullGhillie_lsh","U_O_FullGhillie_sard","U_O_FullGhillie_ard","U_I_FullGhillie_lsh","U_I_FullGhillie_sard","U_I_FullGhillie_ard"],["U_ghillie1_uniform","U_ghillie2_uniform","U_ghillie3_uniform"]];
+SAR_sold_sniper_primary = ["srifle_DMR_02_F","arifle_MXM_F","srifle_DMR_04_F"];
+SAR_sold_sniper_pistol 	= [];
+SAR_sold_sniper_items 	= [];
+SAR_sold_sniper_tools 	= [["ItemMap",50],["ItemCompass",30]];
+SAR_sold_sniper_skills 	= [
+    ["aimingAccuracy",0.10, round(random 2)], // skilltype, <min value>, <random value added to min>;
+    ["aimingShake",   0.10, round(random 2)],
+    ["aimingSpeed",   0.10, round(random 2)],
+    ["spotDistance",  0.10, round(random 2)],
+    ["spotTime",      0.10, round(random 2)],
+    ["endurance",     0.10, round(random 2)],
+    ["courage",       0.10, round(random 2)],
+    ["reloadSpeed",   0.10, round(random 2)],
+    ["commanding",    0.10, round(random 2)],
+    ["general",       0.10, round(random 2)]
+];
+
+// ---------------------------------------------------------------------
+// Survivor AI ---------------------------------------------------------
+// ---------------------------------------------------------------------
+
+// Leader lodout options
+SAR_surv_leader_gender 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_surv_leader_uniform = [["U_C_Mechanic_01_F","U_C_IDAP_Man_Jeans_F","U_C_Man_casual_1_F","U_C_Man_casual_2_F","U_C_Man_casual_3_F","U_C_Journalist","U_C_HunterBody_grn"],["U_CamoBlue_uniform","U_CamoBrn_uniform"]];
+SAR_surv_leader_primary = ["arifle_Katiba_F","arifle_Mk20_F","arifle_MXC_F","arifle_MX_F","arifle_TRG21_F","arifle_TRG20_F"];
+SAR_surv_leader_pistol 	= [];
+SAR_surv_leader_items 	= [];
+SAR_surv_leader_tools 	= [["ItemMap",50],["ItemCompass",30],["NVGoggles",5],["ItemRadio",100]];
+SAR_surv_leader_skills 	= [
+    ["aimingAccuracy",0.10, round(random 2)], // skilltype, <min value>, <random value added to min>;
+    ["aimingShake",   0.10, round(random 2)],
+    ["aimingSpeed",   0.10, round(random 2)],
+    ["spotDistance",  0.10, round(random 2)],
+    ["spotTime",      0.10, round(random 2)],
+    ["endurance",     0.10, round(random 2)],
+    ["courage",       0.10, round(random 2)],
+    ["reloadSpeed",   0.10, round(random 2)],
+    ["commanding",    0.10, round(random 2)],
+    ["general",       0.10, round(random 2)]
+];
+
+// Riflemen loadout options
+SAR_surv_rifleman_gender 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_surv_rifleman_uniform 	= [["U_C_Mechanic_01_F","U_C_IDAP_Man_Jeans_F","U_C_Man_casual_1_F","U_C_Man_casual_2_F","U_C_Man_casual_3_F","U_C_Journalist","U_C_HunterBody_grn"],["U_CamoBlue_uniform","U_CamoBrn_uniform"]];
+SAR_surv_rifleman_primary 	= ["arifle_Katiba_F","arifle_Mk20_F","arifle_MXC_F","arifle_MX_F","arifle_TRG21_F","arifle_TRG20_F"];
+SAR_surv_rifleman_pistol 	= [];
+SAR_surv_rifleman_items 	= [];
+SAR_surv_rifleman_tools 	= [["ItemMap",50],["ItemCompass",30]];
+SAR_surv_rifleman_skills 	= [
+    ["aimingAccuracy",0.10, round(random 2)], // skilltype, <min value>, <random value added to min>;
+    ["aimingShake",   0.10, round(random 2)],
+    ["aimingSpeed",   0.10, round(random 2)],
+    ["spotDistance",  0.10, round(random 2)],
+    ["spotTime",      0.10, round(random 2)],
+    ["endurance",     0.10, round(random 2)],
+    ["courage",       0.10, round(random 2)],
+    ["reloadSpeed",   0.10, round(random 2)],
+    ["commanding",    0.10, round(random 2)],
+    ["general",       0.10, round(random 2)]
+];
+
+// Sniper loadout options
+SAR_surv_sniper_gender 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_surv_sniper_uniform = [["U_C_Mechanic_01_F","U_C_IDAP_Man_Jeans_F","U_C_Man_casual_1_F","U_C_Man_casual_2_F","U_C_Man_casual_3_F","U_C_Journalist","U_C_HunterBody_grn"],["U_CamoBlue_uniform","U_CamoBrn_uniform"]];
+SAR_surv_sniper_primary = ["srifle_DMR_02_F","arifle_MXM_F","srifle_DMR_04_F"];
+SAR_surv_sniper_pistol 	= [];
+SAR_surv_sniper_items 	= [];
+SAR_surv_sniper_tools 	= [["ItemMap",50],["ItemCompass",30]];
+SAR_surv_sniper_skills 	= [
+    ["aimingAccuracy",0.10, round(random 2)], // skilltype, <min value>, <random value added to min>;
+    ["aimingShake",   0.10, round(random 2)],
+    ["aimingSpeed",   0.10, round(random 2)],
+    ["spotDistance",  0.10, round(random 2)],
+    ["spotTime",      0.10, round(random 2)],
+    ["endurance",     0.10, round(random 2)],
+    ["courage",       0.10, round(random 2)],
+    ["reloadSpeed",   0.10, round(random 2)],
+    ["commanding",    0.10, round(random 2)],
+    ["general",       0.10, round(random 2)]
+];
+
+// ---------------------------------------------------------------------
+// Hostile AI ----------------------------------------------------------
+// ---------------------------------------------------------------------
+
+// Leader lodout options
+SAR_band_leader_gender 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_band_leader_uniform = [["U_I_C_Soldier_Bandit_1_F","U_I_C_Soldier_Bandit_2_F","U_I_C_Soldier_Bandit_3_F","U_I_C_Soldier_Bandit_4_F","U_I_C_Soldier_Bandit_5_F"],["U_CamoBiker_uniform"]];
+SAR_band_leader_primary = ["arifle_Katiba_F","arifle_Mk20_F","arifle_MXC_F","arifle_MX_F","arifle_TRG21_F","arifle_TRG20_F"];
+SAR_band_leader_pistol 	= [];
+SAR_band_leader_items 	= [];
+SAR_band_leader_tools 	= [["ItemMap",50],["ItemCompass",30],["NVGoggles",5],["ItemRadio",100]];
+SAR_band_leader_skills 	= [
+    ["aimingAccuracy",0.10, round(random 2)], // skilltype, <min value>, <random value added to min>;
+    ["aimingShake",   0.10, round(random 2)],
+    ["aimingSpeed",   0.10, round(random 2)],
+    ["spotDistance",  0.10, round(random 2)],
+    ["spotTime",      0.10, round(random 2)],
+    ["endurance",     0.10, round(random 2)],
+    ["courage",       0.10, round(random 2)],
+    ["reloadSpeed",   0.10, round(random 2)],
+    ["commanding",    0.10, round(random 2)],
+    ["general",       0.10, round(random 2)]
+];
+
+// Riflemen loadout options
+SAR_band_rifleman_gender 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_band_rifleman_uniform 	= [["U_I_C_Soldier_Bandit_1_F","U_I_C_Soldier_Bandit_2_F","U_I_C_Soldier_Bandit_3_F","U_I_C_Soldier_Bandit_4_F","U_I_C_Soldier_Bandit_5_F"],["U_CamoBiker_uniform"]];
+SAR_band_rifleman_primary 	= ["arifle_Katiba_F","arifle_Mk20_F","arifle_MXC_F","arifle_MX_F","arifle_TRG21_F","arifle_TRG20_F"];
+SAR_band_rifleman_pistol 	= [];
+SAR_band_rifleman_items 	= [];
+SAR_band_rifleman_tools 	= [["ItemMap",50],["ItemCompass",30]];
+SAR_band_rifleman_skills 	= [
+    ["aimingAccuracy",0.10, round(random 2)], // skilltype, <min value>, <random value added to min>;
+    ["aimingShake",   0.10, round(random 2)],
+    ["aimingSpeed",   0.10, round(random 2)],
+    ["spotDistance",  0.10, round(random 2)],
+    ["spotTime",      0.10, round(random 2)],
+    ["endurance",     0.10, round(random 2)],
+    ["courage",       0.10, round(random 2)],
+    ["reloadSpeed",   0.10, round(random 2)],
+    ["commanding",    0.10, round(random 2)],
+    ["general",       0.10, round(random 2)]
+];
+
+// Sniper loadout options
+SAR_band_sniper_gender 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_band_sniper_uniform = [["U_I_C_Soldier_Bandit_1_F","U_I_C_Soldier_Bandit_2_F","U_I_C_Soldier_Bandit_3_F","U_I_C_Soldier_Bandit_4_F","U_I_C_Soldier_Bandit_5_F"],["U_CamoBiker_uniform"]];
+SAR_band_sniper_primary	= ["srifle_DMR_02_F","arifle_MXM_F","srifle_DMR_04_F"];
+SAR_band_sniper_pistol 	= [];
+SAR_band_sniper_items 	= [];
+SAR_band_sniper_tools 	= [["ItemMap",50],["ItemCompass",30]];
+SAR_band_sniper_skills 	= [
+    ["aimingAccuracy",0.10, round(random 2)], // skilltype, <min value>, <random value added to min>;
+    ["aimingShake",   0.10, round(random 2)],
+    ["aimingSpeed",   0.10, round(random 2)],
+    ["spotDistance",  0.10, round(random 2)],
+    ["spotTime",      0.10, round(random 2)],
+    ["endurance",     0.10, round(random 2)],
+    ["courage",       0.10, round(random 2)],
+    ["reloadSpeed",   0.10, round(random 2)],
+    ["commanding",    0.10, round(random 2)],
+    ["general",       0.10, round(random 2)]
+];
 
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */
 /* -------------------------------- Do Not Edit Below. If you do the AI will not work properly. -------------------------------- */

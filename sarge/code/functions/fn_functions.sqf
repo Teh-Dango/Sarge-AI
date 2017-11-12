@@ -187,18 +187,18 @@ SAR_unit_loadout_weapons = {
     _unittype = _this select 0;
     _side = _this select 1;
 
-    _unit_weapon_list = call compile format["SAR_%2_%1_weapon_list",_unittype,_side];
-    _unit_pistol_list = call compile format["SAR_%2_%1_pistol_list",_unittype,_side];
+    _unit_weapon_list = call compile format ["SAR_%2_%1_primary",_unittype,_side];
+    _unit_pistol_list = call compile format ["SAR_%2_%1_pistol",_unittype,_side];
 
     _unit_weapon_names = [];
     _unit_weapon_name = "";
     _unit_pistol_name = "";
 
-    if(count _unit_weapon_list > 0) then {
-        _unit_weapon_name = _unit_weapon_list select (floor(random (count _unit_weapon_list)));
+    if (count _unit_weapon_list > 0) then {
+        _unit_weapon_name = _unit_weapon_list call BIS_fnc_SelectRandom;
     };
-    if(count _unit_pistol_list > 0) then {
-        _unit_pistol_name = _unit_pistol_list select (floor(random (count _unit_pistol_list)));
+    if (count _unit_pistol_list > 0) then {
+        _unit_pistol_name = _unit_pistol_list call BIS_fnc_SelectRandom;
     };
     _unit_weapon_names set [0, _unit_weapon_name];
     _unit_weapon_names set [1, _unit_pistol_name];
@@ -209,26 +209,23 @@ SAR_unit_loadout_weapons = {
 SAR_unit_loadout = {
 	// Parameters:
 	// _unit (Unit to apply the loadout to)
-	// _weapons (array with weapons for the loadout)
+	// _uniform (_uniform to apply the loadout to)
+	// _primary (array with weapons for the loadout)
 	// _items (array with items for the loadout)
 	// _tools (array with tools for the loadout)
 
-	private ["_unit","_weapons","_weapon","_items","_unit_magazine_name","_item","_tool","_tools","_forEachIndex"];
+	private ["_unit","_primary","_uniform","_weapon","_items","_unit_magazine_name","_item","_tool","_tools","_forEachIndex"];
 
     _unit = _this select 0;
-    _weapons = _this select 1;
-    _items = _this select 2;
-    _tools = _this select 3;
+    _uniform = _this select 1;
+    _primary = _this select 2;
+    _items = _this select 3;
+    _tools = _this select 4;
 
-    removeAllWeapons _unit;
-	removeAllItems _unit;
-    removeAllAssignedItems _unit;
-	removeGoggles _unit;
-
-	_unit enableFatigue false;
-
+	_unit addUniform _uniform;
+	
     {
-        _weapon = _weapons select _forEachIndex;
+        _weapon = _primary select _forEachIndex;
 
         if (_weapon !="") then
         {
@@ -236,7 +233,7 @@ SAR_unit_loadout = {
             _unit addMagazine _unit_magazine_name;
             _unit addWeapon _weapon;
         };
-    } foreach _weapons;
+    } foreach _primary;
 
     {
         _item = _items select _forEachIndex;

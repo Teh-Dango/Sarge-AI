@@ -105,9 +105,9 @@ if (_type == "static") then {
 	diag_log format["Sarge's AI System: Static Spawning for infantry patrols started"];
 
 	// These are safe zone guards only! Notice the call --> call SAR_fnc_AI_traders
+	/* [SAR_marker_MafiaTraderCity_Fortify,1,0,0,"fortify",true] call SAR_fnc_AI_traders;
 	[SAR_marker_MafiaTraderCity_Fortify,1,0,0,"fortify",true] call SAR_fnc_AI_traders;
-	[SAR_marker_MafiaTraderCity_Fortify,1,0,0,"fortify",true] call SAR_fnc_AI_traders;
-	[SAR_marker_MafiaTraderCity_Fortify,1,0,0,"fortify",true] call SAR_fnc_AI_traders;
+	[SAR_marker_MafiaTraderCity_Fortify,1,0,0,"fortify",true] call SAR_fnc_AI_traders; */
 	
 	// Hotel Mission AI
 	/* [SAR_marker_Hotel_Mission,1,floor(round(random 1)),floor(round(random 1)),["fortify","patrol","ambush"] call BIS_fnc_selectRandom,true,random 60] call SAR_fnc_AI_infantry;

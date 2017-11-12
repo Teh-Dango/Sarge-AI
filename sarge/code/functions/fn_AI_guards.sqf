@@ -12,27 +12,33 @@
 	https://www.hod-servers.com
 
 */
-private ["_sizeOfBase","_authorizedGateCodes","_authorizedUID","_flagPole","_leadername","_type","_patrol_area_name","_grouptype","_snipers","_riflemen","_action","_side","_leaderList","_riflemenlist","_sniperlist","_rndpos","_group","_leader","_cond","_respawn","_leader_weapon_names","_leader_items","_leader_tools","_soldier_weapon_names","_soldier_items","_soldier_tools","_sniper_weapon_names","_sniper_items","_sniper_tools","_leaderskills","_riflemanskills","_sniperskills","_ups_para_list","_respawn_time","_argc","_ai_type"];
+private ["_sizeOfBase","_authorizedUID","_flagPole","_leadername","_type","_patrol_area_name","_grouptype","_snipers","_riflemen","_action","_side","_leaderList","_riflemenlist","_sniperlist","_rndpos","_group","_leader","_cond","_respawn","_leader_weapon_names","_leader_items","_leader_tools","_soldier_weapon_names","_soldier_items","_soldier_tools","_sniper_weapon_names","_sniper_items","_sniper_tools","_leaderskills","_riflemanskills","_sniperskills","_ups_para_list","_respawn_time","_argc","_ai_type"];
 
 //if (!isServer) exitWith {};
 
-diag_log "Sarge AI System: Territory gaurds are initializing now.";
+diag_log "Sarge AI System: Base gaurds are initializing now.";
 
-_argc = count _this;
-_flagPole = _this select 0;
-_patrol_area_name = _this select 1;
-_grouptype = _this select 2;
-_snipers = _this select 3;
-_riflemen = _this select 4;
-_action = tolower (_this select 5);
-_respawn = _this select 6;
+_argc 				= count _this;
+_flagPole 			= _this select 0;
+_patrol_area_name 	= _this select 1;
+_grouptype 			= _this select 2;
+_snipers 			= _this select 3;
+_riflemen 			= _this select 4;
+_action 			= tolower (_this select 5);
+_respawn 			= _this select 6;
 if (_argc > 7) then {
-    _respawn_time = _this select 7;
+    _respawn_time 	= _this select 7;
 } else {
-    _respawn_time = SAR_respawn_waittime;
+    _respawn_time 	= SAR_respawn_waittime;
 };
 
-_authorizedUID = _flagPole getVariable ["ExileTerritoryBuildRights", []];
+{
+	_baseOwner = _flagPole getVariable ["BUILD_OWNER", 0];
+	if (_baseOwner in _x) then { 
+		
+		_authorizedUID = _x;
+	};
+} forEach allGroups;
 
 switch (_grouptype) do
 {
@@ -83,6 +89,25 @@ _leader_tools = ["leader",_type] call SAR_unit_loadout_tools;
 
 [_leader,_leader_weapon_names,_leader_items,_leader_tools] call SAR_unit_loadout;
 
+switch (side _leader) do {
+	case SAR_AI_friendly_side:
+	{
+		if ((headGear _leader) isEqualTo "Shemag") then {
+			removeHeadgear _leader;
+		};
+	};
+	case SAR_AI_unfriendly_side:
+	{
+		removeHeadgear _leader;
+		sleep 0.1;
+		_leader addHeadGear "H_Shemag_olive";
+	};
+	default
+	{
+		diag_log "Sarge AI: Something went wrong when attempting to determine AI side to change headgear!";
+	};
+};
+	
 [_leader] spawn SAR_fnc_AI_trace_base;
 _leader setIdentity "id_SAR_sold_lead";
 [_leader] spawn SAR_fnc_AI_refresh;
@@ -120,6 +145,25 @@ for "_i" from 0 to (_snipers - 1) do
     _sniper_tools = ["sniper",_type] call SAR_unit_loadout_tools;
 
     [_this,_sniper_weapon_names,_sniper_items,_sniper_tools] call SAR_unit_loadout;
+	
+	switch (side _this) do {
+		case SAR_AI_friendly_side:
+		{
+			if ((headGear _this) isEqualTo "Shemag") then {
+				removeHeadgear _this;
+			};
+		};
+		case SAR_AI_unfriendly_side:
+		{
+			removeHeadgear _this;
+			sleep 0.1;
+			_this addHeadGear "H_Shemag_olive";
+		};
+		default
+		{
+			diag_log "Sarge AI: Something went wrong when attempting to determine AI side to change headgear!";
+		};
+	};
 	
 	[_this] spawn SAR_fnc_AI_trace_base;
 	_this setIdentity "id_SAR";
@@ -161,7 +205,24 @@ for "_i" from 0 to (_riflemen - 1) do
 
     [_this,_soldier_weapon_names,_soldier_items,_soldier_tools] call SAR_unit_loadout;
 
-	if (_side == SAR_AI_unfriendly_side) then {removeHeadgear _this; _this addHeadGear (["H_Shemag_olive","H_Shemag_olive_hs","H_ShemagOpen_khk","H_ShemagOpen_tan"] call BIS_fnc_selectRandom);};
+	switch (side _this) do {
+		case SAR_AI_friendly_side:
+		{
+			if ((headGear _this) isEqualTo "Shemag") then {
+				removeHeadgear _this;
+			};
+		};
+		case SAR_AI_unfriendly_side:
+		{
+			removeHeadgear _this;
+			sleep 0.1;
+			_this addHeadGear "H_Shemag_olive";
+		};
+		default
+		{
+			diag_log "Sarge AI: Something went wrong when attempting to determine AI side to change headgear!";
+		};
+	};
 	
 	[_this] spawn SAR_fnc_AI_trace_base;
 	_this setIdentity "id_SAR_sold_man";

@@ -1,10 +1,18 @@
-#### 3.0 Rolling
-- Small code improvements.
-- No longer developed soley for Exile mod.
-- Possible move to Arma 3 Workshop.
-- Loot spawn added for Animated Crash Sites.
+#### 2.2.9
+- [Fix] Fixed a bug causing friendly AI to have head wraps.
+- [New] AI women have been added to the spawn function.
+- [Change] AI Skills decreased to 10% multiplied by a maximum of 2 bringing the highest possible skill level to 20%.
+- [Change] AI loadout variable names were changed to a more uniform template to simplify the customization process.
+- [Change] Major changes to code blocks and variables were done to make customizing more intuitive for server owners.
+- [Change] AI are tied to nuisance, rewarding players an +10 points for bandit kills and -20 points for friendly kills.
 
-#### 2.2.3 Current
+Known Issues
+	- Error Undefined variable in expression: upsmon_guer_total
+
+#### 2.2.8
+- [Change] UPSMON scripts are now located in the mission PBO as was intended by the creator to remove instability issues with AI logic.
+
+#### 2.2.3
 - [Fix] Static infantry now spawn as intended.
 - [Update] UPSMON scripts have been merged with the Sarge PBO.
 

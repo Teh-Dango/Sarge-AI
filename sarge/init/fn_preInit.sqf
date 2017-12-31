@@ -43,11 +43,14 @@ SAR_AI_friendly_side = "";
 SAR_AI_unfriendly_side = "";
 
 switch (_modName) do {
-	case "desolation": { // Only found a CfgPatches entry
+	case "desolation": {
 		
-		SAR_AI_friendly_side = CIVILIAN;
-		SAR_AI_unfriendly_side = RESISTANCE;
-	
+		SAR_AI_friendly_side = INDEPENDENT;
+		SAR_AI_unfriendly_side = WEST;
+		
+		WEST setFriend [CIVILIAN, 0];
+		INDEPENDENT setFriend [CIVILIAN, 1];
+		
 		// Initialize Vehicles arrays
 		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_air.sqf",_modName]);
 		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_land.sqf",_modName]);
@@ -75,8 +78,11 @@ switch (_modName) do {
 	};
 	case "epoch": {
 		
-		SAR_AI_friendly_side = WEST;
-		SAR_AI_unfriendly_side = RESISTANCE;
+		SAR_AI_friendly_side = INDEPENDENT;
+		SAR_AI_unfriendly_side = WEST;
+		
+		WEST setFriend [CIVILIAN, 0];
+		INDEPENDENT setFriend [CIVILIAN, 1];
 		
 		// Initialize Vehicles arrays
 		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_air.sqf",_modName]);

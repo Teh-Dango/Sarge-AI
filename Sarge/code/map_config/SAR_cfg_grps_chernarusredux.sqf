@@ -249,7 +249,7 @@ if (_type == "static") then {
 	//                      [SAR_marker_DEBUG,2,1,3,"fortify",false] call SAR_fnc_AI_infantry; 
 
 	// define your static infantry patrols here
-	//[SAR_marker_DEBUG_devilscastle,3,0,6,"fortify",true] call SAR_fnc_AI_infantry;
+	[SAR_marker_DEBUG_devilscastle,3,0,6,"fortify",true] call SAR_fnc_AI_infantry;
 
 	diag_log format["Sarge AI: Static Spawning for infantry patrols finished"];
 
@@ -270,7 +270,7 @@ if (_type == "static") then {
 	//      respawntime     : time in secs until group respawns (optional)
 
 	// define your static vehicle patrols here
-	/* [
+	[
 		SAR_marker_helipatrol_nwaf,		// Name of the area that the vehicle patrol will spawn in
 		3,								// type of group
 		["CUP_C_UAZ_Unarmed_TK_CIV"],	// used vehicle
@@ -286,7 +286,7 @@ if (_type == "static") then {
 		[[1,2,5]],						// Vehicle initial crew
 		true,							// if this group should respawn or not
 		(random 300)					// waittime until this group will respawn
-	] call SAR_fnc_AI_vehicle; */
+	] call SAR_fnc_AI_vehicle;
 
 	diag_log format["Sarge AI: Static Spawning for vehicle patrols finished"];
 };

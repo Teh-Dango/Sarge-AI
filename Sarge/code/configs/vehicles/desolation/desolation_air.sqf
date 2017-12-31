@@ -1,0 +1,1 @@
+SAR_air_type = ["O_Heli_Light_02"];

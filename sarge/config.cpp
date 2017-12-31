@@ -16,7 +16,7 @@
 class CfgPatches {
 	class Sarge_AI {
 		requiredVersion = 1.36;
-		SAR_version = 2.2;
+		version = 2.4;
 		requiredAddons[] = {};
 		units[] = {};
 		weapons[] = {};
@@ -61,29 +61,34 @@ class CfgFunctions {
 class CfgIdentities {
 	class id_SAR {
 		name = "id_SAR";
-        face = "WhiteHead_06";
+        face = "WhiteHead_05";
 		glasses = "None";
-		speaker = "NoVoice";
+		speaker = "Male05ENG";
 		pitch = 1.00;
 	};
 	class id_SAR_band : id_SAR {
 		name = "id_SAR_band";
-		face = "PersianHead_A3_02";
+		face = "PersianHead_A3_01";
+		speaker = "Male01PER";
 	};
 	class id_SAR_sold_lead : id_SAR {
 		name = "id_SAR_sold_lead";
 		face = "WhiteHead_02";
+		speaker = "Male05ENG";
 	};
 	class id_SAR_sold_man : id_SAR {
 		name = "id_SAR_sold_man";
-		face = "WhiteHead_02";
+		face = "WhiteHead_03";
+		speaker = "Male06ENG";
 	};
 	class id_SAR_surv_lead : id_SAR {
 		name = "id_SAR_surv_lead";
-		face = "WhiteHead_02";
+		face = "WhiteHead_04";
+		speaker = "Male07ENG";
 	};
 	class id_SAR_surv_man : id_SAR {
 		name = "id_SAR_surv_man";
-		face = "WhiteHead_04";
+		face = "WhiteHead_05";
+		speaker = "Male08ENG";
 	};
 };

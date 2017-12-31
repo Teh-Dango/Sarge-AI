@@ -90,23 +90,21 @@ while {true} do {
 		_wp3 setWaypointType "CYCLE";
 		_wp3 setWaypointBehaviour "CARELESS";
 
-		if (SAR_HC) then {
-			{
-				_hcID = getPlayerUID _x;
-				if(_hcID select [0,2] isEqualTo 'HC')then {
-					_SAIS_HC = _aigroup setGroupOwner (owner _x);
-					if (_SAIS_HC) then {
-						if (SAR_DEBUG) then {
-							diag_log format ["Sarge's AI System: Now moving heli crash group %1 to Headless Client %2",_aigroup,_hcID];
-						};
-					} else {
-						if (SAR_DEBUG) then {
-							diag_log format ["Sarge's AI System: ERROR! Moving heli crash group %1 to Headless Client %2 has failed!",_aigroup,_hcID];
-						};
+		{
+			_hcID = getPlayerUID _x;
+			if(_hcID select [0,2] isEqualTo 'HC')then {
+				_SAIS_HC = _aigroup setGroupOwner (owner _x);
+				if (_SAIS_HC) then {
+					if (SAR_DEBUG) then {
+						diag_log format ["Sarge's AI System: Now moving heli crash group %1 to Headless Client %2",_aigroup,_hcID];
+					};
+				} else {
+					if (SAR_DEBUG) then {
+						diag_log format ["Sarge's AI System: ERROR! Moving heli crash group %1 to Headless Client %2 has failed!",_aigroup,_hcID];
 					};
 				};
-			} forEach allPlayers;
-		};
+			};
+		} forEach allPlayers;
 
 		//Get some more Speed when close to the Crashpoint and go on even if Heli died or hit the ground
 		waituntil {(_crashwreck distance _position) <= 1000 || !(alive _crashwreck) || (getPosATL _crashwreck select 2) < 5};

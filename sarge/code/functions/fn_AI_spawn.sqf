@@ -28,7 +28,7 @@ _tmparr set[7,97];
 
 _markername = toString _tmparr;
 
-{if(isPlayer _x) then {_player = _x;};} foreach _playerlist;
+{if(isPlayer _x) then {_player = _x;};} forEach _playerlist;
 
 if (SAR_DEBUG) then {diag_log format["Sarge's AI System: Triggered by: %1", _player];};
 

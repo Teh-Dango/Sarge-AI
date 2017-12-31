@@ -24,13 +24,15 @@ _patrol_area_name 	= _this select 1;
 _grouptype 			= _this select 2;
 _snipers 			= _this select 3;
 _riflemen 			= _this select 4;
-_action 			= tolower (_this select 5);
+_action 			= toUpper (_this select 5);
 _respawn 			= _this select 6;
 if (_argc > 7) then {
     _respawn_time 	= _this select 7;
 } else {
     _respawn_time 	= SAR_respawn_waittime;
 };
+
+_sizeOfBase = _flagPole getVariable ["ExileTerritorySize",""];
 
 {
 	_baseOwner = _flagPole getVariable ["BUILD_OWNER", 0];
@@ -42,31 +44,13 @@ if (_argc > 7) then {
 
 switch (_grouptype) do
 {
-    case 1: // military
-    {
-        _side = SAR_AI_friendly_side;
-        _type = "sold";
-        _ai_type = "AI Military";
-    };
-    case 2: // survivors
+    case 1: // survivors
     {
         _side = SAR_AI_friendly_side;
         _type = "surv";
         _ai_type = "AI Survivor";
     };
-    case 3: // bandits
-    {
-        _side = SAR_AI_unfriendly_side;
-        _type = "band";
-        _ai_type = "AI Bandit";
-    };
 };
-
-_leaderList = call compile format ["SAR_leader_%1_list",_type];
-
-_leaderskills = call compile format ["SAR_leader_%1_skills",_type];
-_riflemanskills = call compile format ["SAR_soldier_%1_skills",_type];
-_sniperskills = call compile format ["SAR_sniper_%1_skills",_type];
 
 if (SAR_useBlacklist) then {
 	_rndpos = [_patrol_area_name,0,SAR_Blacklist] call UPSMON_pos;
@@ -78,7 +62,15 @@ _group = createGroup _side;
 
 _group setVariable ["SAR_protect",true,true];
 
-_sizeOfBase = _flagPole getVariable ["ExileTerritorySize",""];
+// Prepare leader AI loadout options
+_leaderGender 	= call compile format ["SAR_%1_leader_gender", _type];
+_leaderSkills 	= call compile format ["SAR_%1_leader_skills", _type];
+_leaderUniform 	= call compile format ["SAR_%1_leader_uniform", _type];
+_leaderVest 	= call compile format ["SAR_%1_leader_vest", _type];
+_leaderBackpack = call compile format ["SAR_%1_leader_backpack", _type];
+_leaderPrimary 	= ["leader",_type] call SAR_unit_loadout_weapons;
+_leaderItems 	= ["leader",_type] call SAR_unit_loadout_items;
+_leaderTools 	= ["leader",_type] call SAR_unit_loadout_tools;
 
 // create leader of the group
 _leader = _group createunit [_leaderList call BIS_fnc_selectRandom, [getPosATL _flagPole,1,_sizeOfBase,5,0,10,0] call BIS_fnc_findSafePos, [], 0.5, "CAN_COLLIDE"];
@@ -306,22 +298,20 @@ if(SAR_DEBUG) then {
     diag_log format["Sarge's AI System: Territory group (%3) spawned in: %1 with action: %2 on side: %4",_patrol_area_name,_action,_group,(side _group)];
 };
 
-if (SAR_HC) then {
-	{
-		_hcID = getPlayerUID _x;
-		if(_hcID select [0,2] isEqualTo 'HC')then {
-			_SAIS_HC = _group setGroupOwner (owner _x);
-			if (_SAIS_HC) then {
-				if (SAR_DEBUG) then {
-					diag_log format ["Sarge's AI System: Now moving group %1 to Headless Client %2",_group,_hcID];
-				};
-			} else {
-				if (SAR_DEBUG) then {
-					diag_log format ["Sarge's AI System: ERROR! Moving group %1 to Headless Client %2 has failed!",_group,_hcID];
-				};
+{
+	_hcID = getPlayerUID _x;
+	if(_hcID select [0,2] isEqualTo 'HC')then {
+		_SAIS_HC = _group setGroupOwner (owner _x);
+		if (_SAIS_HC) then {
+			if (SAR_DEBUG) then {
+				diag_log format ["Sarge's AI System: Now moving group %1 to Headless Client %2",_group,_hcID];
+			};
+		} else {
+			if (SAR_DEBUG) then {
+				diag_log format ["Sarge's AI System: ERROR! Moving group %1 to Headless Client %2 has failed!",_group,_hcID];
 			};
 		};
-	} forEach allPlayers;
-};
+	};
+} forEach allPlayers;
 
 _group;

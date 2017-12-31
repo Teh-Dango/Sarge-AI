@@ -6,7 +6,7 @@
 	https://github.com/Swiss-Sarge
 
 	# Fork #
-	Sarge AI System 2.0pushBack
+	Sarge AI System 2.0
 	Modded for Arma 3: Epoch Mod
 	Changes: Dango
 	https://www.hod-servers.com
@@ -14,10 +14,7 @@
 */
 
 SAR_circle_static = {
-	//Parameters:
-	//_leader = the leader of the group
-	//_action = the action to execute while forming a circle
-	//_radius = the radius of the circle
+	
 	private ["_center","_defend","_veh","_angle","_dir","_newpos","_forEachIndex","_leader","_action","_grp","_pos","_units","_count","_viewangle","_radius"];
 
     _count = 0;
@@ -77,7 +74,7 @@ SAR_circle_static = {
 
                 _newpos = (_center modelToWorld [(sin (_forEachIndex * _angle))*_radius, (cos (_forEachIndex *_angle))*_radius, 0]);
 
-				//diag_log format["Newpos %1: %2",_foreachindex,_newpos];
+				//diag_log format["Newpos %1: %2",_forEachindex,_newpos];
 
                 if (_defend) then {
                     _dir = 0;
@@ -85,21 +82,16 @@ SAR_circle_static = {
                     _dir = 180;
                 };
 
-                _viewangle = (_foreachIndex * _angle) + _dir;
+                _viewangle = (_forEachIndex * _angle) + _dir;
 
                 [_x,_pos,_newpos,_viewangle,_defend] spawn SAR_move_to_circle_pos;
             };
-        } foreach _units;
+        } forEach _units;
         //_leader disableAI "MOVE";
     };
 };
 
 SAR_isKindOf_weapon = {
-	// own function because the BiS one does only search vehicle config
-	// parameters:
-	//_weapon = the weapon for which we search the parent class
-	//_class = class to search for
-	//return value: true if found, otherwise false
 
     private ["_class","_weapon","_cfg_entry","_found","_search_class"];
 
@@ -121,10 +113,6 @@ SAR_isKindOf_weapon = {
 };
 
 SAR_unit_loadout_tools = {
-	// Parameters:
-	// _unittype (leader, soldier, sniper)
-	// _side (mili, surv, band
-	// return value: tools array
 
     private ["_unittype","_side","_unit_tools_list","_unit_tools","_tool","_probability","_chance"];
 
@@ -133,24 +121,22 @@ SAR_unit_loadout_tools = {
 
     _unit_tools_list = call compile format["SAR_%2_%1_tools",_unittype,_side];
 
-    _unit_tools = [];
-    {
-        _tool = _x select 0;
-        _probability = _x select 1;
-        _chance = (random 100);
-        if(_chance < _probability) then {
-            _unit_tools set [count _unit_tools, _tool];
-        };
-    } foreach _unit_tools_list;
-
+	if ((count _unit_tools_list) > 0) then {
+		_unit_tools = [];
+		{
+			_tool = _x select 0;
+			_probability = _x select 1;
+			_chance = (random 100);
+			if (_chance < _probability) then {
+				_unit_tools pushBack _tool;
+			};
+		} forEach _unit_tools_list;
+	};
+	
     _unit_tools;
 };
 
 SAR_unit_loadout_items = {
-	// Parameters:
-	// _unittype (leader, soldier, sniper)
-	// _side (mili, surv, band)
-	// return value: items array
 
     private ["_unittype","_unit_items_list","_unit_items","_item","_probability","_chance","_side"];
 
@@ -165,10 +151,10 @@ SAR_unit_loadout_items = {
 			_item = _x select 0;
 			_probability = _x select 1;
 			_chance = (random 100);
-			if(_chance < _probability) then {
-				_unit_items set [count _unit_items, _item];
+			if (_chance < _probability) then {
+				_unit_items pushBack _item;
 			};
-		} foreach _unit_items_list;
+		} forEach _unit_items_list;
 		
 	} else {
 		_unit_items = [];
@@ -177,10 +163,6 @@ SAR_unit_loadout_items = {
 };
 
 SAR_unit_loadout_weapons = {
-	// Parameters:
-	// _unittype (leader, rifleman, sniper)
-	// _side (sold,surv,band)
-	// return value: weapons array
 
     private ["_unittype","_side","_unit_weapon_list","_unit_pistol_list","_unit_pistol_name","_unit_weapon_name","_unit_weapon_names"];
 
@@ -194,63 +176,72 @@ SAR_unit_loadout_weapons = {
     _unit_weapon_name = "";
     _unit_pistol_name = "";
 
-    if (count _unit_weapon_list > 0) then {
+    if ((count _unit_weapon_list) > 0) then {
         _unit_weapon_name = _unit_weapon_list call BIS_fnc_SelectRandom;
     };
-    if (count _unit_pistol_list > 0) then {
+    if ((count _unit_pistol_list) > 0) then {
         _unit_pistol_name = _unit_pistol_list call BIS_fnc_SelectRandom;
     };
-    _unit_weapon_names set [0, _unit_weapon_name];
-    _unit_weapon_names set [1, _unit_pistol_name];
+    _unit_weapon_names pushBack _unit_weapon_name;
+    _unit_weapon_names pushBack _unit_pistol_name;
 
     _unit_weapon_names;
 };
 
 SAR_unit_loadout = {
-	// Parameters:
-	// _unit (Unit to apply the loadout to)
-	// _uniform (_uniform to apply the loadout to)
-	// _primary (array with weapons for the loadout)
-	// _items (array with items for the loadout)
-	// _tools (array with tools for the loadout)
 
-	private ["_unit","_primary","_uniform","_weapon","_items","_unit_magazine_name","_item","_tool","_tools","_forEachIndex"];
+	private ["_unit","_weapons","_uniform","_weapon","_items","_unit_magazine_name","_item","_tool","_tools","_forEachIndex"];
 
-    _unit = _this select 0;
-    _uniform = _this select 1;
-    _primary = _this select 2;
-    _items = _this select 3;
-    _tools = _this select 4;
+    _unit 		= _this select 0;
+    _uniform 	= _this select 1;
+    _vest 		= _this select 2;
+    _backpack 	= _this select 3;
+    _weapons 	= _this select 4;
+    _items 		= _this select 5;
+    _tools 		= _this select 6;
 
-	_unit addUniform _uniform;
+	removeHeadgear _unit;
+	sleep 0.1;
+	removeUniform _unit;
+	sleep 0.1;
 	
-    {
-        _weapon = _primary select _forEachIndex;
+	_unit addUniform (_uniform call BIS_fnc_SelectRandom);
+	
+	if ((count _vest) > 0) then {
+		removeVest _unit;
+		sleep 0.1;
+		_unit addVest (_vest call BIS_fnc_SelectRandom);
+	};
+	
+	if ((count _backpack) > 0) then {
+		_unit addBackpack (_backpack call BIS_fnc_SelectRandom);
+	};
+	
+	diag_log format ["Sarge AI System: Weapons array is %1",_weapons];
+	
+	{
+        _weapon = _x;
 
-        if (_weapon !="") then
+        if (_weapon != "") then
         {
             _unit_magazine_name = getArray (configFile >> "CfgWeapons" >> _weapon >> "magazines") select 0;
             _unit addMagazine _unit_magazine_name;
             _unit addWeapon _weapon;
         };
-    } foreach _primary;
+    } forEach _weapons;
 
     {
-        _item = _items select _forEachIndex;
+        _item = _x;
         _unit addMagazine _item;
-    } foreach _items;
+    } forEach _items;
 
     {
-        _tool = _tools select _forEachIndex;
+        _tool = _x;
         _unit addWeapon _tool;
-    } foreach _tools;
+    } forEach _tools;
 };
 
 SAR_AI_mon_upd = {
-	// Parameters:
-	// _typearray (possible values = "max_grps", "rnd_grps", "max_p_grp", "grps_band","grps_sold","grps_surv")
-	// _valuearray (must be an array)
-	// _gridname (is the areaname of the grid for this change)
 
     private ["_typearray","_valuearray","_gridname","_path","_success","_forEachIndex"];
 
@@ -291,15 +282,12 @@ SAR_AI_mon_upd = {
 		
         _success = [SAR_AI_monitor, _path, _valuearray select _forEachIndex] call BIS_fnc_setNestedElement;
     
-	} foreach _typearray;
+	} forEach _typearray;
 
     _success;
 };
 
 SAR_AI_mon_read = {
-	// Parameters:
-	// _typearray (possible values = "max_grps", "rnd_grps", "max_p_grp", "grps_band","grps_sold","grps_surv")
-	// _gridname (is the areaname of the grid for this change)
 
     private ["_typearray","_gridname","_path","_resultarray"];
 
@@ -338,7 +326,7 @@ SAR_AI_mon_read = {
             };
         };
         _resultarray set [count _resultarray,[SAR_AI_monitor, _path] call BIS_fnc_returnNestedElement];
-    } foreach _typearray;
+    } forEach _typearray;
 
     _resultarray;
 };
@@ -347,13 +335,13 @@ SAR_DEBUG_mon = {
     diag_log "--------------------Start of AI monitor values -------------------------";
     {
         diag_log format["SAR EXTREME DEBUG: %1",_x];
-    }foreach SAR_AI_monitor;
+    }forEach SAR_AI_monitor;
 
     diag_log "--------------------End of AI monitor values   -------------------------";
 };
 
-
 SAR_fnc_returnConfigEntry = {
+
 	private ["_config", "_entryName","_entry", "_value"];
 
 	_config = _this select 0;
@@ -363,8 +351,9 @@ SAR_fnc_returnConfigEntry = {
 	//If the entry is not found and we are not yet at the config root, explore the class' parent.
 	if (((configName (_config >> _entryName)) == "") && {!((configName _config) in ["CfgVehicles", "CfgWeapons", ""])}) then {
 		[inheritsFrom _config, _entryName] call SAR_fnc_returnConfigEntry;
-	}
-	else { if (isNumber _entry) then { _value = getNumber _entry; } else { if (isText _entry) then { _value = getText _entry; }; }; };
+	} else {
+		if (isNumber _entry) then { _value = getNumber _entry; } else { if (isText _entry) then { _value = getText _entry; }; };
+	};
 	//Make sure returning 'nil' works.
 	if (isNil "_value") exitWith {nil};
 
@@ -373,6 +362,7 @@ SAR_fnc_returnConfigEntry = {
 
 // *WARNING* BIS FUNCTION RIPOFF - Taken from fn_fnc_returnVehicleTurrets and shortened a bit
 SAR_fnc_returnVehicleTurrets = {
+
 	private ["_entry","_turrets","_turretIndex"];
 
 	_entry = _this select 0;
@@ -389,10 +379,10 @@ SAR_fnc_returnVehicleTurrets = {
 			//Make sure the entry was found.
 			if (!(isNil "_hasGunner")) then {
 				if (_hasGunner == 1) then {
-					_turrets = _turrets pushBack [_turretIndex];
+					_turrets = _turrets pushBack _turretIndex;
 					//Include sub-turrets, if present.
-					if (isClass (_subEntry >> "Turrets")) then { _turrets = _turrets pushBack [[_subEntry >> "Turrets"] call SAR_fnc_returnVehicleTurrets]; }
-					else { _turrets = _turrets pushBack [[]]; };
+					if (isClass (_subEntry >> "Turrets")) then { _turrets = _turrets pushBack [_subEntry >> "Turrets"] call SAR_fnc_returnVehicleTurrets; }
+					else { _turrets = _turrets pushBack []; };
 				};
 			};
 			_turretIndex = _turretIndex + 1;

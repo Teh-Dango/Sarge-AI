@@ -37,8 +37,6 @@ _modName = "";
 	if (_modName == "dsr_code") then {_modName = "desolation"};
 } forEach _SAR_supportedMods;
 
-SAR_AI_monitor = [];
-SAR_leader_number = 0;
 SAR_AI_friendly_side = "";
 SAR_AI_unfriendly_side = "";
 
@@ -46,35 +44,15 @@ switch (_modName) do {
 	case "desolation": {
 		
 		SAR_AI_friendly_side = INDEPENDENT;
-		SAR_AI_unfriendly_side = WEST;
+		SAR_AI_unfriendly_side = EAST;
 		
-		WEST setFriend [CIVILIAN, 0];
+		EAST setFriend [CIVILIAN, 0];
 		INDEPENDENT setFriend [CIVILIAN, 1];
-		
-		// Initialize Vehicles arrays
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_air.sqf",_modName]);
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_land.sqf",_modName]);
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_sea.sqf",_modName]);
-	
-		// Initialize the AI loadout arrays
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\loadouts\%1\%1_bandits.sqf",_modName]);
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\loadouts\%1\%1_soldiers.sqf",_modName]);
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\loadouts\%1\%1_survivors.sqf",_modName]);	
 	};
 	case "exile": {
 		
 		SAR_AI_friendly_side = INDEPENDENT;
 		AR_AI_unfriendly_side = WEST;
-	
-		// Initialize Vehicles arrays
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_air.sqf",_modName]);
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_land.sqf",_modName]);
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_sea.sqf",_modName]);
-	
-		// Initialize the AI loadout arrays
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\loadouts\%1\%1_bandits.sqf",_modName]);
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\loadouts\%1\%1_soldiers.sqf",_modName]);
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\loadouts\%1\%1_survivors.sqf",_modName]);
 	};
 	case "epoch": {
 		
@@ -83,22 +61,25 @@ switch (_modName) do {
 		
 		WEST setFriend [CIVILIAN, 0];
 		INDEPENDENT setFriend [CIVILIAN, 1];
-		
-		// Initialize Vehicles arrays
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_air.sqf",_modName]);
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_land.sqf",_modName]);
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_sea.sqf",_modName]);
-		
-		// Initialize the AI loadout arrays
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\loadouts\%1\%1_bandits.sqf",_modName]);
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\loadouts\%1\%1_soldiers.sqf",_modName]);
-		call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\loadouts\%1\%1_survivors.sqf",_modName]);
 	};
 	default {
 		diag_log "Sarge AI System: ERROR! The mod you are loading Sarge AI for is not supported!";
 		breakOut "Main";
 	};
 };
+
+SAR_AI_monitor = [];
+SAR_leader_number = 0;
+
+// Initialize Vehicles arrays
+call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_air.sqf",_modName]);
+call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_land.sqf",_modName]);
+call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\vehicles\%1\%1_sea.sqf",_modName]);
+
+// Initialize the AI loadout arrays
+call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\loadouts\%1\%1_bandits.sqf",_modName]);
+call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\loadouts\%1\%1_soldiers.sqf",_modName]);
+call compile preProcessFileLineNumbers (format ["\addons\sarge\code\configs\loadouts\%1\%1_survivors.sqf",_modName]);
 
 // Initialize the AI functions
 call compile preProcessFileLineNumbers "\addons\sarge\code\functions\fn_functions.sqf";

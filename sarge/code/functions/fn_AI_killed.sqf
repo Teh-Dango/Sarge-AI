@@ -25,7 +25,7 @@ _aikilled_group_side = side (group _ai);
 
 _aikiller_type = typeof _aikiller;
 
-if ((alive _aiKiller) && !(_aikiller_type in SAR_heli_type) && !("LandVehicle" countType [vehicle _aikiller] > 0)) then {
+if ((alive _aiKiller) && !(_aikiller_type in SAR_air_type) && !("LandVehicle" countType [vehicle _aikiller] > 0)) then {
     _aikiller_name = name _aikiller;
 } else {
     _aikiller_name = _aikiller_type;

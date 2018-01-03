@@ -20,11 +20,11 @@
 SAR_useBlacklist = false; // Only works for Altis Exile, Namalsk Exile and Tanoa Exile currently. Do not use for non Exile servers!
 
 /* Debug Settings */
-SAR_DEBUG 			= false; // Set to true for RPT info on AI
-SAR_EXTREME_DEBUG 	= false; // Set to true for RPT info on damn near everything
+SAR_DEBUG 			= true; // Set to true for RPT info on AI
+SAR_EXTREME_DEBUG 	= true; // Set to true for RPT info on damn near everything
 SAR_HITKILL_DEBUG 	= true; // Set to true for RPT info on AI shooting and killing
 SAR_log_AI_kills 	= false; // Set to true for kill logging by variable. ! IN DEVELOPMENT !
-SAR_KILL_MSG 		= true; // Set to true for announcing AI kills to the server ! Still a WIP !
+SAR_KILL_MSG 		= true; // Set to true for announcing AI kills to the server ! IN DEVELOPMENT !
 
 /* AI Settings */
 SAR_dynamic_spawning 				= true;		// Turn dynamic grid spawns on or off

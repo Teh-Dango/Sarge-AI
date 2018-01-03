@@ -13,7 +13,7 @@
 */
 private ["_SAR_supportedMaps","_config","_modConfigs","_modPatches","_modName","_worldname","_startx","_starty","_gridsize_x","_gridsize_y","_gridwidth","_markername","_triggername","_trig_act_stmnt","_trig_deact_stmnt","_trig_cond","_legendname"];
 
-_SAR_version = "2.4.0";
+_SAR_version = "2.4.2";
 
 diag_log format ["Sarge's AI System: Welcome to Sarge AI!"];
 diag_log format ["Sarge's AI System: Now initializing Sarge AI version %1 for %2",_SAR_version,worldName];

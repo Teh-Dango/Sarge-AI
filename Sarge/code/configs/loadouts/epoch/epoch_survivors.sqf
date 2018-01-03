@@ -1,5 +1,5 @@
 // Leader lodout options
-SAR_surv_leader_gender 		= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_surv_leader_model 		= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
 SAR_surv_leader_uniform 	= [["U_C_Mechanic_01_F","U_C_IDAP_Man_Jeans_F","U_C_Man_casual_1_F","U_C_Man_casual_2_F","U_C_Man_casual_3_F","U_C_Journalist","U_C_HunterBody_grn"],["U_CamoBlue_uniform","U_CamoBrn_uniform"]];
 SAR_surv_leader_vest		= [];
 SAR_surv_leader_backpack	= [];
@@ -21,7 +21,7 @@ SAR_surv_leader_skills 		= [
 ];
 
 // Riflemen loadout options
-SAR_surv_rifleman_gender 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_surv_rifleman_model 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
 SAR_surv_rifleman_uniform 	= [["U_C_Mechanic_01_F","U_C_IDAP_Man_Jeans_F","U_C_Man_casual_1_F","U_C_Man_casual_2_F","U_C_Man_casual_3_F","U_C_Journalist","U_C_HunterBody_grn"],["U_CamoBlue_uniform","U_CamoBrn_uniform"]];
 SAR_surv_rifleman_vest		= [];
 SAR_surv_rifleman_backpack	= [];
@@ -43,7 +43,7 @@ SAR_surv_rifleman_skills 	= [
 ];
 
 // Sniper loadout options
-SAR_surv_sniper_gender 		= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_surv_sniper_model 		= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
 SAR_surv_sniper_uniform 	= [["U_C_Mechanic_01_F","U_C_IDAP_Man_Jeans_F","U_C_Man_casual_1_F","U_C_Man_casual_2_F","U_C_Man_casual_3_F","U_C_Journalist","U_C_HunterBody_grn"],["U_CamoBlue_uniform","U_CamoBrn_uniform"]];
 SAR_surv_sniper_vest		= [];
 SAR_surv_sniper_backpack	= [];

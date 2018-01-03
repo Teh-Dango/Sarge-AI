@@ -200,8 +200,6 @@ SAR_unit_loadout = {
     _items 		= _this select 5;
     _tools 		= _this select 6;
 
-	removeHeadgear _unit;
-	sleep 0.1;
 	removeUniform _unit;
 	sleep 0.1;
 	

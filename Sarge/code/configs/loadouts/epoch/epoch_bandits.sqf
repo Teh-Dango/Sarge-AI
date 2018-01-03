@@ -1,5 +1,5 @@
 // Leader lodout options
-SAR_band_leader_gender 		= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_band_leader_model 		= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
 SAR_band_leader_uniform 	= [["U_I_C_Soldier_Bandit_1_F","U_I_C_Soldier_Bandit_2_F","U_I_C_Soldier_Bandit_3_F","U_I_C_Soldier_Bandit_4_F","U_I_C_Soldier_Bandit_5_F"],["U_CamoBiker_uniform"]];
 SAR_band_leader_vest		= [];
 SAR_band_leader_backpack	= [];
@@ -21,7 +21,7 @@ SAR_band_leader_skills 		= [
 ];
 
 // Riflemen loadout options
-SAR_band_rifleman_gender 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_band_rifleman_model 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
 SAR_band_rifleman_uniform 	= [["U_I_C_Soldier_Bandit_1_F","U_I_C_Soldier_Bandit_2_F","U_I_C_Soldier_Bandit_3_F","U_I_C_Soldier_Bandit_4_F","U_I_C_Soldier_Bandit_5_F"],["U_CamoBiker_uniform"]];
 SAR_band_rifleman_vest		= [];
 SAR_band_rifleman_backpack	= [];
@@ -43,7 +43,7 @@ SAR_band_rifleman_skills 	= [
 ];
 
 // Sniper loadout options
-SAR_band_sniper_gender 		= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_band_sniper_model 		= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
 SAR_band_sniper_uniform 	= [["U_I_C_Soldier_Bandit_1_F","U_I_C_Soldier_Bandit_2_F","U_I_C_Soldier_Bandit_3_F","U_I_C_Soldier_Bandit_4_F","U_I_C_Soldier_Bandit_5_F"],["U_CamoBiker_uniform"]];
 SAR_band_sniper_vest		= [];
 SAR_band_sniper_backpack	= [];

@@ -1,5 +1,5 @@
 // Leader lodout options
-SAR_sold_leader_gender 		= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_sold_leader_model 		= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
 SAR_sold_leader_uniform 	= [["U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F"],["U_Camo_uniform"]];
 SAR_sold_leader_vest 		= [];
 SAR_sold_leader_backpack 	= [];
@@ -21,7 +21,7 @@ SAR_sold_leader_skills 		= [
 ];
 
 // Riflemen loadout options
-SAR_sold_rifleman_gender 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_sold_rifleman_model 	= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
 SAR_sold_rifleman_uniform 	= [["U_I_C_Soldier_Para_1_F","U_I_C_Soldier_Para_2_F","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_4_F"],["U_Camo_uniform"]];
 SAR_sold_rifleman_vest 		= [];
 SAR_sold_rifleman_backpack 	= [];
@@ -44,7 +44,7 @@ SAR_sold_rifleman_skills  	= [
 ];
 
 // Sniper loadout options
-SAR_sold_sniper_gender 		= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
+SAR_sold_sniper_model 		= ["Epoch_Male_F","Epoch_Female_F"]; // DO NOT CHANGE THIS ARRAY!
 SAR_sold_sniper_uniform 	= [["U_O_FullGhillie_lsh","U_O_FullGhillie_sard","U_O_FullGhillie_ard","U_I_FullGhillie_lsh","U_I_FullGhillie_sard","U_I_FullGhillie_ard"],["U_ghillie1_uniform","U_ghillie2_uniform","U_ghillie3_uniform"]];
 SAR_sold_sniper_vest		= [];
 SAR_sold_sniper_backpack	= [];

@@ -47,20 +47,20 @@ switch (_modName) do {
 		SAR_AI_unfriendly_side = EAST;
 		
 		EAST setFriend [CIVILIAN, 0];
-		INDEPENDENT setFriend [CIVILIAN, 1];
 	};
 	case "exile": {
 		
 		SAR_AI_friendly_side = INDEPENDENT;
 		AR_AI_unfriendly_side = WEST;
+		
+		WEST setFriend [INDEPENDENT, 0];
 	};
 	case "epoch": {
 		
-		SAR_AI_friendly_side = INDEPENDENT;
-		SAR_AI_unfriendly_side = WEST;
+		SAR_AI_friendly_side = WEST;
+		SAR_AI_unfriendly_side = RESISTANCE;
 		
-		WEST setFriend [CIVILIAN, 0];
-		INDEPENDENT setFriend [CIVILIAN, 1];
+		RESISTANCE setFriend [WEST, 0];
 	};
 	default {
 		diag_log "Sarge AI System: ERROR! The mod you are loading Sarge AI for is not supported!";

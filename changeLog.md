@@ -1,5 +1,8 @@
-#### 2.4.2
+#### 2.4.3
 - [Fix] Fixed a bug that prevented Epoch players from entering vehicles.
+
+#### 2.4.2
+- [Fix] Fixed undefined variables for AI vehicles.
 
 #### 2.4.0
 - [New] Vests have been added to the customization options.

@@ -15,6 +15,6 @@ Almost every setting you can think of is available to be customized to each serv
   * As the dominant force in a wasteland of fugitives and other life threatening obstacles the military takes no chance when it comes to combat. Dressed in high level miliatry apparel and the weapons to back it up these NPCs will roam about the area they spawn in and nuetralize any threat they encounter. Dont' be a threat ;)
 
 * Bandits
-  * With no apparent loyalty to anyone but the small group of others they travel with these NPCs will roam the map surviving any way they are able to. These AI will steal any loot they encounter and attempt to kill any player they encounter. Outfitted with respectable weapons and headwraps to protect their identities from the authorities these AI make for a formibale enemy. 
+  * With no apparent loyalty to anyone but the small group of others they travel with these NPCs will roam the map surviving any way they are able to. These AI will steal any loot they encounter and attempt to kill any player they encounter. Outfitted with respectable weapons and headwraps to protect their identities from the authorities these AI make for a formidable enemy. 
 
 This description is brief but to the point. Although it may not be listed you will find these NPCs are capable of suprising things.

@@ -1,3 +1,6 @@
+#### 2.5.0 (Rolling)
+- [New] Sarge AI now supports the Breaking Point mod for Arma 3.
+
 #### 2.4.3
 - [Fix] Fixed a bug that prevented Epoch players from entering vehicles.
 

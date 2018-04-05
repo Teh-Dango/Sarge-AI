@@ -1,5 +1,8 @@
-#### 2.5.0 (Rolling)
-- [New] Sarge AI now supports the Breaking Point mod for Arma 3.
+#### 2.4.5
+- [Fix] Changed bandit unit model to Opfor unit to fix issue causing bandits not to be hostile.
+
+#### 2.4.4
+- [New] Added support for the BreakingPoint mod.
 
 #### 2.4.3
 - [Fix] Fixed a bug that prevented Epoch players from entering vehicles.

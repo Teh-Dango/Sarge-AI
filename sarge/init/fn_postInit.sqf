@@ -193,3 +193,5 @@ if (SAR_Base_Gaurds) then {
 if (SAR_anim_heli) then {
 	[900,1,5000,0,true] spawn SAR_fnc_AI_anim_heli;
 };
+
+true;

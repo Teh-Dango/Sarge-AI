@@ -45,8 +45,8 @@ _modName = "";
 	if (_modName == "dsr_code") then {_modName = "desolation"};
 } forEach _SAR_supportedMods;
 
-SAR_AI_friendly_side = "";
-SAR_AI_unfriendly_side = "";
+SAR_AI_friendly_side = nil;
+SAR_AI_unfriendly_side = nil;
 
 switch (_modName) do {
 	case "desolation": {
@@ -59,7 +59,7 @@ switch (_modName) do {
 	case "exile": {
 		
 		SAR_AI_friendly_side = INDEPENDENT;
-		AR_AI_unfriendly_side = WEST;
+		SAR_AI_unfriendly_side = WEST;
 		
 		WEST setFriend [INDEPENDENT, 0];
 	};

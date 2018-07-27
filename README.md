@@ -5,7 +5,7 @@ This is an AI system that is intended to simulate real players roaming the map, 
 AI hostility is based on player rating and AI will change their behaviour depending on a players rating level. Above the threshold the friendly AI will not attack players. Below the threshold friendly AI will consider the player hostile and fire on sight. Bandit AI will always be hostile to players regardless of player rating.
 
 ## Customizing
-Almost every setting you can think of is available to be customized to each server owners liking. This includes weapons, uniforms, vests, headgear, cars, helicopters and much more. Server owners even have the option of creating their own map markers for static AI to patrol, fortify, ambush is similar tactical approaches.
+Almost every setting you can think of is available to be customized to each server owners liking. This includes weapons, uniforms, vests, headgear, cars, helicopters and much more. Server owners even have the option of creating their own map markers for static AI to patrol, fortify, ambush and other tactical approaches.
 
 ## Units
 * Survivors

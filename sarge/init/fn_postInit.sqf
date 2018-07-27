@@ -111,15 +111,15 @@ if (SAR_dynamic_spawning) then {
 	
 	// Create grid system and triggers
     SAR_area_ = text format ["SAR_area_%1","x"];
-    for "_i" from 0 to (_gridsize_y - 1) do
+    for "_y" from 0 to (_gridsize_y - 1) do
     {
-        for "_ii" from 0 to (_gridsize_x - 1) do
+        for "_x" from 0 to (_gridsize_x - 1) do
         {
 			// Marker Creation
-            _markername = format["SAR_area_%1_%2",_ii,_i];
-            _legendname = format["SAR_area_legend_%1_%2",_ii,_i];
+            _markername = format["SAR_area_%1_%2",_x,_y];
+            _legendname = format["SAR_area_legend_%1_%2",_x,_y];
 
-            _this = createMarker[_markername,[_startx + (_ii * _gridwidth * 2),_starty + (_i * _gridwidth * 2)]];
+            _this = createMarker[_markername,[_startx + (_x * _gridwidth * 2),_starty + (_y * _gridwidth * 2)]];
             if (SAR_EXTREME_DEBUG) then {
                 _this setMarkerAlpha 1;
             } else {
@@ -130,9 +130,9 @@ if (SAR_dynamic_spawning) then {
             _this setMarkerBrush "BORDER";
             _this setMarkerSize [_gridwidth, _gridwidth];
 
-            call compile format ["SAR_area_%1_%2 = _this",_ii,_i];
+            call compile format ["SAR_area_%1_%2 = _this",_x,_y];
 
-            _this = createMarker[_legendname,[_startx + (_ii * _gridwidth * 2) + (_gridwidth - (_gridwidth/2)),_starty + (_i * _gridwidth * 2) - (_gridwidth - (_gridwidth/10))]];
+            _this = createMarker[_legendname,[_startx + (_x * _gridwidth * 2) + (_gridwidth - (_gridwidth/2)),_starty + (_y * _gridwidth * 2) - (_gridwidth - (_gridwidth/10))]];
             if(SAR_EXTREME_DEBUG) then {
                 _this setMarkerAlpha 1;
             } else {
@@ -143,24 +143,24 @@ if (SAR_dynamic_spawning) then {
             _this setMarkerType "mil_flag";
             _this setMarkerColor "ColorBlack";
 
-            _this setMarkerText format["%1/%2",_ii,_i];
+            _this setMarkerText format["%1/%2",_x,_y];
             _this setMarkerSize [.1, .1];
 
 			// Trigger Statements
-            _triggername = format["SAR_trig_%1_%2",_ii,_i];
+            _triggername = format["SAR_trig_%1_%2",_x,_y];
 
-            _this = createTrigger ["EmptyDetector", [_startx + (_ii * _gridwidth * 2),_starty + (_i * _gridwidth * 2)]];
+            _this = createTrigger ["EmptyDetector", [_startx + (_x * _gridwidth * 2),_starty + (_y * _gridwidth * 2)]];
             _this setTriggerArea [_gridwidth, _gridwidth, 0, true];
             _this setTriggerActivation ["ANY", "PRESENT", true];
 
-            call compile format ["SAR_trig_%1_%2 = _this",_ii,_i];
+            call compile format ["SAR_trig_%1_%2 = _this",_x,_y];
 
             _trig_act_stmnt = format["if (SAR_DEBUG) then {diag_log 'SAR DEBUG: trigger on in %1';};[thislist,'%1'] spawn SAR_fnc_AI_spawn;",_triggername];
             _trig_deact_stmnt = format["if (SAR_DEBUG) then {diag_log 'SAR DEBUG: trigger off in %1';};[thislist,thisTrigger,'%1'] spawn SAR_fnc_AI_despawn;",_triggername];
 
             _trig_cond = "{isPlayer _x} count thisList > 0;";
 
-            call compile format ["SAR_trig_%1_%2 ",_ii,_i] setTriggerStatements [_trig_cond,_trig_act_stmnt, _trig_deact_stmnt];
+            call compile format ["SAR_trig_%1_%2 ",_x,_y] setTriggerStatements [_trig_cond,_trig_act_stmnt, _trig_deact_stmnt];
 
             // standard grid definition - maxgroups (ba,so,su) - probability (ba,so,su) - max group members (ba,so,su)
             SAR_AI_monitor set[count SAR_AI_monitor, [_markername,[SAR_max_grps_bandits,SAR_max_grps_soldiers,SAR_max_grps_survivors],[SAR_chance_bandits,SAR_chance_soldiers,SAR_chance_survivors],[SAR_max_grpsize_bandits,SAR_max_grpsize_soldiers,SAR_max_grpsize_survivors],[],[],[]]];
